@@ -10,6 +10,7 @@ body,
   height: 100%;
   font-family: $comfortaa;
 }
+
 h2 {
   background-color: #000;
   color: #fff;
@@ -502,4 +503,18 @@ table {
 
 a {
   text-decoration: none;
+}
+
+.btn-submit{
+  background-color: #D7D7D799;
+  color: #000;
+}
+
+.btn-submit:hover{
+  background-color: #17A2B8;
+  color: #fff;
+}
+
+.no-wrap{
+  white-space: nowrap;
 }
