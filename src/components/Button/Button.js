@@ -2,7 +2,7 @@ import React from 'react'
 import './style.scss'
 
 const Button = (props) => {
-  const { className, type, noBorder, ...rest } = props
+  const { className, type, ...rest } = props
   let classesName = `btn no-wrap ${className}`
   switch (type) {
     case 'primary':
