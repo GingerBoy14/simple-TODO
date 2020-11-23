@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App/style.scss'
+import './style.scss'
 
 const Button = (props) => {
   const { className, type, noBorder, ...rest } = props
