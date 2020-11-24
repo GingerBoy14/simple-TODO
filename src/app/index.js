@@ -1,13 +1,14 @@
 import GlobalStyle from './style'
 import { Typography } from '../components'
 
-const { Title } = Typography
+const { Text, Title } = Typography
 
 const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <Title>Todo List</Title>
+      <Title level={5}>Workshop</Title>
+      <Text done>Todo List</Text>
     </div>
   )
 }
