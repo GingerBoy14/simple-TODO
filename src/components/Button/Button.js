@@ -1,0 +1,50 @@
+import styled, { css } from 'styled-components'
+
+const getType = ({ theme, type }) => {
+  const colors = theme.colors.button
+  switch (type) {
+    case 'primary':
+      return css`
+        background-color: ${colors.bgc[0]};
+        color: ${theme.colors.white};
+        &:hover {
+          background-color: ${colors.hover[0]};
+        }
+      `
+    case 'outline':
+      return css`
+        background-color: transparent;
+        color: ${theme.colors.secondary};
+        border-color: ${colors.bgc[1]};
+        &:hover {
+          color: ${theme.colors.white};
+          background-color: ${colors.hover[1]};
+        }
+      `
+    default:
+      return css`
+        background-color: ${colors.bgc[2]};
+        color: ${theme.colors.black};
+        &:hover {
+          color: ${theme.colors.white};
+          background-color: ${colors.hover[2]};
+        }
+      `
+  }
+}
+
+const Button = styled.button`
+  font-size: ${({ theme }) => theme.fontSizes.text[4]};
+  line-height: ${({ theme }) => theme.lineHeights.text[4]};
+  padding: 0.7rem 1.35rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  outline: none;
+  white-space: nowrap;
+  width: fit-content;
+  cursor: pointer;
+  ${getType};
+`
+
+export default Button
