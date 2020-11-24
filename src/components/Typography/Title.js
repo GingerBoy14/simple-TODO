@@ -1,10 +1,13 @@
 import styled, { css } from 'styled-components'
+import { color } from 'styled-system'
 import PropTypes from 'prop-types'
+
 const StyleTitle = styled.div`
   font-family: ${({ theme }) => theme.fonts.title};
   ${({ theme, level }) => css`
     font-size: ${theme.fontSizes.title[level]};
-  `}
+  `};
+  ${color}
 `
 
 const Title = (props) => {
