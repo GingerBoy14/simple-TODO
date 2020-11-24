@@ -1,5 +1,5 @@
 import GlobalStyle from './style'
-import { Typography, Box, Button } from '../components'
+import { Typography, Box, Button, Input, ButtonGroup } from '../components'
 
 const { Text, Title } = Typography
 
@@ -10,11 +10,15 @@ const App = () => {
         <GlobalStyle />
         <Title>Workshop</Title>
         <Text done>Todo List</Text>
-        <Button type="primary">
-          <Text>Add Todo</Text>
-        </Button>
-        <Button type="outline">Add Todo</Button>
-        <Button>Add Todo</Button>
+
+        <ButtonGroup>
+          <Button type="primary">
+            <Text>Add Todo</Text>
+          </Button>
+          <Button type="outline">Add Todo</Button>
+          <Button>Add Todo</Button>
+        </ButtonGroup>
+        <Input placeholder="What need to be done?" />
       </Box>
     </Box>
   )
