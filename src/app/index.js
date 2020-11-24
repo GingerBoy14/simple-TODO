@@ -9,14 +9,16 @@ const App = () => {
       <Box width={{ _: 1, sm: '520px', md: '450px' }}>
         <GlobalStyle />
         <Title>Workshop</Title>
-        <Text done>Todo List</Text>
+        <Text done>We are the best</Text>
 
         <ButtonGroup>
           <Button type="primary">
             <Text>Add Todo</Text>
           </Button>
           <Button type="outline">Add Todo</Button>
-          <Button>Add Todo</Button>
+          <Button type="outline">Add Todo</Button>
+          <Button type="outline">Add Todo</Button>
+          <Button type="outline">Add Todo</Button>
         </ButtonGroup>
         <Input placeholder="What need to be done?" />
       </Box>
