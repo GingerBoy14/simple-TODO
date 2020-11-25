@@ -1,4 +1,4 @@
-import { Input } from 'components'
+import { Input } from 'base-components'
 
 const Search = () => {
   return <Input placeholder="Type todos..." />

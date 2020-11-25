@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from 'components'
+import { Button, ButtonGroup } from 'base-components'
 
 const Filter = () => {
   return (

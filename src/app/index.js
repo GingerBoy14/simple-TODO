@@ -1,5 +1,5 @@
 import GlobalStyle from './style'
-import { Box } from '../components'
+import { Box } from 'base-components'
 import { Header, Search, Filter, AddTodo, TodoList } from './components'
 
 const App = () => {

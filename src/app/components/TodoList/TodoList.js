@@ -1,5 +1,5 @@
 import { TodoListItem } from '../TodoListItem'
-import { Text } from 'components/Typography'
+import { Text } from 'base-components/Typography'
 
 const TodoList = (props) => {
   const data = [
