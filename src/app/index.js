@@ -1,6 +1,6 @@
 import GlobalStyle from './style'
 import { Box } from '../components'
-import { Header, Search, Filter, AddTodo } from './components'
+import { Header, Search, Filter, AddTodo, TodoList } from './components'
 
 const App = () => {
   return (
@@ -12,6 +12,7 @@ const App = () => {
           <Search />
           <Filter />
         </Box>
+        <TodoList />
         <AddTodo />
       </Box>
     </Box>

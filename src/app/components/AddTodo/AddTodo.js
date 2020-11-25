@@ -1,4 +1,4 @@
-import { Box, Input, Button } from '../../../components'
+import { Box, Input, Button } from 'components'
 
 const AddTodo = () => {
   return (
