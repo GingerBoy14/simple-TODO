@@ -4,7 +4,7 @@ import { Header, Search, Filter, AddTodo, TodoList } from './components'
 
 const App = () => {
   return (
-    <Box alignItems={'center'}>
+    <Box alignItems="center">
       <Box width={{ _: 1, sm: '520px', md: '450px' }}>
         <GlobalStyle />
         <Header />
