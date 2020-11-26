@@ -7,6 +7,7 @@ const Input = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.text[4]};
   line-height: ${({ theme }) => theme.lineHeights.text[4]};
   flex: 1;
+  min-width: 0;
   &:focus {
     outline: none;
     border-color: rgba(23, 162, 184, 0.5);
