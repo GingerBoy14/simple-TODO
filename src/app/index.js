@@ -8,7 +8,7 @@ const App = () => {
       <Box width={{ _: 1, sm: '520px', md: '450px' }}>
         <GlobalStyle />
         <Header />
-        <Box flexDirection="row">
+        <Box flexDirection="row" space={[2, 3]}>
           <Search />
           <Filter />
         </Box>

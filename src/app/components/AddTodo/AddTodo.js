@@ -2,7 +2,7 @@ import { Box, Input, Button } from 'base-components'
 
 const AddTodo = () => {
   return (
-    <Box flexDirection="row">
+    <Box flexDirection="row" space={2}>
       <Input placeholder="What need to be done?" />
       <Button>Add Todo</Button>
     </Box>

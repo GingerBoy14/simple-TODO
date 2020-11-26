@@ -1,4 +1,4 @@
-import { typography, colors, breakpoints } from './config'
+import { typography, colors, breakpoints, space } from './config'
 
 const { fontSizes, lineHeights, fonts, rootFontSize } = typography
 
@@ -8,7 +8,8 @@ const theme = {
   fontSizes,
   lineHeights,
   breakpoints,
-  colors
+  colors,
+  space
 }
 
 export default theme
