@@ -1,5 +1,4 @@
 import { TodoListItem } from '../TodoListItem'
-import { Text } from 'base-components/Typography'
 import { Box } from 'base-components'
 import { useStoreContext } from 'app/context'
 import empty from './empty.svg'
@@ -15,11 +14,7 @@ const TodoList = (props) => {
           </Box>
         )}
         {store.tasks &&
-          store.tasks.map((item) => (
-            <TodoListItem {...item} key={item.id}>
-              <Text>{item.text}</Text>
-            </TodoListItem>
-          ))}
+          store.tasks.map((item) => <TodoListItem {...item} key={item.id} />)}
       </ul>
     </Box>
   )

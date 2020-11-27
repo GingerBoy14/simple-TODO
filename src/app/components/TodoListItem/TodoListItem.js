@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { TodoActions } from '../TodoActions'
 import { Box } from 'base-components'
+import { Text } from '../../../base-components/Typography'
+import { useStoreContext } from 'app/context'
 
 const StyledTodoListItem = styled.li`
   border-radius: 0.5rem;
@@ -11,11 +14,17 @@ const StyledTodoListItem = styled.li`
 `
 
 const TodoListItem = (props) => {
-  const { children, id } = props
+  const { text, id, status } = props
+  const { dispatch } = useStoreContext()
+  useEffect(() => console.log('stat ' + status.done), [status.done])
   return (
     <Box direction="vertical" space={2}>
       <StyledTodoListItem>
-        {children}
+        <Text
+          done={status.done}
+          onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
+          {text}
+        </Text>
         <TodoActions todoId={id} />
       </StyledTodoListItem>
     </Box>

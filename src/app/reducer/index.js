@@ -6,12 +6,31 @@ const rootReducer = (state, action) => {
     case 'ADD_TODO':
       return {
         ...state,
-        tasks: [...state.tasks, { text: action.payload, id: uuidv4() }]
+        tasks: [
+          ...state.tasks,
+          {
+            text: action.payload,
+            id: uuidv4(),
+            status: { done: false, pinned: false, important: false }
+          }
+        ]
       }
     case 'DELETE_TODO':
       return {
         ...state,
         tasks: _.remove(state.tasks, ({ id }) => id !== action.payload)
+      }
+    case 'SET_DONE':
+      return {
+        ...state,
+        tasks: state.tasks.map((todo) => {
+          if (todo.id !== action.payload) return todo
+
+          return {
+            ...todo,
+            status: { ...todo.status, done: !todo.status.done }
+          }
+        })
       }
 
     default:
