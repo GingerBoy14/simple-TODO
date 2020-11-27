@@ -1,22 +1,25 @@
 import { TodoListItem } from '../TodoListItem'
 import { Text } from 'base-components/Typography'
 import { Box } from 'base-components'
-
+import { useStoreContext } from 'app/context'
+import empty from './empty.svg'
 const TodoList = (props) => {
-  const data = [
-    { text: '3555565dsfds' },
-    { text: 'sdf' },
-    { text: '3555asdf565dsfds' }
-  ]
+  const { store } = useStoreContext()
 
   return (
     <Box direction="vertical" space={4}>
       <ul>
-        {data.map((item) => (
-          <TodoListItem key={item.text}>
-            <Text>{item.text}</Text>
-          </TodoListItem>
-        ))}
+        {store.tasks.length === 0 && (
+          <Box justifyContent="center" flexDirection="row">
+            <img src={empty} alt="" style={{ width: '50%' }} />
+          </Box>
+        )}
+        {store.tasks &&
+          store.tasks.map((item, idx) => (
+            <TodoListItem {...item} key={`${item.text}-${idx}`}>
+              <Text>{item.text}</Text>
+            </TodoListItem>
+          ))}
       </ul>
     </Box>
   )

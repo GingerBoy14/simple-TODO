@@ -1,12 +1,27 @@
-import { useContext } from 'react'
+import { useRef } from 'react'
 import { Box, Input, Button } from 'base-components'
-import storeContext from 'app/context'
+import { useStoreContext } from 'app/context'
+
 const AddTodo = () => {
-  const { store } = useContext(storeContext)
+  const { dispatch } = useStoreContext()
+  const taskText = useRef()
   return (
-    <Box flexDirection="row" space={2}>
-      <Input placeholder="What need to be done?" />
-      <Button onClick={() => console.log(store)}>Add Todo</Button>
+    <Box
+      as={'form'}
+      onSubmit={(e) => {
+        e.preventDefault(false)
+        taskText.current.value = ''
+      }}
+      flexDirection="row"
+      space={2}>
+      <Input placeholder="What need to be done?" ref={taskText} />
+      <Button
+        onClick={() =>
+          taskText.current.value &&
+          dispatch({ type: 'ADD_TODO', payload: taskText.current.value })
+        }>
+        Add Todo
+      </Button>
     </Box>
   )
 }
