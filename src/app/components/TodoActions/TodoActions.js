@@ -19,7 +19,12 @@ const items = [
     type: 'default',
     transform: { rotate: -42 }
   },
-  { text: 'Delete', icon: faTrash, type: 'danger' }
+  {
+    text: 'Delete',
+    icon: faTrash,
+    type: 'danger',
+    action: (payload) => ({ type: 'DELETE_TODO', payload })
+  }
 ]
 
 const StyledArrow = styled.div`
@@ -30,7 +35,8 @@ const StyledArrow = styled.div`
   cursor: pointer;
 `
 
-const TodoActions = () => {
+const TodoActions = (props) => {
+  const { todoId } = props
   const [show, setShow] = useState(false)
 
   return (
@@ -44,7 +50,7 @@ const TodoActions = () => {
         />
       </StyledArrow>
 
-      {show && <DropDown items={items} setShow={setShow} show={show} />}
+      {show && <DropDown items={items} setShow={setShow} todoId={todoId} />}
     </Box>
   )
 }

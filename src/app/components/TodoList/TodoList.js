@@ -15,8 +15,8 @@ const TodoList = (props) => {
           </Box>
         )}
         {store.tasks &&
-          store.tasks.map((item, idx) => (
-            <TodoListItem {...item} key={`${item.text}-${idx}`}>
+          store.tasks.map((item) => (
+            <TodoListItem {...item} key={item.id}>
               <Text>{item.text}</Text>
             </TodoListItem>
           ))}

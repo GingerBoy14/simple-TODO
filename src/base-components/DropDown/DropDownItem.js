@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from '../Typography'
 import { Box } from '../Box'
+import { useStoreContext } from 'app/context'
 
 const StyledDropDownItem = styled.div`
   ${(props) => {
@@ -29,9 +30,12 @@ const StyledDropDownItem = styled.div`
 `
 
 const DropDownItem = (props) => {
-  const { text, ...rest } = props
+  const { text, todoId, action, ...rest } = props
+  const { dispatch } = useStoreContext()
   return (
-    <StyledDropDownItem {...rest}>
+    <StyledDropDownItem
+      {...rest}
+      onClick={() => action && dispatch(action(todoId))}>
       <Box space={2} flexDirection="row">
         <Box width={10} alignItems="center">
           <Text>

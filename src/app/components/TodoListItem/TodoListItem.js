@@ -11,12 +11,12 @@ const StyledTodoListItem = styled.li`
 `
 
 const TodoListItem = (props) => {
-  const { children } = props
+  const { children, id } = props
   return (
     <Box direction="vertical" space={2}>
       <StyledTodoListItem>
         {children}
-        <TodoActions />
+        <TodoActions todoId={id} />
       </StyledTodoListItem>
     </Box>
   )

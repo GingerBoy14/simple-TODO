@@ -27,11 +27,10 @@ const StyledDropDown = styled.div`
 `
 
 const DropDown = (props) => {
-  const { items, setShow } = props
+  const { items, setShow, todoId } = props
   const dropdown = useRef()
 
   useEffect(() => {
-    console.log(dropdown)
     const handleMissClick = (e) => {
       if (dropdown.current && !dropdown.current.contains(e.target)) {
         setShow(false)
@@ -45,7 +44,7 @@ const DropDown = (props) => {
   return (
     <StyledDropDown ref={dropdown}>
       {items.map((props, idx) => (
-        <DropDownItem {...props} key={idx} />
+        <DropDownItem {...props} key={idx} todoId={todoId} />
       ))}
     </StyledDropDown>
   )

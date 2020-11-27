@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import _ from 'lodash'
+
 const rootReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -12,6 +13,7 @@ const rootReducer = (state, action) => {
         ...state,
         tasks: _.remove(state.tasks, ({ id }) => id !== action.payload)
       }
+
     default:
       return state
   }
