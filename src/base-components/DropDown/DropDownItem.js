@@ -23,6 +23,7 @@ const StyledDropDownItem = styled.div`
         `
     }
   }};
+  cursor: pointer;
   white-space: nowrap;
   padding: ${({ theme }) => `${theme.space[2]} ${theme.space[4]}`};
 `

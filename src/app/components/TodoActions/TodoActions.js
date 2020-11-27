@@ -27,6 +27,7 @@ const StyledArrow = styled.div`
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
   }
+  cursor: pointer;
 `
 
 const TodoActions = () => {
