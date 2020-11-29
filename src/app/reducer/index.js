@@ -18,7 +18,7 @@ const rootReducer = (state, action) => {
     case 'DELETE_TODO':
       return {
         ...state,
-        tasks: _.remove(state.tasks, ({ id }) => id !== action.payload)
+        tasks: _.filter(state.tasks, ({ id }) => id !== action.payload)
       }
     case 'SET_DONE':
       return {
@@ -29,6 +29,18 @@ const rootReducer = (state, action) => {
           return {
             ...todo,
             status: { ...todo.status, done: !todo.status.done }
+          }
+        })
+      }
+    case 'SET_IMPORTANT':
+      return {
+        ...state,
+        tasks: state.tasks.map((todo) => {
+          if (todo.id !== action.payload) return todo
+
+          return {
+            ...todo,
+            status: { ...todo.status, important: !todo.status.important }
           }
         })
       }

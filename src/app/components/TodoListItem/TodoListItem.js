@@ -22,6 +22,7 @@ const TodoListItem = (props) => {
       <StyledTodoListItem>
         <Text
           done={status.done}
+          important={status.important}
           onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
           {text}
         </Text>

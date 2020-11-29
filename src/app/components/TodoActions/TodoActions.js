@@ -12,7 +12,12 @@ import { color } from 'styled-system'
 import { Box, DropDown } from 'base-components'
 
 const items = [
-  { text: 'Important', icon: faExclamation, type: 'default' },
+  {
+    text: 'Important',
+    icon: faExclamation,
+    type: 'default',
+    action: (payload) => ({ type: 'SET_IMPORTANT', payload })
+  },
   {
     text: 'Pin to top',
     icon: faThumbtack,
