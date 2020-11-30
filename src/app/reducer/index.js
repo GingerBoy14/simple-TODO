@@ -44,6 +44,30 @@ const rootReducer = (state, action) => {
           }
         })
       }
+    case 'SET_PIN_TO_TOP':
+      let tasks = state.tasks.map((todo) => {
+        if (todo.id !== action.payload) return todo
+
+        return {
+          ...todo,
+          status: { ...todo.status, pinned: !todo.status.pinned }
+        }
+      })
+
+      const unpinned = _.remove(tasks, ({ status }) => !status.pinned)
+      if (tasks.length !== 0) {
+        const temp = tasks.pop()
+        tasks.unshift(temp)
+      }
+      return {
+        ...state,
+        tasks: tasks.concat(unpinned)
+      }
+    case 'CHANGE_FILTER':
+      return {
+        ...state,
+        filter: action.payload
+      }
 
     default:
       return state

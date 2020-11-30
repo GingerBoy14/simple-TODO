@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { TodoActions } from '../TodoActions'
 import { Box } from 'base-components'
 import { Text } from '../../../base-components/Typography'
@@ -11,6 +11,11 @@ const StyledTodoListItem = styled.li`
   padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
+  ${({ pinned }) =>
+    pinned &&
+    css`
+      border-left: 5px solid rgba(23, 162, 184, 0.5);
+    `}
 `
 
 const TodoListItem = (props) => {
@@ -19,14 +24,14 @@ const TodoListItem = (props) => {
   useEffect(() => console.log('stat ' + status.done), [status.done])
   return (
     <Box direction="vertical" space={2}>
-      <StyledTodoListItem>
+      <StyledTodoListItem pinned={status.pinned}>
         <Text
           done={status.done}
           important={status.important}
           onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
           {text}
         </Text>
-        <TodoActions todoId={id} />
+        <TodoActions todoId={id} pinned={status.pinned} />
       </StyledTodoListItem>
     </Box>
   )

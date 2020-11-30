@@ -11,27 +11,6 @@ import { color } from 'styled-system'
 
 import { Box, DropDown } from 'base-components'
 
-const items = [
-  {
-    text: 'Important',
-    icon: faExclamation,
-    type: 'default',
-    action: (payload) => ({ type: 'SET_IMPORTANT', payload })
-  },
-  {
-    text: 'Pin to top',
-    icon: faThumbtack,
-    type: 'default',
-    transform: { rotate: -42 }
-  },
-  {
-    text: 'Delete',
-    icon: faTrash,
-    type: 'danger',
-    action: (payload) => ({ type: 'DELETE_TODO', payload })
-  }
-]
-
 const StyledArrow = styled.div`
   ${color}
   &:hover {
@@ -41,9 +20,29 @@ const StyledArrow = styled.div`
 `
 
 const TodoActions = (props) => {
-  const { todoId } = props
+  const { todoId, pinned } = props
   const [show, setShow] = useState(false)
-
+  const items = [
+    {
+      text: 'Important',
+      icon: faExclamation,
+      type: 'default',
+      action: (payload) => ({ type: 'SET_IMPORTANT', payload })
+    },
+    {
+      text: pinned ? 'Unpin' : 'Pin to top',
+      icon: faThumbtack,
+      type: 'default',
+      transform: pinned ? { rotate: 135 } : { rotate: -42 },
+      action: (payload) => ({ type: 'SET_PIN_TO_TOP', payload })
+    },
+    {
+      text: 'Delete',
+      icon: faTrash,
+      type: 'danger',
+      action: (payload) => ({ type: 'DELETE_TODO', payload })
+    }
+  ]
   return (
     <Box style={{ position: 'relative' }}>
       <StyledArrow color={show ? 'primary' : 'black'}>
