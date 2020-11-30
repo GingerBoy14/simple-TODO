@@ -7,7 +7,7 @@ import { Provider } from './app/context'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={{ tasks: [] }}>
+    <Provider store={{ tasks: [], filter: 'all', query: '' }}>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

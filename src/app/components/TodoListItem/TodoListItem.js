@@ -21,7 +21,6 @@ const StyledTodoListItem = styled.li`
 const TodoListItem = (props) => {
   const { text, id, status } = props
   const { dispatch } = useStoreContext()
-  useEffect(() => console.log('stat ' + status.done), [status.done])
   return (
     <Box direction="vertical" space={2}>
       <StyledTodoListItem pinned={status.pinned}>

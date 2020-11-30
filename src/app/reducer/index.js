@@ -68,6 +68,11 @@ const rootReducer = (state, action) => {
         ...state,
         filter: action.payload
       }
+    case 'SEARCH':
+      return {
+        ...state,
+        query: action.payload
+      }
 
     default:
       return state
