@@ -1,5 +1,7 @@
+import Search from './Search'
+
 const App = () => {
-  return <h2>HElloo</h2>
+  return <Search />
 }
 
 export default App
