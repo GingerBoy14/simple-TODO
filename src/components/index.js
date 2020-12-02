@@ -1,5 +1,9 @@
+import React from 'react'
+import 'antd/dist/antd.css'
+import TodoList from './TodoList'
+
 const App = () => {
-  return <h2>HElloo</h2>
+  return <TodoList />
 }
 
 export default App
