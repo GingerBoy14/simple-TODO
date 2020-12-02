@@ -1,7 +1,5 @@
-import { Filter } from './Filter'
-
 const App = () => {
-  return <Filter />
+  return <h2>HElloo</h2>
 }
 
 export default App
