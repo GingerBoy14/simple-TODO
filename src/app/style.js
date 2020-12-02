@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
 	}
   body {
     font-family: ${({ theme }) => theme.fonts.text};
+    background-color: ${({ theme }) => theme.colors.bg};
   }
 `
 

@@ -11,7 +11,12 @@ const Header = () => {
     setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
   return (
-    <Box width={1} alignItems="center" style={{ marginTop: '16px' }}>
+    <Box
+      width={1}
+      alignItems="center"
+      style={{ marginTop: '16px' }}
+      direction="vertical"
+      space={2}>
       <Title>Todo List</Title>
       <Box width={1} alignItems="flex-end">
         <Title level={4} color="secondary">

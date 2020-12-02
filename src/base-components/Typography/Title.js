@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 
 const StyleTitle = styled.div`
   font-family: ${({ theme }) => theme.fonts.title};
+  color: ${({ theme }) => theme.colors.typography.title};
   ${({ theme, level }) => css`
     font-size: ${theme.fontSizes.title[level]};
+    line-height: ${({ theme }) => theme.lineHeights.title[level]};
   `};
   ${color}
 `

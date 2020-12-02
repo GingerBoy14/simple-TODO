@@ -8,7 +8,7 @@ const TodoList = (props) => {
   const { store } = useStoreContext()
   const [filteredTasks, setFilteredTasks] = useState(store.tasks)
 
-  //todo refactor
+  //TODO: refactor
   const filter = (tasks) => {
     let temp
     temp = tasks

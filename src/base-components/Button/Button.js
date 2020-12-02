@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components'
 
 const getType = ({ theme, type }) => {
   const colors = theme.colors.button
+  console.log(colors)
   switch (type) {
     case 'primary':
       return css`
-        background-color: ${colors.bgc[0]};
+        background-color: ${colors.bg[0]};
         color: ${theme.colors.white};
         &:hover {
           background-color: ${colors.hover[0]};
@@ -15,7 +16,7 @@ const getType = ({ theme, type }) => {
       return css`
         background-color: transparent;
         color: ${theme.colors.secondary};
-        border-color: ${colors.bgc[1]};
+        border-color: ${colors.bg[1]};
         &:hover {
           color: ${theme.colors.white};
           background-color: ${colors.hover[1]};
@@ -23,10 +24,11 @@ const getType = ({ theme, type }) => {
       `
     default:
       return css`
-        background-color: ${colors.bgc[2]};
-        color: ${theme.colors.black};
+        background-color: ${colors.bg[2]};
+        color: ${colors.bg[0]};
+        font-weight: 600;
         &:hover {
-          color: ${theme.colors.white};
+          color: ${colors.bg[0]};
           background-color: ${colors.hover[2]};
         }
       `
