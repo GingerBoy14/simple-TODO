@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { useStoreContext } from '../../Context'
+import { useStoreContext } from 'Context'
 import { Button } from 'antd'
-import 'antd/dist/antd.css'
 
 const buttons = [
   { text: 'All', active: 'primary' },

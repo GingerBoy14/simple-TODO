@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components'
-import { Provider } from './Context'
+import { Provider } from 'Context'
 import 'bootstrap'
+import 'antd/dist/antd.css'
 
 ReactDOM.render(
   <React.StrictMode>
