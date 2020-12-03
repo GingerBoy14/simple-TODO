@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 
-import storeContext from 'Context'
+import storeContext from 'context'
 import rootReducer from 'reducer'
 
 const Provider = (props) => {
