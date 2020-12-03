@@ -1,6 +1,4 @@
-import React from 'react'
-import { List, Avatar } from 'antd'
-import 'antd/dist/antd.css'
+import { List } from 'antd'
 
 const data = [
   'Racing car sprays burning fuel into crowd.',
@@ -39,8 +37,6 @@ const TodoList = () => {
   return (
     <List
       size="large"
-      // header={<div>Header</div>}
-      // footer={<div>Footer</div>}
       bordered
       style={{ ...style, maxWidth: '450px', alignItems: 'center' }}
       dataSource={data}
