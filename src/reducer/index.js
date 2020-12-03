@@ -9,7 +9,7 @@ const rootReducer = (state, action) => {
         tasks: [
           ...state.tasks,
           {
-            text: action.payload.text,
+            text: action.payload,
             id: v4(),
             status: { done: false, important: false, pinned: false }
           }
