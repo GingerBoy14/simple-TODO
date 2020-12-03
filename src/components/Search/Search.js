@@ -8,9 +8,6 @@ const Search = (props) => {
     <Input
       placeholder="Type todos..."
       onChange={(e) => dispatch({ type: 'SEARCH', payload: e.target.value })}
-      style={{
-        width: '244px'
-      }}
     />
   )
 }
