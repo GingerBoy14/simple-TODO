@@ -1,6 +1,6 @@
+import App from './components'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components'
 import { Provider } from 'context'
 import 'antd/dist/antd.css'
 
