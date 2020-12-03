@@ -1,7 +1,7 @@
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 
-import storeContext from './context'
-import rootReducer from '../reducer/index'
+import storeContext from 'Context'
+import rootReducer from 'reducer'
 
 const Provider = (props) => {
   const { store = {}, ...rest } = props
