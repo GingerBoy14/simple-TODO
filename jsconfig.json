@@ -1,9 +1,9 @@
-{  
+{
   "compilerOptions": {
     "baseUrl": "src/",
     "paths": {
-      "context": [ "./context/*" ],
-      "reducer": [ "./reducer/*" ]
+
+      "context": [ "./context/*" ]
     }
   }
 }
