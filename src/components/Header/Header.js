@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Typography } from 'antd'
-import { useStoreContext } from '../../Context'
+import { useStoreContext } from 'context'
 
 const { Title } = Typography
 
