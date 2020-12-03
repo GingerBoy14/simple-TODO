@@ -1,11 +1,29 @@
-import { Row, Col } from 'antd'
-import 'antd/dist/antd.css'
+import { Row, Col, Grid, Space } from 'antd'
 import { AddTodo } from './AddTodo'
+import { Header } from './Header'
+import { Filter } from './Filter'
+import { Search } from './Search'
+import 'antd/dist/antd.css'
+
+const { useBreakpoint } = Grid
 
 const App = () => {
+  const screens = useBreakpoint()
   return (
-    <Row>
-      <Col span={12} push={6}>
+    <Row justify="center">
+      <Col
+        xs={22}
+        xxl={6}
+        style={{ maxWidth: `${screens.sm && !screens.xxl && '450px'}` }}>
+        <Header />
+        <Row gutter={16}>
+          <Col flex={1}>
+            <Search />
+          </Col>
+          <Col>
+            <Filter />
+          </Col>
+        </Row>
         <AddTodo />
       </Col>
     </Row>
