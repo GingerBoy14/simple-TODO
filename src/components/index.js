@@ -1,7 +1,6 @@
-import Search from './Search'
-
+import 'antd/dist/antd.css'
 const App = () => {
-  return <Search />
+  return <h2>HElloo</h2>
 }
 
 export default App

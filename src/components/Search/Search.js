@@ -1,6 +1,5 @@
 import React from 'react'
-import { useStoreContext } from '../../context'
-import 'antd/dist/antd.css'
+import { useStoreContext } from 'context'
 import { Input } from 'antd'
 
 const Search = (props) => {
