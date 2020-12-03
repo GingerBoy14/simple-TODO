@@ -1,9 +1,9 @@
-{
-    "compilerOptions": {
-      "baseUrl": "src/",
-      "paths": {
-        "app": [ "./app/*" ],
-        "context": ["/src/context/"]
-      }
+{  
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "Context": [ "./Context/*" ],
+      "reducer": [ "./reducer/*" ]
     }
   }
+}
