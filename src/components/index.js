@@ -11,7 +11,7 @@ const App = () => {
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
         <Row>
-          <Col>
+          <Col style={{ width: '100%' }}>
             <Header />
           </Col>
         </Row>

@@ -1,6 +1,7 @@
 import { List, Space, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
 import { LeftOutlined } from '@ant-design/icons'
+import { DropDown } from '../DropDown'
 
 const { Item } = List
 const { Text } = Typography
@@ -18,7 +19,7 @@ const TodoListItem = (props) => {
         />
         <Text ellipsis={true}>{text}</Text>
       </Space>
-      <LeftOutlined onClick={() => console.log('Clicked')} />
+      <DropDown />
     </Item>
   )
 }
