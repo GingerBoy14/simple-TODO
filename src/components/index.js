@@ -20,9 +20,6 @@ const App = () => {
           <Col flex={1}>
             <Search />
           </Col>
-          <Col>
-            <Filter />
-          </Col>
         </Row>
         <AddTodo />
       </Col>

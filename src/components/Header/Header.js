@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Typography } from 'antd'
+import { Col, Row, Space, Typography } from 'antd'
 import { useStoreContext } from 'context'
-
-const { Title } = Typography
+import { Filter } from 'components/Filter'
+const { Title, Text } = Typography
 
 const Header = () => {
   const { store } = useStoreContext()
@@ -11,27 +11,30 @@ const Header = () => {
     setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}>
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Title>Todo List</Title>
-      </div>
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }}>
-        <Title level={4}>
-          {store.tasks.length - counter} more to do, {counter} done
-        </Title>
-      </div>
-    </div>
+    <>
+      <Row>
+        <Space direction="vertical" align="center" style={{ width: '100%' }}>
+          <Col>
+            <Title>Todo List</Title>
+          </Col>
+        </Space>
+      </Row>
+      <Row wrap={false}>
+        <Space direction="vertical" align="start" style={{ width: '100%' }}>
+          <Col>
+            <Title level={4}>
+              <Text type="success">{counter} done</Text>
+              <Text strong> / from {store.tasks.length - counter}</Text>
+            </Title>
+          </Col>
+        </Space>
+        <Space direction="vertical" align="end" style={{ width: '100%' }}>
+          <Col>
+            <Filter />
+          </Col>
+        </Space>
+      </Row>
+    </>
   )
 }
 
