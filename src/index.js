@@ -2,7 +2,6 @@ import App from './components'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'context'
-import 'antd/dist/antd.css'
 
 ReactDOM.render(
   <React.StrictMode>

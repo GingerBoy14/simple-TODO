@@ -19,7 +19,8 @@ const TodoListItem = (props) => {
         border: '1px solid rgba(108, 117, 125, 0.6)',
         padding: '0.75rem 1rem',
         borderRadius: '0.5rem',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: '5px'
       }}>
       <Text
         delete={status.done}

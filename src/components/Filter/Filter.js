@@ -17,6 +17,7 @@ const Filter = () => {
         <Button
           key={text}
           type={activeButton === text ? active : false}
+          size="large"
           onClick={() => {
             setActiveButton(text)
             dispatch({ type: 'CHANGE_FILTER', payload: text.toLowerCase() })
