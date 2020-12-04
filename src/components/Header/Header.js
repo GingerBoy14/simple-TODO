@@ -1,37 +1,20 @@
-import { useEffect, useState } from 'react'
-import { Typography } from 'antd'
-import { useStoreContext } from 'context'
+import { Col, Row, Typography } from 'antd'
 
 const { Title } = Typography
 
-const Header = () => {
-  const { store } = useStoreContext()
-  const [counter, setCounter] = useState(0)
-  useEffect(() => {
-    setCounter(store.tasks.filter(({ status }) => status.done).length)
-  }, [store])
+const Header = (props) => {
+  const { children } = props
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}>
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Title>Todo List</Title>
-      </div>
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }}>
-        <Title level={4}>
-          {store.tasks.length - counter} more to do, {counter} done
-        </Title>
-      </div>
-    </div>
+    <Row>
+      <Col flex={1}>
+        <Row justify="center">
+          <Col>
+            <Title>Todo List</Title>
+          </Col>
+        </Row>
+      </Col>
+      {children && <Col xs={24}>{children}</Col>}
+    </Row>
   )
 }
 

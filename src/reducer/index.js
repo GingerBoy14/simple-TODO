@@ -1,4 +1,4 @@
-import { v4 } from 'uuid'
+import { v4 as uuidV4 } from 'uuid'
 import _ from 'lodash'
 
 const rootReducer = (state, action) => {
@@ -10,7 +10,7 @@ const rootReducer = (state, action) => {
           ...state.tasks,
           {
             text: action.payload,
-            id: v4(),
+            id: uuidV4(),
             status: { done: false, important: false, pinned: false }
           }
         ]
@@ -39,7 +39,7 @@ const rootReducer = (state, action) => {
           }
         })
       }
-    case 'IMPORTANT_TODO':
+    case 'SET_IMPORTANT':
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
@@ -54,7 +54,7 @@ const rootReducer = (state, action) => {
           }
         })
       }
-    case 'PINNED_TODO':
+    case 'SET_PIN_TO_TOP':
       const tasks = state.tasks.map((todo) => {
         if (todo.id !== action.payload) return todo
         return {

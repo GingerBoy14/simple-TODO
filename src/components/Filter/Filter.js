@@ -4,7 +4,7 @@ import { Button } from 'antd'
 
 const buttons = [
   { text: 'All', active: 'primary' },
-  { text: 'Active', active: 'primary' },
+  { text: 'Todo', active: 'primary' },
   { text: 'Done', active: 'primary' }
 ]
 
