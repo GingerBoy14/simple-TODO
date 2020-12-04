@@ -1,18 +1,17 @@
 import { List } from 'antd'
 import { useStoreContext } from '../../context'
-import TodoListItem from '../TodoListItem'
+import { TodoListItem } from '../TodoListItem'
 
 const TodoList = () => {
   const { store } = useStoreContext()
 
   let style = {}
   if (store.tasks.length > 9) {
-    style = { overflowY: 'scroll', maxHeight: '550px' }
+    style = { overflowY: 'scroll', maxHeight: '600px' }
   }
   return (
     <List
-      size="large"
-      style={{ ...style, alignItems: 'center', padding: '5px 0' }}
+      bordered
       dataSource={store.tasks}
       renderItem={(item) => <TodoListItem {...item} />}
     />

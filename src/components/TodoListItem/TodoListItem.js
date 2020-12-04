@@ -1,4 +1,4 @@
-import { List, Typography, Checkbox, Space } from 'antd'
+import { List, Space, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
 import { LeftOutlined } from '@ant-design/icons'
 
@@ -10,22 +10,13 @@ const TodoListItem = (props) => {
   const { dispatch } = useStoreContext()
 
   return (
-    <Item
-      style={{
-        listStyle: 'none',
-        width: '100%',
-        display: 'flex',
-        border: '1px solid rgba(108, 117, 125, 0.6)',
-        padding: '0.75rem 1rem',
-        borderRadius: '0.5rem',
-        justifyContent: 'space-between',
-        marginBottom: '5px'
-      }}>
+    <Item>
       <Space>
-        <Checkbox checked={status.done} />
-        <Text onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
-          {text}
-        </Text>
+        <Checkbox
+          checked={status.done}
+          onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
+        />
+        <Text ellipsis={true}>{text}</Text>
       </Space>
       <LeftOutlined onClick={() => console.log('Clicked')} />
     </Item>
