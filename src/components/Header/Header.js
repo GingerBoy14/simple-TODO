@@ -13,25 +13,19 @@ const Header = () => {
   return (
     <>
       <Row>
-        <Col span={24}>
-          <Space direction="vertical" align="center" style={{ width: '100%' }}>
-            <Title>Todo List</Title>
-          </Space>
+        <Col flex="auto" align="center">
+          <Title>Todo List</Title>
         </Col>
       </Row>
-      <Row wrap={false}>
-        <Col span={12}>
-          <Space direction="vertical" align="start" style={{ width: '100%' }}>
-            <Title level={4}>
-              <Text type="success">{counter} done</Text>
-              <Text strong> / from {store.tasks.length - counter}</Text>
-            </Title>
-          </Space>
+      <Row>
+        <Col flex="auto">
+          <Title level={4}>
+            <Text type="success">{counter} done</Text>
+            <Text strong> / from {store.tasks.length - counter}</Text>
+          </Title>
         </Col>
-        <Col span={12}>
-          <Space direction="vertical" align="end" style={{ width: '100%' }}>
-            <Filter />
-          </Space>
+        <Col flex="none">
+          <Filter />
         </Col>
       </Row>
     </>
