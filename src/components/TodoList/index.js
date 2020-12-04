@@ -1,2 +1,1 @@
-import Todolist from './TodoList'
-export default Todolist
+export { default as TodoList } from './TodoList'
