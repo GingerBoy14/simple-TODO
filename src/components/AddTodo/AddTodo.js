@@ -7,6 +7,9 @@ const AddTodo = () => {
   const { dispatch } = useStoreContext()
   const onFinish = (values) => {
     dispatch({ type: 'ADD_TODO', payload: values.addTodoName })
+    form.setFieldsValue({
+      addTodoName: ''
+    })
   }
   return (
     <Form form={form} name="add_todo" layout="inline" onFinish={onFinish}>
