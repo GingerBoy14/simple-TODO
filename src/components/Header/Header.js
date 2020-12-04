@@ -18,13 +18,13 @@ const Header = () => {
         </Col>
       </Row>
       <Row>
-        <Col flex={'auto'}>
+        <Col flex="auto">
           <Title level={4}>
             <Text type="success">{counter} done</Text>
             <Text strong> / from {store.tasks.length - counter}</Text>
           </Title>
         </Col>
-        <Col flex={'none'}>
+        <Col flex="none">
           <Filter />
         </Col>
       </Row>

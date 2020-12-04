@@ -21,7 +21,7 @@ const TodoListItem = (props) => {
           {text}
         </Text>
       </Space>
-      <DropDown {...props} />
+      <DropDown id={id} />
     </Item>
   )
 }

@@ -5,7 +5,7 @@ import {
   ExclamationOutlined,
   PushpinOutlined
 } from '@ant-design/icons'
-import { useStoreContext } from '../../context'
+import { useStoreContext } from 'context'
 
 const DropDown = (props) => {
   const { id } = props
@@ -34,10 +34,7 @@ const DropDown = (props) => {
 
   return (
     <>
-      <Dropdown
-        overlay={DropDownItem}
-        placement="bottomRight"
-        trigger={['click']}>
+      <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
         <DownOutlined />
       </Dropdown>
     </>
