@@ -33,11 +33,9 @@ const DropDown = (props) => {
   )
 
   return (
-    <>
-      <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
-        <DownOutlined />
-      </Dropdown>
-    </>
+    <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
+      <DownOutlined />
+    </Dropdown>
   )
 }
 export default DropDown
