@@ -3,6 +3,7 @@ import { useStoreContext } from '../../context'
 import { LeftOutlined } from '@ant-design/icons'
 
 const { Item } = List
+const { Text } = Typography
 const data = ['First task.', 'Second task.', 'Third task.', 'Fourth task.']
 
 const TodoListItem = (props) => {
@@ -10,7 +11,7 @@ const TodoListItem = (props) => {
   const { dispatch } = useStoreContext()
 
   return (
-    <List.Item
+    <Item
       style={{
         listStyle: 'none',
         width: '100%',
@@ -19,17 +20,15 @@ const TodoListItem = (props) => {
         padding: '0.75rem 1rem',
         borderRadius: '0.5rem',
         justifyContent: 'space-between'
-      }}
-      // important={status.important}
-      // done={status.done}
-      onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
-      <Typography.Text>{data[2]}</Typography.Text>
-      <LeftOutlined
-        // id={id}
-        // pinned={status.pinned}
-        onClick={() => console.log('Clicked')}
-      />
-    </List.Item>
+      }}>
+      <Text
+        delete={status.done}
+        mark={status.important}
+        onClick={() => dispatch({ type: 'SET_DONE', payload: id })}>
+        {text}
+      </Text>
+      <LeftOutlined onClick={() => console.log('Clicked')} />
+    </Item>
   )
 }
 
