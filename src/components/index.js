@@ -10,12 +10,12 @@ const App = () => {
   return (
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
-        <Row>
+        <Row gutter={[0, 8]}>
           <Col style={{ width: '100%' }}>
             <Header />
           </Col>
         </Row>
-        <Row gutter={[16, 8]}>
+        <Row gutter={[0, 8]}>
           <Col flex="auto">
             <Search />
           </Col>

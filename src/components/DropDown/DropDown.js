@@ -14,21 +14,20 @@ const DropDown = (props) => {
 
   const DropDownItem = (
     <Menu>
-      <Menu.Item icon={<PushpinOutlined />}>
-        <Text>Pinned</Text>
-      </Menu.Item>
-      <Menu.Item icon={<ExclamationOutlined />}>
-        <Text>Important</Text>
-      </Menu.Item>
-      <Menu.Item icon={<DeleteOutlined />}>
-        <Text type="danger">Delete</Text>
+      <Menu.Item icon={<PushpinOutlined />}>Pinned</Menu.Item>
+      <Menu.Item icon={<ExclamationOutlined />}>Important</Menu.Item>
+      <Menu.Item danger={true} icon={<DeleteOutlined />}>
+        Delete
       </Menu.Item>
     </Menu>
   )
 
   return (
     <>
-      <Dropdown overlay={DropDownItem} placement="bottomRight">
+      <Dropdown
+        overlay={DropDownItem}
+        placement="bottomRight"
+        trigger={['click']}>
         <DownOutlined />
       </Dropdown>
     </>
