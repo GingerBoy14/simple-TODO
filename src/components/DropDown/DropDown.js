@@ -1,22 +1,32 @@
-import React, { useState } from 'react'
-import { Menu, Dropdown, Typography } from 'antd'
+import { Menu, Dropdown } from 'antd'
 import {
   DownOutlined,
   DeleteOutlined,
   ExclamationOutlined,
   PushpinOutlined
 } from '@ant-design/icons'
+import { useStoreContext } from '../../context'
 
-const { Text } = Typography
 const DropDown = (props) => {
-  const { children } = props
-  const [visibility, setVisibility] = useState()
+  const { id } = props
+  const { dispatch } = useStoreContext()
 
   const DropDownItem = (
     <Menu>
-      <Menu.Item icon={<PushpinOutlined />}>Pinned</Menu.Item>
-      <Menu.Item icon={<ExclamationOutlined />}>Important</Menu.Item>
-      <Menu.Item danger={true} icon={<DeleteOutlined />}>
+      <Menu.Item
+        onClick={() => dispatch({ type: 'PINNED_TODO', payload: id })}
+        icon={<PushpinOutlined />}>
+        Pinned
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => dispatch({ type: 'IMPORTANT_TODO', payload: id })}
+        icon={<ExclamationOutlined />}>
+        Important
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => dispatch({ type: 'DELETE_TODO', payload: id })}
+        danger={true}
+        icon={<DeleteOutlined />}>
         Delete
       </Menu.Item>
     </Menu>

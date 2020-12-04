@@ -17,9 +17,11 @@ const TodoListItem = (props) => {
           checked={status.done}
           onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
         />
-        <Text ellipsis={true}>{text}</Text>
+        <Text mark={status.important} ellipsis={true}>
+          {text}
+        </Text>
       </Space>
-      <DropDown />
+      <DropDown {...props} />
     </Item>
   )
 }
