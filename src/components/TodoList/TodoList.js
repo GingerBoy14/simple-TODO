@@ -1,5 +1,5 @@
 import { List } from 'antd'
-import { useStoreContext } from '../../context'
+import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
 import { useEffect, useState } from 'react'
 
