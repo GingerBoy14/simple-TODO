@@ -2,10 +2,10 @@ import { Row, Col } from 'antd'
 import { AddTaskForm } from './AddTaskForm'
 import { Header } from './Header'
 import { TodoList } from './TodoList'
-import 'antd/dist/antd.css'
 import { TaskCounter } from './TaskCounter'
 import { Filter } from './Filter'
 import { Search } from './Search'
+import 'antd/dist/antd.css'
 
 const App = () => {
   return (
