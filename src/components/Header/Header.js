@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Col, Row, Space, Typography } from 'antd'
+import { Col, Row, Typography } from 'antd'
 import { useStoreContext } from 'context'
 import { Filter } from 'components/Filter'
 const { Title, Text } = Typography

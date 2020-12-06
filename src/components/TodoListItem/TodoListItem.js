@@ -12,7 +12,7 @@ const TodoListItem = (props) => {
 
   return (
     <Item>
-      <Space>
+      <Space style={{ width: '100%' }}>
         <Checkbox
           checked={status.done}
           onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
