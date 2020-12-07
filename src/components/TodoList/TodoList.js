@@ -1,16 +1,36 @@
-/** @jsxImportSource @emotion/react */
-
 import { useState, useEffect } from 'react'
 import { List } from 'antd'
 import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
-import styled from '@emotion/styled'
+import SimpleBar from 'simplebar-react'
+import { Global, css } from '@emotion/react'
+import 'simplebar/dist/simplebar.min.css'
+
+const scrollStyle = css`
+  .simplebar-track {
+    pointer-events: inherit;
+    width: 0.5rem !important;
+  }
+  .simplebar-scrollbar:before {
+    opacity: 1 !important;
+    border-radius: 0;
+    background-color: #1890ff;
+    width: 0.5rem;
+  }
+  .simplebar-scrollbar.simplebar-visible:before {
+    cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .simplebar-scrollbar.simplebar-hover:before {
+    background-color: #40a9ff;
+  }
+`
 
 const TodoList = () => {
   let style = {}
   const { store } = useStoreContext()
-  if (store.tasks.length > 10) {
-    style = { overflowY: 'scroll', maxHeight: '70vh' }
+  if (store.tasks.length > 12) {
+    style = { height: '70vh' }
   }
   const [filteredTasks, setFilteredTasks] = useState(store.tasks)
 
@@ -24,41 +44,24 @@ const TodoList = () => {
       temp = tasks.filter(({ status }) => status.done)
     }
     if (store.query.length > 0) {
-      temp = temp.filter((item) => {
-        return item.text.toLowerCase().includes(store.query.toLowerCase())
-      })
+      temp = temp.filter((item) =>
+        item.text.toLowerCase().includes(store.query.toLowerCase())
+      )
     }
     setFilteredTasks(temp)
   }
 
   useEffect(() => filter(store.tasks), [store])
   return (
-    <ScrollBar style={{ ...style }}>
+    <SimpleBar style={{ ...style }} autoHide={false}>
+      <Global styles={scrollStyle} />
       <List
         size="large"
         dataSource={filteredTasks}
         renderItem={(item) => <TodoListItem {...item} />}
       />
-    </ScrollBar>
+    </SimpleBar>
   )
 }
 
-const ScrollBar = styled.div`
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  background-color: #1890ff;
-
-  -webkit-background-clip: text;
-  &:hover {
-    background-color: #40a9ff;
-  }
-  &::-webkit-scrollbar {
-    width: 0.35rem;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: inherit;
-  }
-`
 export default TodoList
