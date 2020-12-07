@@ -1,6 +1,5 @@
 import { List, Space, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
-import { LeftOutlined } from '@ant-design/icons'
 import { DropDown } from '../DropDown'
 
 const { Item } = List
