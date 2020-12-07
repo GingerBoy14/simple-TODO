@@ -1,48 +1,27 @@
-import { List } from 'antd'
-
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car spraDys burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.'
-]
+import { useStoreContext } from '../../context'
+import { Col, List, Row, Typography } from 'antd'
+import { TodoListItem } from '../TodoListItem'
+import { Input } from 'antd'
+import { Search } from '../Search'
 
 const TodoList = () => {
+  const { store } = useStoreContext()
+
   let style = {}
-  if (data.length > 10) {
-    style = { overflowY: 'scroll', maxHeight: '400px' }
+  if (store.tasks.length > 9) {
+    style = { overflowY: 'scroll', maxHeight: '550px' }
   }
   return (
-    <List
-      size="large"
-      bordered
-      style={{ ...style, maxWidth: '450px', alignItems: 'center' }}
-      dataSource={data}
-      renderItem={(item) => <List.Item>{item}</List.Item>}
-    />
+    <>
+      <Search />
+      <List
+        size="large"
+        bordered
+        style={{ ...style, minHeight: '550px' }}
+        dataSource={store.tasks}
+        renderItem={(item) => <TodoListItem {...item} />}
+      />
+    </>
   )
 }
-
 export default TodoList

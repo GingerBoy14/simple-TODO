@@ -4,27 +4,27 @@ import { Header } from './Header'
 import { Filter } from './Filter'
 import { Search } from './Search'
 import 'antd/dist/antd.css'
-
-const { useBreakpoint } = Grid
+import { TodoList } from './TodoList'
 
 const App = () => {
-  const screens = useBreakpoint()
   return (
     <Row justify="center">
-      <Col
-        xs={22}
-        xxl={6}
-        style={{ maxWidth: `${screens.sm && !screens.xxl && '450px'}` }}>
-        <Header />
-        <Row gutter={16}>
+      <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8} flex={1}>
+        <Row>
           <Col flex={1}>
-            <Search />
-          </Col>
-          <Col>
-            <Filter />
+            <Header />
           </Col>
         </Row>
-        <AddTodo />
+        <Row gutter={[0, 8]} justify="center">
+          <Col flex={1}>
+            <TodoList />
+          </Col>
+        </Row>
+        <Row>
+          <Col flex={1}>
+            <AddTodo />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )
