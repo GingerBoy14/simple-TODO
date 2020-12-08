@@ -19,7 +19,7 @@ const AddTaskForm = () => {
       onFinish={onFinish}
       initialValues={{ todoName: '' }}>
       <Form.Item name="todoName" style={{ flex: 1 }}>
-        <Input placeholder="What need to be done?" autocomplete="off" />
+        <Input placeholder="What need to be done?" autoComplete="off" />
       </Form.Item>
       <Form.Item noStyle>
         <Button type="primary" htmlType="submit">

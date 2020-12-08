@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { List } from 'antd'
 import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
@@ -27,11 +27,7 @@ const scrollStyle = css`
 `
 
 const TodoList = () => {
-  let style = {}
   const { store } = useStoreContext()
-  if (store.tasks.length > 12) {
-    style = { height: '70vh' }
-  }
   const [filteredTasks, setFilteredTasks] = useState(store.tasks)
 
   //TODO: refactor
@@ -50,10 +46,9 @@ const TodoList = () => {
     }
     setFilteredTasks(temp)
   }
-
   useEffect(() => filter(store.tasks), [store])
   return (
-    <SimpleBar style={{ ...style }} autoHide={false}>
+    <SimpleBar style={{ maxHeight: '70vh' }} autoHide={false}>
       <Global styles={scrollStyle} />
       <List
         size="large"

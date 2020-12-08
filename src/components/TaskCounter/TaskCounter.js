@@ -9,8 +9,10 @@ const TaskCounter = () => {
   const [tasksCount, setTasksCount] = useState(0)
   useEffect(() => {
     setTasksCount({
-      done: store.tasks.filter(({ status }) => status.done).length,
-      all: store.tasks.length
+      done: store.tasks
+        ? store.tasks.filter(({ status }) => status.done).length
+        : 0,
+      all: store.tasks ? store.tasks.length : 0
     })
   }, [store])
   return (
