@@ -1,12 +1,13 @@
 import { Input, Button, Form } from 'antd'
 import { useStoreContext } from 'context'
+import { addTask } from './action'
 
 const AddTaskForm = () => {
   const { dispatch } = useStoreContext()
   const [form] = Form.useForm()
   const onFinish = (values) => {
     if (values.todoName) {
-      dispatch({ type: 'ADD_TODO', payload: values.todoName })
+      dispatch(addTask(values.todoName))
       form.setFieldsValue({ todoName: '' })
     }
   }

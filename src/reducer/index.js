@@ -1,12 +1,25 @@
 import _ from 'lodash'
-import { v4 } from 'uuid'
 import firebase from '../config'
 
-const addTaskToFirestore = async (collectionName, data, uid) => {
-  await firebase.firestore().collection(collectionName).doc(uid).set(data)
-}
 const deleteTaskInFirestore = async (collectionName, docId) => {
   await firebase.firestore().collection(collectionName).doc(docId).delete()
+}
+
+const statusToggle = (state, statusName, id) => {
+  return {
+    ...state,
+    tasks: state.tasks.map((todo) => {
+      if (todo.id !== id) return todo
+      const data = {
+        status: {
+          ...todo.status,
+          [statusName]: !todo.status[statusName]
+        }
+      }
+      firebase.firestore().collection('tasks').doc(todo.id).update(data)
+      return { ...todo, ...data }
+    })
+  }
 }
 
 const rootReducer = (state, action) => {
@@ -14,17 +27,9 @@ const rootReducer = (state, action) => {
     case 'GET_TASKS':
       return { ...state, tasks: action.payload }
     case 'ADD_TODO':
-      const id = v4()
-      const data = {
-        id,
-        timestamp: new Date(),
-        text: action.payload,
-        status: { done: false, important: false, pinned: false }
-      }
-      addTaskToFirestore('tasks', data, id)
       return {
         ...state,
-        tasks: [...state.tasks, data]
+        tasks: [...state.tasks, action.payload]
       }
     case 'DELETE_TODO': {
       deleteTaskInFirestore('tasks', action.payload)
@@ -37,36 +42,9 @@ const rootReducer = (state, action) => {
       }
     }
     case 'SET_DONE':
-      return {
-        ...state,
-        tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
-          const data = {
-            status: {
-              ...todo.status,
-              done: !todo.status.done
-            }
-          }
-          firebase.firestore().collection('tasks').doc(todo.id).update(data)
-          return data
-        })
-      }
+      return statusToggle(state, 'done', action.payload)
     case 'SET_IMPORTANT':
-      return {
-        ...state,
-        tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
-          const data = {
-            ...todo,
-            status: {
-              ...todo.status,
-              important: !todo.status.important
-            }
-          }
-          firebase.firestore().collection('tasks').doc(todo.id).update(data)
-          return data
-        })
-      }
+      return statusToggle(state, 'important', action.payload)
     case 'SET_PIN_TO_TOP':
       const tasks = state.tasks.map((todo) => {
         if (todo.id !== action.payload) return todo
@@ -79,8 +57,9 @@ const rootReducer = (state, action) => {
         } else {
           delete data.pinnedTimeStamp
         }
-        console.log(data)
-        firebase.firestore().collection('tasks').doc(todo.id).set(data)
+        const firebaseData = { ...data }
+        delete firebaseData.id
+        firebase.firestore().collection('tasks').doc(todo.id).set(firebaseData)
         return data
       })
 
