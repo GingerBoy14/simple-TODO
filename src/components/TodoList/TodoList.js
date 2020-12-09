@@ -1,47 +1,46 @@
+import { useState, useEffect, useRef } from 'react'
 import { List } from 'antd'
-
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car sprays burning fuel into crowd.',
-  'Racing car spraDys burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.'
-]
+import { useStoreContext } from 'context'
+import { TodoListItem } from '../TodoListItem'
+import { Row, Col } from 'antd'
+import './style.css'
 
 const TodoList = () => {
-  let style = {}
-  if (data.length > 10) {
-    style = { overflowY: 'scroll', maxHeight: '400px' }
+  const { store } = useStoreContext()
+  const [filteredTasks, setFilteredTasks] = useState(store.tasks)
+  let temp
+  const filter = (tasks) => {
+    temp = tasks
+    if (store.filter === 'active') {
+      temp = tasks.filter(({ status }) => !status.done)
+    } else if (store.filter === 'done') {
+      temp = tasks.filter(({ status }) => status.done)
+    }
+    if (store.query.length > 0) {
+      temp = temp.filter((item) => {
+        return item.text.toLowerCase().indexOf(store.query.toLowerCase()) > -1
+      })
+    }
+    setFilteredTasks(temp)
   }
+  useEffect(() => filter(store.tasks), [store])
+
   return (
-    <List
-      size="large"
-      bordered
-      style={{ ...style, maxWidth: '450px', alignItems: 'center' }}
-      dataSource={data}
-      renderItem={(item) => <List.Item>{item}</List.Item>}
-    />
+    <div style={{ maxHeight: '400px', overflow: 'auto' }} className="style-1">
+      <Row gutter={[0, 0]}>
+        <Col span={24}>
+          <List
+            size="large"
+            bordered={false}
+            style={{ maxWidth: '100%', alignItems: 'center' }}
+            dataSource={filteredTasks}
+            renderItem={(item) => {
+              return <TodoListItem item={item} />
+            }}
+          />
+        </Col>
+      </Row>
+    </div>
   )
 }
 
