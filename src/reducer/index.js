@@ -1,54 +1,73 @@
-import firebase from '../config'
-
-const db = firebase.firestore()
-const ref = db.collection('tasks')
+import { v4 as uuidV4 } from 'uuid'
+import _ from 'lodash'
 
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_TASKS':
-      return { ...state, tasks: action.payload }
     case 'ADD_TODO':
-      const document = ref.doc().id
-      ref.doc(document).set({
-        id: document,
-        text: action.payload,
-        creationDate: new Date(),
-        status: {
-          done: false,
-          important: false,
-          pinned: false
-        }
-      })
-      return
+      return {
+        ...state,
+        tasks: [
+          ...state.tasks,
+          {
+            text: action.payload,
+            id: uuidV4(),
+            status: { done: false, important: false, pinned: false }
+          }
+        ]
+      }
     case 'DELETE_TODO': {
-      ref.doc(action.payload.id).delete()
-      return
+      const newTasks = _.remove(state.tasks, (item) => {
+        return item.id === action.payload
+      })
+      return {
+        ...state,
+        tasks: state.tasks.filter((it) => it.id !== newTasks[0])
+      }
     }
     case 'SET_DONE':
-      ref.doc(action.payload.id).update({
-        status: {
-          ...action.payload.status,
-          done: !action.payload.status.done
-        }
-      })
-      return
-    case 'IMPORTANT_TODO':
-      ref.doc(action.payload.id).update({
-        status: {
-          ...action.payload.status,
-          important: !action.payload.status.important
-        }
-      })
-      return
-    case 'PINNED_TODO':
-      ref.doc(action.payload.id).update({
-        status: {
-          ...action.payload.status,
-          pinned: !action.payload.status.pinned
-        }
-      })
+      return {
+        ...state,
+        tasks: state.tasks.map((todo) => {
+          if (todo.id !== action.payload) return todo
 
-      return
+          return {
+            ...todo,
+            status: {
+              ...todo.status,
+              done: !todo.status.done
+            }
+          }
+        })
+      }
+    case 'SET_IMPORTANT':
+      return {
+        ...state,
+        tasks: state.tasks.map((todo) => {
+          if (todo.id !== action.payload) return todo
+
+          return {
+            ...todo,
+            status: {
+              ...todo.status,
+              important: !todo.status.important
+            }
+          }
+        })
+      }
+    case 'SET_PIN_TO_TOP':
+      const tasks = state.tasks.map((todo) => {
+        if (todo.id !== action.payload) return todo
+        return {
+          ...todo,
+          status: { ...todo.status, pinned: !todo.status.pinned }
+        }
+      })
+      const unpinned = _.remove(tasks, ({ status }) => !status.pinned)
+      if (tasks.length !== 0) {
+        const temp = tasks.pop()
+        tasks.unshift(temp)
+      }
+      return { ...state, tasks: tasks.concat(unpinned) }
     case 'CHANGE_FILTER':
       return {
         ...state,
