@@ -2,40 +2,63 @@ import { List } from 'antd'
 import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
 import { useEffect, useState } from 'react'
+import firebase from '../../config'
+
+const db = firebase.firestore()
+const ref = db.collection('tasks')
 
 const TodoList = () => {
   const { store } = useStoreContext()
-  const [filteredTasks, setFilteredTasks] = useState(store.tasks)
-
+  const [firebaseTasks, setFirebaseTasks] = useState([])
+  // const [filteredTasks, setFilteredTasks] = useState()
+  // useEffect(() => filter(store.tasks), [store])
+  useEffect(() => {
+    const unsubscribe = ref.orderBy('creationDate').onSnapshot((snapshot) => {
+      setFirebaseTasks(
+        snapshot.docs.map((doc) => ({
+          ...doc.data()
+        }))
+      )
+    })
+    return () => unsubscribe()
+  }, [])
   const filter = (tasks) => {
+    console.log(store)
+    console.log(tasks)
+    if (!store) {
+      console.log('null')
+      return tasks
+    }
     let temp
     if (store.filter === 'all') {
       temp = tasks
     }
     if (store.filter === 'active') {
       temp = tasks.filter(({ status }) => !status.done)
+      console.log('status.active')
     }
     if (store.filter === 'done') {
       temp = tasks.filter(({ status }) => status.done)
     }
-    if (store.query.length > 0) {
+    if (store.query) {
       temp = temp.filter((item) => {
         return item.text.toLowerCase().indexOf(store.query.toLowerCase()) > -1
       })
     }
-    setFilteredTasks(temp)
-  }
-
-  useEffect(() => filter(store.tasks), [store])
-
-  let style = {}
-  if (store.tasks.length > 9) {
-    style = { overflowY: 'scroll', maxHeight: '1000px' }
+    // firebaseTasks(temp)
+    return temp
   }
   return (
     <List
       bordered
-      dataSource={filteredTasks}
+      style={
+        firebaseTasks.length > 5
+          ? { overflowY: 'scroll', maxHeight: '700px' }
+          : {}
+      }
+      dataSource={filter(
+        firebaseTasks.sort((a, b) => b.status.pinned - a.status.pinned)
+      )}
       renderItem={(item) => <TodoListItem {...item} />}
     />
   )

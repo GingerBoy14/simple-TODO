@@ -2,14 +2,32 @@ import { useEffect, useState } from 'react'
 import { Col, Row, Typography } from 'antd'
 import { useStoreContext } from 'context'
 import { Filter } from 'components/Filter'
+import firebase from '../../config'
+
 const { Title, Text } = Typography
 
 const Header = () => {
   const { store } = useStoreContext()
-  const [counter, setCounter] = useState(0)
+  const [firebaseTasks, setFirebaseTasks] = useState([])
+
   useEffect(() => {
-    setCounter(store.tasks.filter(({ status }) => status.done).length)
-  }, [store])
+    const unsubscribe = firebase
+      .firestore()
+      .collection('tasks')
+      .orderBy('timestamp')
+      .onSnapshot((snapshot) => {
+        setFirebaseTasks(
+          snapshot.docs.map((doc) => ({
+            id: store.tasks.id,
+            ...doc.data()
+          }))
+        )
+      })
+    return () => unsubscribe()
+  }, [])
+
+  const doneTasks = firebaseTasks.filter(({ status }) => status.done)
+
   return (
     <>
       <Row>
@@ -20,8 +38,9 @@ const Header = () => {
       <Row>
         <Col flex="auto">
           <Title level={4}>
-            <Text type="success">{counter} done</Text>
-            <Text strong> / from {store.tasks.length - counter}</Text>
+            <Text>
+              {doneTasks.length} from {firebaseTasks.length} are done
+            </Text>
           </Title>
         </Col>
         <Col flex="none">

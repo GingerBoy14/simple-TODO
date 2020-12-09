@@ -1,6 +1,8 @@
 import { List, Space, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
 import { DropDown } from '../DropDown'
+import { ExclamationOutlined, PushpinOutlined } from '@ant-design/icons'
+import { Tag } from 'antd'
 
 const { Item } = List
 const { Text } = Typography
@@ -14,13 +16,19 @@ const TodoListItem = (props) => {
       <Space style={{ width: '100%' }}>
         <Checkbox
           checked={status.done}
-          onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
+          onClick={() =>
+            dispatch({ type: 'SET_DONE', payload: { id, status } })
+          }
         />
-        <Text mark={status.important} ellipsis={true}>
-          {text}
-        </Text>
+        <Text /*mark={status.important}*/ ellipsis={true}>{text}</Text>
       </Space>
-      <DropDown id={id} />
+      <Tag color={status.pinned ? 'geekblue' : 'transparent'}>
+        <PushpinOutlined />
+      </Tag>
+      <Tag color={status.important ? 'red' : 'transparent'}>
+        {<ExclamationOutlined />}
+      </Tag>
+      <DropDown id={id} status={status} />
     </Item>
   )
 }
