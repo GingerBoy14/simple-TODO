@@ -24,8 +24,6 @@ const TodoList = () => {
     return () => unsubscribe()
   }, [])
   const filter = (tasks) => {
-    console.log(store)
-    console.log(tasks)
     if (!store) {
       console.log('null')
       return tasks
