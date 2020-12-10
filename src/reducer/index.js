@@ -8,9 +8,16 @@ const rootReducer = (state, action) => {
   switch (action.type) {
     case 'RELOAD':
       let array = action.payload
-      array.sort(orderByField('dateLastEdit'))
-      console.log('array', array)
-      return { ...state, tasks: array }
+      unpinned = _.remove(array, ({ status }) => !status.pinned)
+      if (array.length !== 0) {
+        array.unshift(array.pop())
+        array.sort(orderByField('dateLastEdit'))
+      }
+
+      return {
+        ...state,
+        tasks: array.concat(unpinned.sort(orderByField('dateLastEdit')))
+      }
 
     case 'ADD_TODO':
       const id = v4()
@@ -25,6 +32,7 @@ const rootReducer = (state, action) => {
           dateLastEdit: Date(date),
           status: { done: false, important: false, pinned: false }
         })
+
       return {
         ...state,
         tasks: [
@@ -115,23 +123,23 @@ const rootReducer = (state, action) => {
             },
             dateLastEdit: todo.status.pinned ? todo.dateCreate : Date(date)
           })
-        //  console.log()
         return {
           ...todo,
           status: { ...todo.status, pinned: !todo.status.pinned },
           dateLastEdit: todo.status.pinned ? todo.dateCreate : Date(date)
         }
       })
-      unpinned = []
-      unpinned = _.remove(tasks, ({ status }) => !status.pinned)
-      console.log('unpinned', unpinned)
       if (tasks.length !== 0) {
-        const temp = tasks.pop()
-        tasks.unshift(temp)
+        tasks.unshift(tasks.pop())
+        tasks.sort(orderByField('dateLastEdit'))
       }
       return {
         ...state,
-        tasks: tasks.concat(unpinned).sort(orderByField('dateLastEdit'))
+        tasks: tasks.concat(
+          _.remove(tasks, ({ status }) => !status.pinned).sort(
+            orderByField('dateLastEdit')
+          )
+        )
       }
     case 'CHANGE_FILTER':
       return {

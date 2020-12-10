@@ -8,8 +8,7 @@ const Header = () => {
   const { store } = useStoreContext()
   const [counter, setCounter] = useState(0)
   useEffect(() => {
-    console.log('store.tasks', store)
-    // setCounter(store.tasks.filter(({ status }) => status.done).length)
+    setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
   return (
     <>
