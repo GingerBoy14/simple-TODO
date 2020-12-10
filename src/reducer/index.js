@@ -1,16 +1,33 @@
-import { v4 as uuidV4 } from 'uuid'
+import { v4 } from 'uuid'
 import _ from 'lodash'
+import firebase from 'config'
 
 const rootReducer = (state, action) => {
   switch (action.type) {
+    case 'GET_TASKS':
+      return {
+        ...state,
+        tasks: action.payload
+      }
     case 'ADD_TODO':
+      const id = v4()
+      firebase
+        .firestore()
+        .collection('tasks')
+        .doc(id)
+        .set({
+          text: action.payload,
+          id,
+          status: { done: false, important: false, pinned: false },
+          creationDate: new Date()
+        })
       return {
         ...state,
         tasks: [
           ...state.tasks,
           {
             text: action.payload,
-            id: uuidV4(),
+            id,
             status: { done: false, important: false, pinned: false }
           }
         ]
@@ -19,6 +36,7 @@ const rootReducer = (state, action) => {
       const newTasks = _.remove(state.tasks, (item) => {
         return item.id === action.payload
       })
+      firebase.firestore().collection('tasks').doc(action.payload).delete()
       return {
         ...state,
         tasks: state.tasks.filter((it) => it.id !== newTasks[0])
@@ -29,7 +47,16 @@ const rootReducer = (state, action) => {
         ...state,
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
-
+          firebase
+            .firestore()
+            .collection('tasks')
+            .doc(action.payload)
+            .update({
+              status: {
+                ...todo.status,
+                done: !todo.status.done
+              }
+            })
           return {
             ...todo,
             status: {
@@ -39,12 +66,21 @@ const rootReducer = (state, action) => {
           }
         })
       }
-    case 'SET_IMPORTANT':
+    case 'IMPORTANT_TODO':
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
-
+          firebase
+            .firestore()
+            .collection('tasks')
+            .doc(action.payload)
+            .update({
+              status: {
+                ...todo.status,
+                important: !todo.status.important
+              }
+            })
           return {
             ...todo,
             status: {
@@ -54,9 +90,22 @@ const rootReducer = (state, action) => {
           }
         })
       }
-    case 'SET_PIN_TO_TOP':
+    case 'PINNED_TODO':
       const tasks = state.tasks.map((todo) => {
         if (todo.id !== action.payload) return todo
+        if (!todo.status.pinned) todo.pinnedTime = new Date()
+        else todo.pinnedTime = null
+        firebase
+          .firestore()
+          .collection('tasks')
+          .doc(action.payload)
+          .update({
+            status: {
+              ...todo.status,
+              pinned: !todo.status.pinned
+            },
+            pinnedTime: todo.pinnedTime
+          })
         return {
           ...todo,
           status: { ...todo.status, pinned: !todo.status.pinned }

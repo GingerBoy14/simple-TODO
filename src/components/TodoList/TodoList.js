@@ -2,23 +2,24 @@ import { List } from 'antd'
 import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
 import { useEffect, useState } from 'react'
-import firebase from '../../config'
+import firebase from 'config'
 
 const db = firebase.firestore()
 const ref = db.collection('tasks')
 
 const TodoList = () => {
-  const { store } = useStoreContext()
+  const { store, dispatch } = useStoreContext()
   const [firebaseTasks, setFirebaseTasks] = useState([])
   // const [filteredTasks, setFilteredTasks] = useState()
   // useEffect(() => filter(store.tasks), [store])
   useEffect(() => {
     const unsubscribe = ref.orderBy('creationDate').onSnapshot((snapshot) => {
-      setFirebaseTasks(
-        snapshot.docs.map((doc) => ({
+      dispatch({
+        type: 'GET_TASKS',
+        payload: snapshot.docs.map((doc) => ({
           ...doc.data()
         }))
-      )
+      })
     })
     return () => unsubscribe()
   }, [])
