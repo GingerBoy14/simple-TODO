@@ -1,6 +1,6 @@
 import { List, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
-import DropDown from '../DropDown'
+import { DropDown } from '../DropDown'
 
 const { Item } = List
 const { Text } = Typography
@@ -27,7 +27,7 @@ const TodoListItem = (props) => {
         }}>
         {text}
       </Text>
-      <Dropdown {...props} />
+      <DropDown {...props} />
     </Item>
   )
 }
