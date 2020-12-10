@@ -1,6 +1,6 @@
 import { List, Typography, Checkbox } from 'antd'
 import { useStoreContext } from '../../context'
-import Dropdown from '../DropDown'
+import DropDown from '../DropDown'
 
 const { Item } = List
 const { Text } = Typography
