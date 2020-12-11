@@ -8,7 +8,7 @@ const { Text } = Typography
 const TodoListItem = (props) => {
   const { id, text, status } = props
   const { dispatch } = useStoreContext()
-
+  console.log(props)
   return (
     <Item>
       <Checkbox

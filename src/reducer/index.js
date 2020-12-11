@@ -5,6 +5,7 @@ import firebase from 'config'
 const rootReducer = (state, action) => {
   switch (action.type) {
     case 'GET_TASKS':
+      console.log(action.payload)
       return {
         ...state,
         tasks: action.payload
