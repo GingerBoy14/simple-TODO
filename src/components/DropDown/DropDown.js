@@ -15,16 +15,12 @@ const DropDown = (props) => {
   const DropDownItem = (
     <Menu>
       <Menu.Item
-        onClick={() =>
-          dispatch({ type: 'PINNED_TODO', payload: { id, status } })
-        }
+        onClick={() => dispatch({ type: 'PINNED_TODO', payload: id })}
         icon={status.pinned ? <DingtalkOutlined /> : <PushpinOutlined />}>
         {status.pinned ? 'Unpin' : 'Pinned'}
       </Menu.Item>
       <Menu.Item
-        onClick={() =>
-          dispatch({ type: 'IMPORTANT_TODO', payload: { id, status } })
-        }
+        onClick={() => dispatch({ type: 'IMPORTANT_TODO', payload: id })}
         icon={<ExclamationOutlined />}>
         {status.important ? 'Casual' : 'Important'}
       </Menu.Item>
@@ -40,9 +36,9 @@ const DropDown = (props) => {
   )
 
   return (
-    <DropDown overlay={DropDownItem} placement="bottomRight" trigger="click">
+    <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
       <DownOutlined />
-    </DropDown>
+    </Dropdown>
   )
 }
 export default DropDown

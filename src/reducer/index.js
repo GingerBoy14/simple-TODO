@@ -98,7 +98,7 @@ const rootReducer = (state, action) => {
         firebase
           .firestore()
           .collection('tasks')
-          .doc(action.payload.status)
+          .doc(action.payload)
           .update({
             status: {
               ...todo.status,
