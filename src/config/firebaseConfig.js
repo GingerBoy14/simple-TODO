@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
+
 //
 // import { useAuthState } from 'react-firebase-hooks/auth'
 // import { useCollectionData } from 'react-firebase-hooks/firestore'
@@ -14,4 +15,7 @@ const firebaseConfig = {
   messagingSenderId: '781857568620',
   appId: '1:781857568620:web:2b287c8936dbe8ee5b2549'
 }
-export default firebase.initializeApp(firebaseConfig)
+const app = firebase.initializeApp(firebaseConfig)
+
+export const auth = app.auth()
+export default app
