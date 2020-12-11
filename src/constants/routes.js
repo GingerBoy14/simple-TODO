@@ -9,7 +9,7 @@
 // 		path: '/signUp'
 // 	},RESET_PASSWORD:{
 // 		exact: true,
-// 		component: ResetPWForm,
+// 		component: ResetPasswordModal,
 // 		path: '/reset-password'
 // 	},TodoApp:{
 // 		exact: true,

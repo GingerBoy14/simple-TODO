@@ -1,5 +1,5 @@
 import { LoginFrom } from './LoginForm'
 import { SignUpForm } from './SignUpForm'
-import { ResetPWForm } from './ResetPWForm'
+import { ResetPasswordModal } from './ResetPasswordModal'
 
-export { LoginFrom, SignUpForm, ResetPWForm }
+export { LoginFrom, SignUpForm, ResetPasswordModal }

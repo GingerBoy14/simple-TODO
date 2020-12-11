@@ -7,6 +7,7 @@ class Firebase {
   constructor() {
     firebase.initializeApp(firebaseConfig)
     this.firestore = firebase.firestore()
+    this.auth = firebase.auth()
   }
 
   async set(path, docId, data) {
@@ -29,6 +30,10 @@ class Firebase {
   }
   async setListener(ref, onUpdate) {
     return ref.onSnapshot(onUpdate)
+  }
+
+  sendPasswordResetEmail(email) {
+    return this.auth.sendPasswordResetEmail(email)
   }
 }
 export default new Firebase()

@@ -3,7 +3,8 @@
     "baseUrl": "src/",
     "paths": {
       "constants/*": [ "./constants/*" ],
-      "context": [ "./context/*" ]
+      "context": [ "./context/*" ],
+      "service": [ "./service/*" ]
     }
   },
   "include": ["src"],
