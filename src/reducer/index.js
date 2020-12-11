@@ -1,7 +1,8 @@
 import { v4 } from 'uuid'
 import _ from 'lodash'
-import firebase from '../config'
+import { db } from '../config'
 import { orderByField } from '../helpers'
+
 const rootReducer = (state, action) => {
   let unpinned
   let date = new Date()
@@ -21,15 +22,12 @@ const rootReducer = (state, action) => {
 
     case 'ADD_TODO':
       const id = v4()
-      firebase
-        .firestore()
-        .collection('tasks')
+      db.collection('tasks')
         .doc(id)
         .set({
           text: action.payload,
           id: id,
           dateCreate: Date(date),
-          dateLastEdit: Date(date),
           status: { done: false, important: false, pinned: false }
         })
 
@@ -41,13 +39,12 @@ const rootReducer = (state, action) => {
             text: action.payload,
             id: id,
             dateCreate: Date(date),
-            dateLastEdit: Date(date),
             status: { done: false, important: false, pinned: false }
           }
         ]
       }
     case 'DELETE_TODO':
-      firebase.firestore().collection('tasks').doc(action.payload).delete()
+      db.collection('tasks').doc(action.payload).delete()
 
       const newTasks = _.remove(state.tasks, (item) => {
         return item.id === action.payload
@@ -63,9 +60,7 @@ const rootReducer = (state, action) => {
         ...state,
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
-          firebase
-            .firestore()
-            .collection('tasks')
+          db.collection('tasks')
             .doc(action.payload)
             .set({
               ...todo,
@@ -88,9 +83,7 @@ const rootReducer = (state, action) => {
         ...state,
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
-          firebase
-            .firestore()
-            .collection('tasks')
+          db.collection('tasks')
             .doc(action.payload)
             .set({
               ...todo,
@@ -111,9 +104,7 @@ const rootReducer = (state, action) => {
     case 'PINNED_TODO':
       const tasks = state.tasks.map((todo) => {
         if (todo.id !== action.payload) return todo
-        firebase
-          .firestore()
-          .collection('tasks')
+        db.collection('tasks')
           .doc(action.payload)
           .update({
             ...todo,

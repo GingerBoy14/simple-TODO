@@ -1,29 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { List } from 'antd'
-import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
 import { Row, Col } from 'antd'
+import { filter } from '../../utilities'
 import './style.css'
 
-const TodoList = () => {
-  const { store } = useStoreContext()
+const TodoList = ({ store, dispatch }) => {
   const [filteredTasks, setFilteredTasks] = useState(store.tasks)
-  let temp
-  const filter = (tasks) => {
-    temp = tasks
-    if (store.filter === 'active') {
-      temp = tasks.filter(({ status }) => !status.done)
-    } else if (store.filter === 'done') {
-      temp = tasks.filter(({ status }) => status.done)
-    }
-    if (store.query.length > 0) {
-      temp = temp.filter((item) => {
-        return item.text.toLowerCase().indexOf(store.query.toLowerCase()) > -1
-      })
-    }
-    setFilteredTasks(temp)
-  }
-  useEffect(() => filter(store.tasks), [store])
+
+  useEffect(() => {
+    filter(store, setFilteredTasks)
+  }, [store])
 
   return (
     <div style={{ maxHeight: '400px', overflow: 'auto' }} className="style-1">
@@ -35,7 +22,7 @@ const TodoList = () => {
             style={{ maxWidth: '100%', alignItems: 'center' }}
             dataSource={filteredTasks}
             renderItem={(item) => {
-              return <TodoListItem item={item} />
+              return <TodoListItem item={item} dispatch={dispatch} />
             }}
           />
         </Col>

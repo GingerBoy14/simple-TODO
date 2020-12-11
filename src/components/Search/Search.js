@@ -1,9 +1,7 @@
 import React from 'react'
-import { useStoreContext } from 'context'
 import { Input } from 'antd'
 
-const Search = (props) => {
-  const { dispatch } = useStoreContext()
+const Search = ({ dispatch }) => {
   return (
     <Input
       bordered={false}
@@ -12,7 +10,6 @@ const Search = (props) => {
       style={{ flex: 1 }}
       onChange={(e) => {
         dispatch({ type: 'SEARCH', payload: e.target.value })
-        console.log(e.target.value)
       }}
     />
   )

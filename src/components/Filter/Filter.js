@@ -1,27 +1,21 @@
 import { useState } from 'react'
-import { useStoreContext } from 'context'
 import { Button } from 'antd'
+import { filterButton } from '../../utilities'
 
-const buttons = [
-  { text: 'All', active: 'primary' },
-  { text: 'Active', active: 'primary' },
-  { text: 'Done', active: 'primary' }
-]
-
-const Filter = () => {
-  const [activeButton, setActiveButton] = useState(buttons[0].text)
-  const { dispatch } = useStoreContext()
+const Filter = ({ dispatch }) => {
+  const [activeButton, setActiveButton] = useState(filterButton[0].text)
+  const changeFilter = (text) => {
+    setActiveButton(text)
+    dispatch({ type: 'CHANGE_FILTER', payload: text.toLowerCase() })
+  }
   return (
     <>
-      {buttons.map(({ text, active }) => (
+      {filterButton.map(({ text, active }) => (
         <Button
           key={text}
           type={activeButton === text ? active : false}
           size="large"
-          onClick={() => {
-            setActiveButton(text)
-            dispatch({ type: 'CHANGE_FILTER', payload: text.toLowerCase() })
-          }}>
+          onClick={() => changeFilter(text)}>
           {text}
         </Button>
       ))}

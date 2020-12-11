@@ -1,41 +1,13 @@
-import { Menu, Dropdown } from 'antd'
-import {
-  DownOutlined,
-  DeleteOutlined,
-  ExclamationOutlined,
-  PushpinOutlined
-} from '@ant-design/icons'
-import { useStoreContext } from 'context'
+import { Dropdown } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
+import { DropDownItem } from '../DropDownItem'
 
-const DropDown = (props) => {
-  const { id, status } = props
-  const { dispatch } = useStoreContext()
-
-  const DropDownItem = (
-    <Menu>
-      <Menu.Item
-        onClick={() => dispatch({ type: 'PINNED_TODO', payload: id })}
-        icon={<PushpinOutlined />}>
-        {status.pinned ? `Unpinned` : `Pinned`}
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          dispatch({ type: 'IMPORTANT_TODO', payload: id })
-        }}
-        icon={<ExclamationOutlined />}>
-        Important
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => dispatch({ type: 'DELETE_TODO', payload: id })}
-        danger={true}
-        icon={<DeleteOutlined />}>
-        Delete
-      </Menu.Item>
-    </Menu>
-  )
-
+const DropDown = ({ id, status, dispatch }) => {
   return (
-    <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
+    <Dropdown
+      overlay={DropDownItem({ id, status, dispatch })}
+      placement="bottomRight"
+      trigger="click">
       <DownOutlined />
     </Dropdown>
   )

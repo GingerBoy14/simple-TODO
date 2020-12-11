@@ -3,15 +3,18 @@ import { Row, Col, Card, Spin } from 'antd'
 import { useState } from 'react'
 import { FetchData } from './hook'
 import { AddTodo, Header, Search, TodoList } from './components'
+import { useStoreContext } from 'context'
+
 const App = () => {
   const [loading, setLoading] = useState(true)
+  const { store, dispatch } = useStoreContext()
   FetchData({ loading, setLoading })
   return (
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={8} xxl={7}>
         <Row gutter={[0, 8]}>
           <Col span={24}>
-            <Header />
+            <Header store={store} dispatch={dispatch} />
           </Col>
         </Row>
         <Row gutter={[0, 8]}>
@@ -19,7 +22,7 @@ const App = () => {
             <Card bodyStyle={{ padding: '8px' }}>
               <Row gutter={[0, 8]}>
                 <Col flex="auto">
-                  <Search />
+                  <Search dispatch={dispatch} />
                 </Col>
               </Row>
               <Row>
@@ -30,7 +33,7 @@ const App = () => {
                       style={{ margin: '0 auto', display: 'block' }}
                     />
                   ) : (
-                    <TodoList />
+                    <TodoList store={store} dispatch={dispatch} />
                   )}
                 </Col>
               </Row>
@@ -39,7 +42,7 @@ const App = () => {
         </Row>
         <Row>
           <Col flex={1}>
-            <AddTodo />
+            <AddTodo dispatch={dispatch} />
           </Col>
         </Row>
       </Col>

@@ -1,11 +1,9 @@
 import { Col, Row, List, Typography, Checkbox } from 'antd'
-import { useStoreContext } from 'context'
 import { DropDown } from '../DropDown'
 
 const { Item } = List
 const { Text } = Typography
-const TodoListItem = ({ item }) => {
-  const { dispatch } = useStoreContext()
+const TodoListItem = ({ item, dispatch }) => {
   return (
     <Item
       style={{
@@ -23,7 +21,7 @@ const TodoListItem = ({ item }) => {
           <Text strong={item.status.important}>{item.text}</Text>
         </Col>
       </Row>
-      <DropDown status={item.status} id={item.id} />
+      <DropDown status={item.status} id={item.id} dispatch={dispatch} />
     </Item>
   )
 }
