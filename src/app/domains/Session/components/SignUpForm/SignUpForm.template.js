@@ -1,10 +1,12 @@
 import { Button, Form, Input, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-
+import { useHistory } from 'react-router-dom'
 const SignUpForm = (props) => {
+  let history = useHistory()
   const onFinish = (values) => {
     const { email, password } = values
     // firebase.auth().createUserWithEmailAndPassword(email, password)
+    history.push('/')
     console.log('Received values of form: ', values)
   }
   const onFinishFailed = (errorInfo) => {
