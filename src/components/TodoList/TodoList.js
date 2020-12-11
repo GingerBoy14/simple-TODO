@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import { List } from 'antd'
+import { useState, useEffect } from 'react'
+import { Row, Col, List } from 'antd'
 import { TodoListItem } from '../TodoListItem'
-import { Row, Col } from 'antd'
 import { filter } from '../../utilities'
 import './style.css'
 

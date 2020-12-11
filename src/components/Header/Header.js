@@ -5,9 +5,11 @@ const { Title } = Typography
 
 const Header = ({ store, dispatch }) => {
   const [counter, setCounter] = useState(0)
+
   useEffect(() => {
     setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
+
   return (
     <>
       <Row>

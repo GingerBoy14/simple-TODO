@@ -4,6 +4,7 @@ import { filterButton } from '../../utilities'
 
 const Filter = ({ dispatch }) => {
   const [activeButton, setActiveButton] = useState(filterButton[0].text)
+
   const changeFilter = (text) => {
     setActiveButton(text)
     dispatch({ type: 'CHANGE_FILTER', payload: text.toLowerCase() })

@@ -2,13 +2,10 @@ import 'antd/dist/antd.css'
 import { Row, Col, Card, Spin } from 'antd'
 import { useState } from 'react'
 import { FetchData } from './hook'
-import { AddTodo, Header, Search, TodoList } from './components'
+import { AddTodo, Header, Search, TodoList, Form } from './components'
 import { useStoreContext } from 'context'
 
-const App = () => {
-  const [loading, setLoading] = useState(true)
-  const { store, dispatch } = useStoreContext()
-  FetchData({ loading, setLoading })
+const ToDo = ({ store, dispatch, loading }) => {
   return (
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={8} xxl={7}>
@@ -48,6 +45,13 @@ const App = () => {
       </Col>
     </Row>
   )
+}
+const App = () => {
+  const [loading, setLoading] = useState(true)
+  const { store, dispatch } = useStoreContext()
+  FetchData({ loading, setLoading })
+  return <Form />
+  //return <ToDo store={store} dispatch={dispatch} loading={loading} />
 }
 
 export default App

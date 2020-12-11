@@ -4,6 +4,9 @@ import { DropDown } from '../DropDown'
 const { Item } = List
 const { Text } = Typography
 const TodoListItem = ({ item, dispatch }) => {
+  const onChangeSetDone = (id) => {
+    dispatch({ type: 'SET_DONE', payload: item.id })
+  }
   return (
     <Item
       style={{
@@ -13,9 +16,7 @@ const TodoListItem = ({ item, dispatch }) => {
         <Col>
           <Checkbox
             checked={item.status.done}
-            onChange={() =>
-              dispatch({ type: 'SET_DONE', payload: item.id })
-            }></Checkbox>
+            onChange={() => onChangeSetDone(item.id)}></Checkbox>
         </Col>
         <Col>
           <Text strong={item.status.important}>{item.text}</Text>
