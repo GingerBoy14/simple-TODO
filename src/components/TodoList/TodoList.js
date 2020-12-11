@@ -47,6 +47,10 @@ const TodoList = () => {
     // firebaseTasks(temp)
     return temp
   }
+  useEffect(() => {
+    setFirebaseTasks(store.tasks)
+  }, [store.tasks])
+
   return (
     <List
       bordered
