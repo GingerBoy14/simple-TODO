@@ -10,8 +10,6 @@ const ref = db.collection('tasks')
 const TodoList = () => {
   const { store, dispatch } = useStoreContext()
   const [firebaseTasks, setFirebaseTasks] = useState([])
-  // const [filteredTasks, setFilteredTasks] = useState()
-  // useEffect(() => filter(store.tasks), [store])
 
   useEffect(() => {
     const unsubscribe = ref.orderBy('creationDate').onSnapshot((snapshot) => {
@@ -27,7 +25,6 @@ const TodoList = () => {
 
   const filter = (tasks) => {
     if (!store) {
-      console.log('null')
       return tasks
     }
     let temp
@@ -36,7 +33,6 @@ const TodoList = () => {
     }
     if (store.filter === 'active') {
       temp = tasks.filter(({ status }) => !status.done)
-      console.log('status.active')
     }
     if (store.filter === 'done') {
       temp = tasks.filter(({ status }) => status.done)

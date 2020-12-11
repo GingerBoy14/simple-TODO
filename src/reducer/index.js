@@ -5,7 +5,6 @@ import firebase from 'config'
 const rootReducer = (state, action) => {
   switch (action.type) {
     case 'GET_TASKS':
-      console.log(action.payload)
       return {
         ...state,
         tasks: action.payload
@@ -99,7 +98,7 @@ const rootReducer = (state, action) => {
         firebase
           .firestore()
           .collection('tasks')
-          .doc(action.payload)
+          .doc(action.payload.status)
           .update({
             status: {
               ...todo.status,
