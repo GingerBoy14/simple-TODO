@@ -1,52 +1,20 @@
 import { useState, useEffect, useCallback } from 'react'
-import firebase from '../config'
+import firebase from '../service'
 import { useStoreContext } from '../context/TodoListContext'
 
-const useFetchData = (collectionName, sort) => {
+//bug when dispath(ADD_TODO)
+const useFirestoreListener = (collectionName, action, sort) => {
+  const { store, dispatch } = useStoreContext()
+  const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState()
   const fetchData = useCallback(async () => {
     let query
     if (sort) {
-      query = await firebase
-        .firestore()
-        .collection(collectionName)
-        [sort.func](sort.fieldPath)
+      query = await firebase.getSortedCollection(collectionName, sort)
     } else {
-      query = await firebase.firestore().collection(collectionName)
+      query = await firebase.getCollection(collectionName)
     }
-    const dataSnapshot = await query.get()
-    const temp = dataSnapshot.docs.map((snapshot) => ({
-      ...snapshot.data(),
-      id: snapshot.id
-    }))
-    setData(temp)
-    console.log(temp)
-    setLoading(false)
-  }, [setData, setLoading])
-
-  useEffect(() => {
-    setLoading(true)
-    fetchData()
-  }, [])
-  return { loading, data }
-}
-
-export const useFirestoreListener = (collectionName, action, sort) => {
-  const { dispatch } = useStoreContext()
-  const [tasks, setTasks] = useState()
-  const [loading, setLoading] = useState(true)
-  const fetchData = async () => {
-    let query
-    if (sort) {
-      query = await firebase
-        .firestore()
-        .collection(collectionName)
-        [sort.func](sort.fieldPath)
-    } else {
-      query = await firebase.firestore().collection(collectionName)
-    }
-    const listener = await query.onSnapshot((snapshot) => {
+    const listener = await firebase.setListener(query, (snapshot) => {
       const dataSnapshot = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id
@@ -56,7 +24,7 @@ export const useFirestoreListener = (collectionName, action, sort) => {
     })
 
     return listener
-  }
+  }, [setLoading, setTasks])
   useEffect(() => {
     setLoading(true)
     fetchData()
@@ -67,4 +35,4 @@ export const useFirestoreListener = (collectionName, action, sort) => {
   return { loading }
 }
 
-export default useFetchData
+export default useFirestoreListener

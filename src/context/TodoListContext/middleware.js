@@ -1,4 +1,4 @@
-import firebase from '../../config'
+import firebase from '../../service'
 
 const middleware = (dispatch) => (action) => {
   if (action instanceof Function) {

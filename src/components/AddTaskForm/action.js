@@ -16,9 +16,9 @@ export const addTask = (payload) => async (dispatch, firebase) => {
   }
   dispatch(dataRequested())
   try {
-    const snapshot = await firebase.firestore().collection('tasks').add(task)
+    const snapshot = await firebase.add('tasks', task)
     task.id = snapshot.id
-    dispatch(dataLoaded(task))
+    // dispatch({ type: 'ADD_TODO', payload: task })
   } catch (e) {
     dispatch(dataError(e))
   }

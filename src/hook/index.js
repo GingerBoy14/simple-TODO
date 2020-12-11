@@ -1,4 +1,3 @@
-import useFetchData from './fetchData'
-import { useFirestoreListener } from './fetchData'
+import useFirestoreListener from './fetchData'
 
-export { useFetchData, useFirestoreListener }
+export default useFirestoreListener

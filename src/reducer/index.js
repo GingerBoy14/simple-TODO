@@ -1,10 +1,6 @@
 import _ from 'lodash'
-import firebase from '../config'
+import firebase from '../service'
 import types from 'constants/types'
-
-const deleteTaskInFirestore = async (collectionName, docId) => {
-  await firebase.firestore().collection(collectionName).doc(docId).delete()
-}
 
 const statusToggle = (state, statusName, id) => {
   return {
@@ -17,7 +13,7 @@ const statusToggle = (state, statusName, id) => {
           [statusName]: !todo.status[statusName]
         }
       }
-      firebase.firestore().collection('tasks').doc(todo.id).update(data)
+      firebase.update('tasks', todo.id, data)
       return { ...todo, ...data }
     })
   }
@@ -38,7 +34,7 @@ const rootReducer = (state, action) => {
         tasks: [...state.tasks, action.payload]
       }
     case types.DELETE_TODO: {
-      deleteTaskInFirestore('tasks', action.payload)
+      firebase.delete('tasks', action.payload)
       const newTasks = _.remove(state.tasks, (item) => {
         return item.id === action.payload
       })
@@ -65,7 +61,7 @@ const rootReducer = (state, action) => {
         }
         const firebaseData = { ...data }
         delete firebaseData.id
-        firebase.firestore().collection('tasks').doc(todo.id).set(firebaseData)
+        firebase.set('tasks', todo.id, data)
         return data
       })
 

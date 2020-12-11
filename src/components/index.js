@@ -5,7 +5,7 @@ import { TodoList } from './TodoList'
 import { TaskCounter } from './TaskCounter'
 import { Filter } from './Filter'
 import { Search } from './Search'
-import { useFirestoreListener } from '../hook'
+import useFirestoreListener from '../hook'
 import types from 'constants/types'
 
 const App = () => {
