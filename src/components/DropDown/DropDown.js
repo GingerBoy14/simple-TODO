@@ -11,7 +11,6 @@ import { useStoreContext } from 'context'
 const DropDown = (props) => {
   const { id, status } = props
   const { dispatch } = useStoreContext()
-
   const DropDownItem = (
     <Menu>
       <Menu.Item
@@ -40,9 +39,9 @@ const DropDown = (props) => {
   )
 
   return (
-    <DropDown overlay={DropDownItem} placement="bottomRight" trigger="click">
+    <Dropdown overlay={DropDownItem} placement="bottomRight" trigger="click">
       <DownOutlined />
-    </DropDown>
+    </Dropdown>
   )
 }
 export default DropDown
