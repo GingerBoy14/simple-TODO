@@ -1,8 +1,6 @@
 import { Row, Col, Grid, Space } from 'antd'
 import { AddTodo } from './AddTodo'
 import { Header } from './Header'
-import { Filter } from './Filter'
-import { Search } from './Search'
 import 'antd/dist/antd.css'
 import { TodoList } from './TodoList'
 

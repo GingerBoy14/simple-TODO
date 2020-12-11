@@ -10,7 +10,6 @@ const ref = db.collection('tasks')
 const TodoList = () => {
   const { store, dispatch } = useStoreContext()
   const [firebaseTasks, setFirebaseTasks] = useState([])
-  const [loading, setLoading] = useState(true)
   // const [filteredTasks, setFilteredTasks] = useState()
   // useEffect(() => filter(store.tasks), [store])
 
@@ -22,7 +21,6 @@ const TodoList = () => {
           ...doc.data()
         }))
       })
-      setLoading(false)
     })
     return () => unsubscribe()
   }, [])

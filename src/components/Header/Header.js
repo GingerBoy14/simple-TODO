@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Typography } from 'antd'
 import { useStoreContext } from 'context'
 import { Filter } from '../Filter'
+import { Search } from '../Search'
 
 const { Title } = Typography
 
