@@ -1,7 +1,7 @@
 import { List, Typography, Checkbox, Tag } from 'antd'
 import { useStoreContext } from '../../context'
 import { DropDown } from '../DropDown'
-import { PaperClipOutlined, ExclamationOutlined } from '@ant-design/icons'
+import { ExclamationOutlined, PushpinOutlined } from '@ant-design/icons'
 
 const { Item } = List
 const { Text } = Typography
@@ -27,10 +27,10 @@ const TodoListItem = (props) => {
         }}>
         {text}
       </Text>
-      <Tag color={status.pinned ? '#1890ff' : ''}>
-        <PaperClipOutlined />
+      <Tag color={status.pinned ? '#1890ff' : 'transparent'}>
+        <PushpinOutlined />
       </Tag>
-      <Tag color={status.important ? '#f50' : ''}>
+      <Tag color={status.important ? '#f50' : 'transparent'}>
         <ExclamationOutlined />
       </Tag>
 
