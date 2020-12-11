@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { List } from 'antd'
-import { useStoreContext } from 'context'
+import { useStoreContext } from 'context/TodoListContext'
 import { TodoListItem } from '../TodoListItem'
 import SimpleBar from 'simplebar-react'
 import { Global, css } from '@emotion/react'
@@ -48,14 +48,18 @@ const TodoList = () => {
   }
   useEffect(() => filter(store.tasks), [store])
   return (
-    <SimpleBar style={{ maxHeight: '70vh' }} autoHide={false}>
-      <Global styles={scrollStyle} />
-      <List
-        size="large"
-        dataSource={filteredTasks}
-        renderItem={(item) => <TodoListItem {...item} />}
-      />
-    </SimpleBar>
+    <>
+      {filteredTasks && (
+        <SimpleBar style={{ maxHeight: '70vh' }} autoHide={false}>
+          <Global styles={scrollStyle} />
+          <List
+            size="large"
+            dataSource={filteredTasks}
+            renderItem={(item) => <TodoListItem {...item} />}
+          />
+        </SimpleBar>
+      )}
+    </>
   )
 }
 

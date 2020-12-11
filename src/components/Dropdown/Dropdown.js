@@ -8,7 +8,7 @@ import {
   PushpinOutlined,
   PushpinFilled
 } from '@ant-design/icons'
-import { useStoreContext } from 'context'
+import { useStoreContext } from 'context/TodoListContext'
 
 const Dropdown = (props) => {
   const { todoId, status } = props

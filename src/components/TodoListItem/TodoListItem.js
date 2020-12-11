@@ -1,7 +1,7 @@
 import { Checkbox, List, Tag, Typography } from 'antd'
 import { FireFilled, PushpinFilled } from '@ant-design/icons'
 import { Dropdown } from '../Dropdown'
-import { useStoreContext } from 'context'
+import { useStoreContext } from 'context/TodoListContext'
 
 const { Text } = Typography
 

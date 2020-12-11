@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Typography } from 'antd'
-import { useStoreContext } from 'context'
+import { useStoreContext } from 'context/TodoListContext'
 
 const { Text, Title } = Typography
 
@@ -8,17 +8,17 @@ const TaskCounter = () => {
   const { store } = useStoreContext()
   const [tasksCount, setTasksCount] = useState(0)
   useEffect(() => {
-    setTasksCount({
-      done: store.tasks
-        ? store.tasks.filter(({ status }) => status.done).length
-        : 0,
-      all: store.tasks ? store.tasks.length : 0
-    })
+    const done = store.tasks
+      ? store.tasks.filter(({ status }) => status.done).length
+      : 0
+    const all = store.tasks ? store.tasks.length : 0
+
+    setTasksCount({ done, all })
   }, [store])
   return (
     <Title level={4}>
-      <Text strong>{tasksCount.done}</Text> /{' '}
-      <Text type="secondary">{tasksCount.all}</Text> - done
+      <Text strong>{tasksCount.done}</Text> /
+      <Text type="secondary"> {tasksCount.all}</Text> - done
     </Title>
   )
 }

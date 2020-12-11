@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import firebase from '../config'
+import types from 'constants/types'
 
 const deleteTaskInFirestore = async (collectionName, docId) => {
   await firebase.firestore().collection(collectionName).doc(docId).delete()
@@ -24,14 +25,19 @@ const statusToggle = (state, statusName, id) => {
 
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_TASKS':
-      return { ...state, tasks: action.payload }
-    case 'ADD_TODO':
+    case types.SET_TASKS: {
+      const temp = action.payload
+      const unpinned = _.remove(temp, ({ status }) => !status.pinned)
+      // unpinned.sort((a, b) => a.timestamp - b.timestamp)
+      temp.sort((a, b) => b.pinnedTimeStamp - a.pinnedTimeStamp)
+      return { ...state, tasks: temp.concat(unpinned) }
+    }
+    case types.ADD_TODO:
       return {
         ...state,
         tasks: [...state.tasks, action.payload]
       }
-    case 'DELETE_TODO': {
+    case types.DELETE_TODO: {
       deleteTaskInFirestore('tasks', action.payload)
       const newTasks = _.remove(state.tasks, (item) => {
         return item.id === action.payload
@@ -41,11 +47,11 @@ const rootReducer = (state, action) => {
         tasks: state.tasks.filter((it) => it.id !== newTasks[0])
       }
     }
-    case 'SET_DONE':
+    case types.SET_DONE:
       return statusToggle(state, 'done', action.payload)
-    case 'SET_IMPORTANT':
+    case types.SET_IMPORTANT:
       return statusToggle(state, 'important', action.payload)
-    case 'SET_PIN_TO_TOP':
+    case types.SET_PIN_TO_TOP:
       const tasks = state.tasks.map((todo) => {
         if (todo.id !== action.payload) return todo
         const data = {
@@ -53,7 +59,7 @@ const rootReducer = (state, action) => {
           status: { ...todo.status, pinned: !todo.status.pinned }
         }
         if (data.status.pinned) {
-          data.pinnedTimeStamp = new Date()
+          data.pinnedTimeStamp = new Date(Date.now())
         } else {
           delete data.pinnedTimeStamp
         }
@@ -71,12 +77,12 @@ const rootReducer = (state, action) => {
       }
       return { ...state, tasks: tasks.concat(unpinned) }
 
-    case 'CHANGE_FILTER':
+    case types.CHANGE_FILTER:
       return {
         ...state,
         filter: action.payload
       }
-    case 'SEARCH':
+    case types.SEARCH:
       return {
         ...state,
         query: action.payload

@@ -1,5 +1,5 @@
 import { Input, Button, Form } from 'antd'
-import { useStoreContext } from 'context'
+import { useStoreContext } from 'context/TodoListContext'
 import { addTask } from './action'
 
 const AddTaskForm = () => {
@@ -17,9 +17,12 @@ const AddTaskForm = () => {
       name="addTodoForm"
       layout="inline"
       size="large"
-      onFinish={onFinish}
-      initialValues={{ todoName: '' }}>
-      <Form.Item name="todoName" style={{ flex: 1 }}>
+      onFinish={onFinish}>
+      <Form.Item
+        name="todoName"
+        style={{ flex: 1 }}
+        hasFeedback
+        validateStatus="validating">
         <Input placeholder="What need to be done?" autoComplete="off" />
       </Form.Item>
       <Form.Item noStyle>

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Row, Col, Spin } from 'antd'
 import { AddTaskForm } from './AddTaskForm'
 import { Header } from './Header'
@@ -6,14 +5,14 @@ import { TodoList } from './TodoList'
 import { TaskCounter } from './TaskCounter'
 import { Filter } from './Filter'
 import { Search } from './Search'
-import 'antd/dist/antd.css'
-import { useStoreContext } from '../context'
-import { useFetchData } from '../hook'
+import { useFirestoreListener } from '../hook'
+import types from 'constants/types'
 
 const App = () => {
-  const { dispatch } = useStoreContext()
-  const { loading, data } = useFetchData('tasks')
-  useEffect(() => dispatch({ type: 'GET_TASKS', payload: data }), [data])
+  const { loading } = useFirestoreListener('tasks', types.SET_TASKS, {
+    func: 'orderBy',
+    fieldPath: 'timestamp'
+  })
   return (
     <Row justify="center" style={{ height: '100%' }}>
       <Col xs={22} sm={22} md={14} lg={12} xl={9} xxl={8}>
