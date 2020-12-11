@@ -21,8 +21,9 @@ const AddTaskForm = () => {
       <Form.Item
         name="todoName"
         style={{ flex: 1 }}
-        hasFeedback
-        validateStatus="validating">
+        // hasFeedback
+        // validateStatus="validating"
+      >
         <Input placeholder="What need to be done?" autoComplete="off" />
       </Form.Item>
       <Form.Item noStyle>
