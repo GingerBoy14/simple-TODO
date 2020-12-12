@@ -14,7 +14,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form>
       <Row justify="center">
         <Col>
           <Title level={1}>Sign up</Title>

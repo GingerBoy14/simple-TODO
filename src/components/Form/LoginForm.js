@@ -15,9 +15,8 @@ const LoginForm = () => {
   const onReset = () => {
     form.resetFields()
   }
-  const logIn = () => {}
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form>
       <Row justify="center">
         <Col>
           <Title level={1}>Log in</Title>
@@ -45,13 +44,11 @@ const LoginForm = () => {
       <Row justify="space-around">
         <Col>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={logIn}
-              size="large">
-              Log in
-            </Button>
+            <Link to="/toDoApp">
+              <Button type="primary" htmlType="submit" size="large">
+                Log in
+              </Button>
+            </Link>
           </Form.Item>
         </Col>
         <Col>

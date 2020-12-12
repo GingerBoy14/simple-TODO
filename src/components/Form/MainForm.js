@@ -18,41 +18,33 @@ const navigationForm = () => (
         </Text>
       </Col>
     </Row>
-    <Row justify="space-around">
-      <Col>
-        <Form.Item>
-          <Link to="/login">
-            <Button type="primary" htmlType="submit" size="large">
-              Log in
-            </Button>
-          </Link>
-        </Form.Item>
-      </Col>
-      <Col>
-        <Form.Item>
-          <Link to="/signUp">
-            <Button htmlType="button" size="large">
-              Sign up
-            </Button>
-          </Link>
-        </Form.Item>
-      </Col>
-    </Row>
+    <Row justify="space-around"></Row>
   </>
 )
 const MainForm = () => {
   return (
-    <Card>
-      <Router>
-        <Row justify="center">
-          <Col span={20}>
-            <Route exact path="/" component={navigationForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/signUp" component={SignUpForm} />
-          </Col>
-        </Row>
-      </Router>
-    </Card>
+    <Form>
+      <Row justify="space-around">
+        <Col>
+          <Form.Item>
+            <Link to="/login">
+              <Button type="primary" htmlType="submit" size="large">
+                Log in
+              </Button>
+            </Link>
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item>
+            <Link to="/signUp">
+              <Button htmlType="button" size="large">
+                Sign up
+              </Button>
+            </Link>
+          </Form.Item>
+        </Col>
+      </Row>
+    </Form>
   )
 }
 
