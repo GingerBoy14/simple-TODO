@@ -28,6 +28,7 @@ const rootReducer = (state, action) => {
           text: action.payload,
           id: id,
           dateCreate: Date(date),
+          dateLastEdit: Date(date),
           status: { done: false, important: false, pinned: false }
         })
 
@@ -39,6 +40,7 @@ const rootReducer = (state, action) => {
             text: action.payload,
             id: id,
             dateCreate: Date(date),
+            dateLastEdit: Date(date),
             status: { done: false, important: false, pinned: false }
           }
         ]
