@@ -1,9 +1,11 @@
 import { Col, Row, List, Typography, Checkbox } from 'antd'
 import { DropDown } from '../DropDown'
+import { useStoreContext } from '../../context'
 
 const { Item } = List
 const { Text } = Typography
-const TodoListItem = ({ item, dispatch }) => {
+const TodoListItem = ({ item }) => {
+  const { dispatch } = useStoreContext()
   const onChangeSetDone = (id) => {
     dispatch({ type: 'SET_DONE', payload: item.id })
   }
@@ -16,7 +18,8 @@ const TodoListItem = ({ item, dispatch }) => {
         <Col>
           <Checkbox
             checked={item.status.done}
-            onChange={() => onChangeSetDone(item.id)}></Checkbox>
+            onChange={() => onChangeSetDone(item.id)}
+          />
         </Col>
         <Col>
           <Text strong={item.status.important}>{item.text}</Text>

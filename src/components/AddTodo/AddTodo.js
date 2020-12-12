@@ -1,7 +1,9 @@
 import 'antd/dist/antd.css'
 import { Input, Button, Form } from 'antd'
+import { useStoreContext } from '../../context'
 
-const AddTodo = ({ dispatch }) => {
+const AddTodo = () => {
+  const { dispatch } = useStoreContext()
   const [form] = Form.useForm()
   const onFinish = (values) => {
     if (values.addTodoName)

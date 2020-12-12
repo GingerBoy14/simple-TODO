@@ -1,20 +1,20 @@
 import { Col, Row, Spin } from 'antd'
 import { Search, Header, TodoList, AddTodo } from 'components'
 
-const ToDoApp = ({ store, dispatch, loading }) => {
+const ToDoApp = ({ loading }) => {
   return (
     <Row justify="center">
       <Col span={24}>
         <Row gutter={[0, 8]}>
           <Col span={24}>
-            <Header store={store} dispatch={dispatch} />
+            <Header />
           </Col>
         </Row>
         <Row gutter={[0, 8]}>
           <Col flex="auto">
             <Row gutter={[0, 8]}>
               <Col flex="auto">
-                <Search dispatch={dispatch} />
+                <Search />
               </Col>
             </Row>
             <Row>
@@ -25,7 +25,7 @@ const ToDoApp = ({ store, dispatch, loading }) => {
                     style={{ margin: '0 auto', display: 'block' }}
                   />
                 ) : (
-                  <TodoList store={store} dispatch={dispatch} />
+                  <TodoList />
                 )}
               </Col>
             </Row>
@@ -33,7 +33,7 @@ const ToDoApp = ({ store, dispatch, loading }) => {
         </Row>
         <Row>
           <Col flex={1}>
-            <AddTodo dispatch={dispatch} />
+            <AddTodo />
           </Col>
         </Row>
       </Col>

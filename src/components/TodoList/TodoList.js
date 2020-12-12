@@ -3,10 +3,11 @@ import { Row, Col, List } from 'antd'
 import { TodoListItem } from '../TodoListItem'
 import { filter } from '../../utilities'
 import './style.css'
+import { useStoreContext } from '../../context'
 
-const TodoList = ({ store, dispatch }) => {
-  const [filteredTasks, setFilteredTasks] = useState(store.tasks)
-
+const TodoList = () => {
+  const [filteredTasks, setFilteredTasks] = useState()
+  const { store } = useStoreContext()
   useEffect(() => {
     filter(store, setFilteredTasks)
   }, [store])
@@ -21,7 +22,7 @@ const TodoList = ({ store, dispatch }) => {
             style={{ maxWidth: '100%', alignItems: 'center' }}
             dataSource={filteredTasks}
             renderItem={(item) => {
-              return <TodoListItem item={item} dispatch={dispatch} />
+              return <TodoListItem item={item} />
             }}
           />
         </Col>

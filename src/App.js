@@ -1,15 +1,13 @@
 import 'antd/dist/antd.css'
 import { Row, Col, Card } from 'antd'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { FetchData } from './hook'
 import { MainForm, LoginForm, ToDoApp } from './components'
-import { useStoreContext } from 'context'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { SignUpForm } from 'components/Form'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
-  const { store, dispatch } = useStoreContext()
   FetchData({ loading, setLoading })
 
   return (
@@ -21,10 +19,9 @@ const App = () => {
               <Route exact path="/" component={MainForm} />
               <Route path="/login" component={LoginForm} />
               <Route path="/signUp" component={SignUpForm} />
-              <Route
-                path="/toDoApp"
-                component={() => ToDoApp({ store, dispatch, loading })}
-              />
+              <Route path="/toDoApp">
+                <ToDoApp loading={loading} />
+              </Route>
             </Switch>
           </Router>
         </Card>

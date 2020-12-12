@@ -1,7 +1,9 @@
 import React from 'react'
 import { Input } from 'antd'
+import { useStoreContext } from '../../context'
 
-const Search = ({ dispatch }) => {
+const Search = () => {
+  const { dispatch } = useStoreContext()
   const onChangeSearch = (e) => {
     dispatch({ type: 'SEARCH', payload: e.target.value })
   }
