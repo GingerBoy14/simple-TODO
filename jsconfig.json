@@ -3,11 +3,9 @@
     "baseUrl": "src/",
     "paths": {
       "service": [ "./service/*" ],
-      "hooks": [ "./hooks/*" ]
+      "hooks": [ "./hooks/*" ],
+      "app": ["./app/*"]
     }
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
