@@ -1,7 +1,8 @@
+import React from 'react'
 import { Checkbox, List, Tag, Typography } from 'antd'
 import { FireFilled, PushpinFilled } from '@ant-design/icons'
 import { Dropdown } from '../Dropdown'
-import { useStoreContext } from 'app/domains/TodoList/context'
+import { useStoreContext } from 'app/domains/TodoApp/context'
 
 const { Text } = Typography
 
@@ -39,4 +40,4 @@ const TodoListItem = (props) => {
   )
 }
 
-export default TodoListItem
+export default React.memo(TodoListItem)

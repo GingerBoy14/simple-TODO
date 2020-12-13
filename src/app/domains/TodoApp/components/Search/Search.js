@@ -1,5 +1,5 @@
-import React from 'react'
-import { useStoreContext } from 'app/domains/TodoList/context'
+import { memo } from 'react'
+import { useStoreContext } from 'app/domains/TodoApp/context'
 import { Input } from 'antd'
 
 const Search = () => {
@@ -16,4 +16,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default memo(Search)

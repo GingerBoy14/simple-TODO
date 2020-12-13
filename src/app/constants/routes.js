@@ -1,5 +1,5 @@
-import { Login, SignUp } from '../domains/Session/routes'
-import TodoList from '../domains/TodoList/routes'
+import { Login, SignUp } from 'app/domains/Session/routes'
+import TodoApp from 'app/domains/TodoApp/routes'
 const ROUTES = {
   LOGIN: {
     component: Login,
@@ -12,7 +12,7 @@ const ROUTES = {
   },
   TODO_LIST: {
     exact: true,
-    component: TodoList,
+    component: TodoApp,
     path: '/'
   }
 }

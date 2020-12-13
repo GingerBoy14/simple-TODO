@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useStoreContext } from 'app/domains/TodoList/context'
+import React, { useState } from 'react'
+import { useStoreContext } from 'app/domains/TodoApp/context'
 import { Button } from 'antd'
 
 const buttons = [
@@ -29,4 +29,4 @@ const Filter = () => {
   )
 }
 
-export default Filter
+export default React.memo(Filter)

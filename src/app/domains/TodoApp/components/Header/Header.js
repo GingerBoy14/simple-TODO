@@ -1,5 +1,4 @@
 import { Col, Row, Typography } from 'antd'
-
 const { Title } = Typography
 
 const Header = (props) => {

@@ -1,5 +1,6 @@
+import { memo } from 'react'
 import { Input, Button, Form } from 'antd'
-import { useStoreContext } from 'app/domains/TodoList/context'
+import { useStoreContext } from 'app/domains/TodoApp/context'
 import { addTask } from '../../actions'
 
 const AddTaskForm = () => {
@@ -35,4 +36,4 @@ const AddTaskForm = () => {
   )
 }
 
-export default AddTaskForm
+export default memo(AddTaskForm)

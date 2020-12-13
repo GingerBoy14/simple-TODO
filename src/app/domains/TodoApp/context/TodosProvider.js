@@ -4,7 +4,7 @@ import storeContext from './context'
 import rootReducer from '../reducer'
 import middleware from './middleware'
 
-const Provider = (props) => {
+const TodosProvider = (props) => {
   const { store = {}, ...rest } = props
   const [state, dispatch] = useReducer(rootReducer, store)
   useEffect(() => console.log('todoListStore', state), [state])
@@ -19,4 +19,4 @@ const Provider = (props) => {
   )
 }
 
-export default Provider
+export default TodosProvider

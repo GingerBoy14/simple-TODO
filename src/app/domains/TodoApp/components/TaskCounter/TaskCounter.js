@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Typography } from 'antd'
-import { useStoreContext } from 'app/domains/TodoList/context'
+import { useStoreContext } from 'app/domains/TodoApp/context'
 
 const { Text, Title } = Typography
 
@@ -23,4 +23,4 @@ const TaskCounter = () => {
   )
 }
 
-export default TaskCounter
+export default memo(TaskCounter)

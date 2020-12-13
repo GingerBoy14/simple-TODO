@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { List } from 'antd'
-import { useStoreContext } from 'app/domains/TodoList/context'
-import { TodoListItem } from '../TodoListItem'
+import { useStoreContext } from 'app/domains/TodoApp/context'
+import { TodoListItem } from '../ListItem'
 import SimpleBar from 'simplebar-react'
 import { Global, css } from '@emotion/react'
 import 'simplebar/dist/simplebar.min.css'
@@ -31,22 +31,26 @@ const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState(store.tasks)
 
   //TODO: refactor
-  const filter = (tasks) => {
-    let temp
-    temp = tasks
-    if (store.filter === 'todo') {
-      temp = tasks.filter(({ status }) => !status.done)
-    } else if (store.filter === 'done') {
-      temp = tasks.filter(({ status }) => status.done)
-    }
-    if (store.query.length > 0) {
-      temp = temp.filter((item) =>
-        item.text.toLowerCase().includes(store.query.toLowerCase())
-      )
-    }
-    setFilteredTasks(temp)
-  }
-  useEffect(() => filter(store.tasks), [store])
+  const filter = useCallback(
+    (tasks) => {
+      let temp
+      temp = tasks
+      if (store.filter === 'todo') {
+        temp = tasks.filter(({ status }) => !status.done)
+      } else if (store.filter === 'done') {
+        temp = tasks.filter(({ status }) => status.done)
+      }
+      if (store.query.length > 0) {
+        temp = temp.filter((item) =>
+          item.text.toLowerCase().includes(store.query.toLowerCase())
+        )
+      }
+      setFilteredTasks(temp)
+    },
+    [store, setFilteredTasks]
+  )
+
+  useEffect(() => filter(store.tasks), [store, filter])
   return (
     <>
       {filteredTasks && (
@@ -63,4 +67,4 @@ const TodoList = () => {
   )
 }
 
-export default TodoList
+export default memo(TodoList)

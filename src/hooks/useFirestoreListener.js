@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import firebase from '../service'
-import { useStoreContext } from '../app/domains/TodoList/context'
+import { useStoreContext } from '../app/domains/TodoApp/context'
 
 //bug when dispath(ADD_TODO)
 const useFirestoreListener = (collectionName, action, sort) => {
