@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import firebase from '../service'
-import { useStoreContext } from '../app/domains/TodoApp/context'
+import { useDispatch } from '../app/domains/TodoApp/context'
 
 //bug when dispath(ADD_TODO)
 const useFirestoreListener = (collectionName, action, sort) => {
-  const { dispatch } = useStoreContext()
+  const dispatch = useDispatch()
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const fetchData = useCallback(async () => {
@@ -14,7 +14,8 @@ const useFirestoreListener = (collectionName, action, sort) => {
     } else {
       query = await firebase.getCollection(collectionName)
     }
-    const listener = await firebase.setListener(query, (snapshot) => {
+    // eslint-disable-next-line no-return-await
+    return await firebase.setListener(query, (snapshot) => {
       const dataSnapshot = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id
@@ -22,14 +23,12 @@ const useFirestoreListener = (collectionName, action, sort) => {
       setTasks(dataSnapshot)
       setLoading(false)
     })
-
-    return listener
   }, [setLoading, setTasks])
   useEffect(() => {
     setLoading(true)
     fetchData()
     return () => fetchData()
-  }, [])
+  }, [fetchData])
   useEffect(() => !loading && tasks && setLoading(false), [tasks])
   useEffect(() => tasks && dispatch({ type: action, payload: tasks }), [tasks])
   return { loading }

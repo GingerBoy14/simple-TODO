@@ -1,21 +1,20 @@
 import { useReducer, useEffect, useMemo } from 'react'
 
-import storeContext from './context'
+import { storeContext, dispatchContext } from './context'
 import rootReducer from '../reducer'
 import middleware from './middleware'
 
 const TodosProvider = (props) => {
   const { store = {}, ...rest } = props
   const [state, dispatch] = useReducer(rootReducer, store)
-  useEffect(() => console.log('todoListStore', state), [state])
+  // useEffect(() => console.log('todoListStore', state), [state])
 
   const middlewareDispatch = useMemo(() => middleware(dispatch), [dispatch])
-
+  const data = useMemo(() => state, [state])
   return (
-    <storeContext.Provider
-      value={{ store: state, dispatch: middlewareDispatch }}
-      {...rest}
-    />
+    <dispatchContext.Provider value={middlewareDispatch}>
+      <storeContext.Provider value={data} {...rest} />
+    </dispatchContext.Provider>
   )
 }
 

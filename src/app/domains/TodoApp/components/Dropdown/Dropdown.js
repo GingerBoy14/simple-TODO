@@ -8,11 +8,11 @@ import {
   PushpinOutlined,
   PushpinFilled
 } from '@ant-design/icons'
-import { useStoreContext } from 'app/domains/TodoApp/context'
+import { useDispatch } from 'app/domains/TodoApp/context'
 
 const Dropdown = (props) => {
   const { todoId, status } = props
-  const { dispatch } = useStoreContext()
+  const dispatch = useDispatch()
   const menu = (
     <Menu>
       <Menu.Item

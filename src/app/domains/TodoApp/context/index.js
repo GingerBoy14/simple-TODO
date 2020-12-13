@@ -1,7 +1,5 @@
-import storeContext from './context'
 import TodosProvider from './TodosProvider'
 import useStoreContext from './hooks/useStoreContext'
+import useDispatch from './hooks/useDispatch'
 
-export default storeContext
-
-export { TodosProvider, useStoreContext }
+export { TodosProvider, useStoreContext, useDispatch }

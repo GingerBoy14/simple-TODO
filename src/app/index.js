@@ -13,6 +13,7 @@ const App = () => {
       <Switch>
         {ROUTES_KEYS.map((key) => (
           <Route
+            key={ROUTES[key].path}
             path={ROUTES[key].path}
             component={ROUTES[key].component}
             exact={ROUTES[key].exact}

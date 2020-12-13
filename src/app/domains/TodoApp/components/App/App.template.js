@@ -1,18 +1,11 @@
-import { Col, Row, Spin } from 'antd'
+import { Col, Row } from 'antd'
 import { TaskCounter } from '../TaskCounter'
-import { Filter } from '../Filter'
-import { Search } from '../Search'
-import { TodoList } from '../List'
-import { AddTaskForm } from '../AddTaskForm'
-import { memo } from 'react'
-import useFirestoreListener from 'hooks'
-import types from '../../constants/types'
+import { Filter } from '../../routes/Filter'
+import { TodoList } from '../../routes/TodoList'
+import { AddTask } from '../../routes/AddTask'
+import { Search } from '../../routes/Search'
 
 const TodoApp = () => {
-  const { loading } = useFirestoreListener('tasks', types.SET_TASKS, {
-    func: 'orderBy',
-    fieldPath: 'timestamp'
-  })
   return (
     <>
       <Row justify="space-between" gutter={[0, 16]}>
@@ -27,11 +20,13 @@ const TodoApp = () => {
         <Col xs={24}>
           <Search />
         </Col>
-        <Col xs={24}>{loading ? <Spin /> : <TodoList />}</Col>
+        <Col xs={24}>
+          <TodoList />
+        </Col>
       </Row>
-      <AddTaskForm />
+      <AddTask />
     </>
   )
 }
 
-export default memo(TodoApp)
+export default TodoApp

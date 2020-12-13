@@ -1,24 +1,19 @@
-import React from 'react'
 import { Checkbox, List, Tag, Typography } from 'antd'
 import { FireFilled, PushpinFilled } from '@ant-design/icons'
 import { Dropdown } from '../Dropdown'
-import { useStoreContext } from 'app/domains/TodoApp/context'
 
 const { Text } = Typography
 
-const TodoListItem = (props) => {
-  const { id, text, status } = props
-  const { dispatch } = useStoreContext()
+const ListItem = (props) => {
+  const { id, text, status, onChange } = props
   return (
     <List.Item
       actions={[<Dropdown todoId={id} status={status} />]}
-      style={{
-        minWidth: '0'
-      }}>
+      style={{ minWidth: 0 }}>
       <Checkbox
         checked={status.done}
+        onChange={onChange}
         style={{ marginRight: '16px' }}
-        onChange={() => dispatch({ type: 'SET_DONE', payload: id })}
       />
       {status.pinned && (
         <Tag color="processing">
@@ -30,7 +25,6 @@ const TodoListItem = (props) => {
           <FireFilled />
         </Tag>
       )}
-
       <Text
         ellipsis
         style={{ flex: 1, whiteSpace: 'normal', marginRight: '16px' }}>
@@ -40,4 +34,4 @@ const TodoListItem = (props) => {
   )
 }
 
-export default React.memo(TodoListItem)
+export default ListItem

@@ -1,24 +1,15 @@
-import { memo } from 'react'
 import { Input, Button, Form } from 'antd'
-import { useStoreContext } from 'app/domains/TodoApp/context'
-import { addTask } from '../../actions'
 
-const AddTaskForm = () => {
-  const { dispatch } = useStoreContext()
+const AddTaskForm = (props) => {
+  const { onFinish } = props
   const [form] = Form.useForm()
-  const onFinish = (values) => {
-    if (values.todoName) {
-      dispatch(addTask(values.todoName))
-      form.setFieldsValue({ todoName: '' })
-    }
-  }
   return (
     <Form
       form={form}
       name="addTodoForm"
       layout="inline"
       size="large"
-      onFinish={onFinish}>
+      onFinish={(value) => onFinish(value, form)}>
       <Form.Item
         name="todoName"
         style={{ flex: 1 }}
@@ -36,4 +27,4 @@ const AddTaskForm = () => {
   )
 }
 
-export default memo(AddTaskForm)
+export default AddTaskForm
