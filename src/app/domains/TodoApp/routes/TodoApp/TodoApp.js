@@ -1,5 +1,5 @@
 import { TodosProvider } from '../../context'
-import { App } from '../../components/App'
+import { App } from '../App'
 import { Col, Row } from 'antd'
 import { Header } from '../../components/Header'
 import { UserSimpleView } from 'app/domains/User/components'

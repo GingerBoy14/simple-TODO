@@ -4,7 +4,6 @@ import { List } from './List'
 import { TaskCounter } from './TaskCounter'
 import { Header } from './Header'
 import { ButtonGroup } from './ButtonGroup'
-import { App } from './App'
 import { AddTaskForm } from './AddTaskForm'
 
 export {
@@ -14,6 +13,5 @@ export {
   TaskCounter,
   Header,
   ButtonGroup,
-  App,
   AddTaskForm
 }

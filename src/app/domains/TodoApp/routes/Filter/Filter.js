@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { ButtonGroup } from '../../components'
 import { useDispatch, useStoreContext } from '../../context'
 
@@ -20,4 +20,4 @@ const Filter = () => {
   return <ButtonGroup onClick={onClick} buttons={buttons} filterName={filter} />
 }
 
-export default React.memo(Filter)
+export default Filter

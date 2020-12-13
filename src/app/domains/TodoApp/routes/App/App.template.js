@@ -1,9 +1,9 @@
 import { Col, Row } from 'antd'
-import { TaskCounter } from '../TaskCounter'
-import { Filter } from '../../routes/Filter'
-import { TodoList } from '../../routes/TodoList'
-import { AddTask } from '../../routes/AddTask'
-import { Search } from '../../routes/Search'
+import { TaskCounter } from '../../components/TaskCounter'
+import { Filter } from '../Filter'
+import { TodoList } from '../TodoList'
+import { AddTask } from '../AddTask'
+import { Search } from '../Search'
 
 const TodoApp = () => {
   return (

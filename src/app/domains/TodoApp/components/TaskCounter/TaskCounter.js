@@ -25,4 +25,4 @@ const Layout = memo((props) => {
     </Title>
   )
 })
-export default memo(TaskCounter)
+export default TaskCounter
