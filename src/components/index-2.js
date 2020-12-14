@@ -1,10 +1,9 @@
-import { Row, Col, Grid, Space } from 'antd'
+import { Row, Col, Grid, Space, Button } from 'antd'
 import { AddTodo } from './AddTodo'
 import { Header } from './Header'
 import 'antd/dist/antd.css'
 import { TodoList } from './TodoList'
 import { Search } from './Search'
-import { Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useHistory } from 'react-router-dom'
@@ -42,14 +41,18 @@ const App = () => {
             <TodoList />
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[0, 8]}>
           <Col flex={1}>
             <AddTodo />
           </Col>
         </Row>
-        <Row>
+        <Row justify="center">
           <Col>
-            <Button variant="link" onClick={handleLogout}>
+            <Button
+              variant="link"
+              onClick={handleLogout}
+              type="primary"
+              className="w-100">
               Log Out
             </Button>
           </Col>
