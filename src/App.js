@@ -11,7 +11,7 @@ const App = () => {
   FetchData({ loading, setLoading })
 
   return (
-    <Row justify="center">
+    <Row justify="center" align="middle" style={{ height: '100%' }}>
       <Col xs={22} sm={22} md={14} lg={10} xl={7} xxl={6}>
         <Card>
           <Router>
@@ -19,7 +19,7 @@ const App = () => {
               <Route exact path="/" component={MainForm} />
               <Route path="/login" component={LoginForm} />
               <Route path="/signUp" component={SignUpForm} />
-              <Route path="/toDoApp">
+              <Route exact path="/toDoApp">
                 <ToDoApp loading={loading} />
               </Route>
             </Switch>

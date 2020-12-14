@@ -12,6 +12,7 @@ const TodoList = () => {
     filter(store, setFilteredTasks)
   }, [store])
 
+  console.log('render')
   return (
     <div style={{ maxHeight: '400px', overflow: 'auto' }} className="style-1">
       <Row gutter={[0, 0]}>

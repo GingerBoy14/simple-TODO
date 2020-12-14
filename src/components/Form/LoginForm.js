@@ -2,21 +2,23 @@ import React from 'react'
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 const LoginForm = () => {
   const [form] = Form.useForm()
 
+  let history = useHistory()
+
   const onFinish = (values) => {
-    console.log(values)
+    history.push('/toDoApp')
   }
   const onReset = () => {
     form.resetFields()
   }
   return (
-    <Form>
+    <Form form={form} onFinish={onFinish}>
       <Row justify="center">
         <Col>
           <Title level={1}>Log in</Title>
@@ -24,14 +26,39 @@ const LoginForm = () => {
       </Row>
       <Row>
         <Col span={24}>
-          <Form.Item name="login">
+          <Form.Item
+            name="login"
+            label="E-mail"
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!'
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!'
+              }
+            ]}>
             <Input placeholder="Login" />
           </Form.Item>
         </Col>
       </Row>
       <Row>
         <Col span={24}>
-          <Form.Item name="password">
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!'
+              },
+              {
+                pattern: new RegExp('^(?=.*d)(?=.*[a-z])[0-9a-zA-Z]{8,}$'),
+                message:
+                  'Minimum eight characters, at least one letter and one number'
+              }
+            ]}>
             <Input.Password
               placeholder="Password"
               iconRender={(visible) =>
@@ -44,11 +71,9 @@ const LoginForm = () => {
       <Row justify="space-around">
         <Col>
           <Form.Item>
-            <Link to="/toDoApp">
-              <Button type="primary" htmlType="submit" size="large">
-                Log in
-              </Button>
-            </Link>
+            <Button type="primary" size="large" htmlType="submit">
+              Log in
+            </Button>
           </Form.Item>
         </Col>
         <Col>

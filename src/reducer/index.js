@@ -9,15 +9,23 @@ const rootReducer = (state, action) => {
   switch (action.type) {
     case 'RELOAD':
       let array = action.payload
+
       unpinned = _.remove(array, ({ status }) => !status.pinned)
+
       if (array.length !== 0) {
         array.unshift(array.pop())
-        array.sort(orderByField('dateLastEdit'))
+        array.sort(function (a, b) {
+          return new Date(b.dateLastEdit) - new Date(a.dateLastEdit)
+        })
       }
 
       return {
         ...state,
-        tasks: array.concat(unpinned.sort(orderByField('dateLastEdit')))
+        tasks: array.concat(
+          unpinned.sort(function (a, b) {
+            return new Date(a.dateLastEdit) - new Date(b.dateLastEdit)
+          })
+        )
       }
 
     case 'ADD_TODO':

@@ -1,4 +1,4 @@
-import { useReducer, useMemo, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 
 import storeContext from 'context'
 import rootReducer from '../reducer'

@@ -1,10 +1,8 @@
-import { LoginForm, SignUpForm } from './index.js'
-
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { Card, Row, Col, Typography, Form, Button } from 'antd'
+import { BrowserRouter as Link } from 'react-router-dom'
+import { Row, Col, Typography, Form, Button } from 'antd'
 const { Title, Text } = Typography
 
-const navigationForm = () => (
+const NavigationForm = () => (
   <>
     <Row justify="center">
       <Col>
@@ -24,6 +22,11 @@ const navigationForm = () => (
 const MainForm = () => {
   return (
     <Form>
+      <Row>
+        <Col span={24}>
+          <NavigationForm />
+        </Col>
+      </Row>
       <Row justify="space-around">
         <Col>
           <Form.Item>
