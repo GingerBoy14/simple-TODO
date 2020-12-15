@@ -1,6 +1,6 @@
 import React from 'react'
 
 const storeContext = React.createContext()
-const usersContext = React.createContext()
+const userContext = React.createContext()
 
-export { storeContext, usersContext }
+export { storeContext, userContext }

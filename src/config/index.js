@@ -1,4 +1,4 @@
 import firebase from './firebaseConfig'
-import { db } from './firebaseConfig'
+import { db, firebaseConfig } from './firebaseConfig'
 export default firebase
-export { db }
+export { db, firebaseConfig }

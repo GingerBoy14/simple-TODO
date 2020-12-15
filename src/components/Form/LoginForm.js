@@ -3,17 +3,18 @@ import 'antd/dist/antd.css'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
-import { useStoreContext } from '../../context'
+import { useUserContext } from '../../context'
 
 const { Title } = Typography
 
 const LoginForm = () => {
   const [form] = Form.useForm()
-  const { store, dispatch } = useStoreContext()
+  const { dispatch } = useUserContext()
 
   let history = useHistory()
 
   const onFinish = (values) => {
+    dispatch({ type: 'LOGIN_USER' })
     history.push('/toDoApp')
   }
   const onReset = () => {

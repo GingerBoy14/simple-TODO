@@ -1,4 +1,3 @@
-import { BrowserRouter as Link } from 'react-router-dom'
 import { Row, Col, Typography, Form, Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 const { Title, Text } = Typography

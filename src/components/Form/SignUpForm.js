@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { GoogleOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
+import { useUserContext } from '../../context'
 
 const { Title } = Typography
 
 const SignUpForm = () => {
   const [form] = Form.useForm()
+  const { dispatch } = useUserContext()
+  const password = useRef(null)
+  const login = useRef(null)
 
   let history = useHistory()
 
-  const onFinish = (values) => {
-    history.push('/toDoApp')
+  const onFinish = (value) => {
+    dispatch({
+      type: 'SIGNUP_USER',
+      payload: { login: value.login, password: value.password }
+    })
+    // history.push('/toDoApp')
   }
 
   return (
@@ -37,7 +45,7 @@ const SignUpForm = () => {
                 message: 'Please input your E-mail!'
               }
             ]}>
-            <Input placeholder="Login" />
+            <Input placeholder="Login" ref={login} />
           </Form.Item>
         </Col>
       </Row>
@@ -46,7 +54,7 @@ const SignUpForm = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[
+            /* rules={[
               {
                 required: true,
                 message: 'Please input your password!'
@@ -56,8 +64,10 @@ const SignUpForm = () => {
                 message:
                   'Minimum eight characters, at least one letter and one number:'
               }
-            ]}>
+            ]}*/
+          >
             <Input.Password
+              ref={password}
               placeholder="Password"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />

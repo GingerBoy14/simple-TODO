@@ -1,10 +1,8 @@
 import 'antd/dist/antd.css'
 import { Row, Col, Card } from 'antd'
-import React, { useState } from 'react'
-import { FetchData } from './hook'
+import React from 'react'
 import { MainForm, LoginForm, ToDoApp, SignUpForm } from './components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Provider } from 'context'
 
 const App = () => {
   return (
@@ -13,25 +11,10 @@ const App = () => {
         <Card>
           <Router>
             <Switch>
-              <Route exact path="/">
-                <MainForm />
-              </Route>
-              <Route path="/login">
-                <LoginForm />
-              </Route>
-              <Route path="/signUp">
-                <SignUpForm />
-              </Route>
-              <Route path="/toDoApp">
-                <Provider
-                  store={{
-                    tasks: [],
-                    filter: 'all',
-                    query: ''
-                  }}>
-                  <ToDoApp />
-                </Provider>
-              </Route>
+              <Route exact path="/" component={MainForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/signUp" component={SignUpForm} />
+              <Route path="/toDoApp" component={ToDoApp} />
             </Switch>
           </Router>
         </Card>
