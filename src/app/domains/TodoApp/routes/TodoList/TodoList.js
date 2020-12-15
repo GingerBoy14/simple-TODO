@@ -1,17 +1,18 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Space, Spin } from 'antd'
 import { List } from '../../components/List'
 import { useStoreContext } from '../../context'
 import useFirestoreListener from 'hooks'
 import types from '../../constants/types'
+import { Spinner } from 'components'
 
 const TodoList = () => {
-  const store = useStoreContext()
-  const [filteredTasks, setFilteredTasks] = useState(store.tasks)
+  const [filteredTasks, setFilteredTasks] = useState()
   const { loading } = useFirestoreListener('tasks', types.SET_TASKS, {
     func: 'orderBy',
     fieldPath: 'timestamp'
   })
+  const store = useStoreContext()
+
   //TODO: refactor
   const filter = useCallback(
     (tasks) => {
@@ -35,11 +36,7 @@ const TodoList = () => {
   useEffect(() => filter(store.tasks), [store, filter])
 
   if (loading) {
-    return (
-      <Space align="center" direction="vertical" style={{ width: '100%' }}>
-        <Spin />
-      </Space>
-    )
+    return <Spinner />
   }
   return <List tasks={filteredTasks} />
 }

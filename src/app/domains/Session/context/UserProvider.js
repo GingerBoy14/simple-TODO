@@ -1,16 +1,20 @@
 import { useReducer, useEffect } from 'react'
 
-import storeContext, { dispatchContext } from './context'
+import storeContext, { userDispatch } from './context'
 import rootReducer from '../reducer'
 
 const UserProvider = (props) => {
-  const { store = {}, ...rest } = props
-  const [state, dispatch] = useReducer(rootReducer, store)
+  const { value = { userProfile: null }, ...rest } = props
+  const initState = {
+    ...value,
+    loading: false
+  }
+  const [state, dispatch] = useReducer(rootReducer, initState)
   useEffect(() => console.log('userState', state), [state])
   return (
-    <dispatchContext.Provider value={dispatch}>
+    <userDispatch.Provider value={dispatch}>
       <storeContext.Provider value={state} {...rest} />
-    </dispatchContext.Provider>
+    </userDispatch.Provider>
   )
 }
 

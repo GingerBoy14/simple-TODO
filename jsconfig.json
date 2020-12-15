@@ -5,6 +5,7 @@
       "service": [ "./service/*" ],
       "hooks": [ "./hooks/*" ],
       "app": ["./app/*"]
+      "components": ["./components/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

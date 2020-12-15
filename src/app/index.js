@@ -4,32 +4,28 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Spin } from 'antd'
 import { ROUTES_KEYS, ROUTES } from './constants'
-import firebase from 'service'
+import { useUserProfile } from 'hooks'
+import { ProtectedRoute, Spinner } from '../components'
 const App = () => {
-  useEffect(
-    () =>
-      firebase.onAuthChange((user) => {
-        if (user) {
-          console.log('sign in')
-        } else {
-          console.log('sign out')
-        }
-      }),
-    []
-  )
+  const { loading } = useUserProfile()
+  if (loading) return <Spinner />
   return (
     <Router>
       <Switch>
-        {ROUTES_KEYS.map((key) => (
-          <Route
-            key={ROUTES[key].path}
-            path={ROUTES[key].path}
-            component={ROUTES[key].component}
-            exact={ROUTES[key].exact}
-          />
-        ))}
+        {ROUTES_KEYS.map((key) => {
+          if (ROUTES[key].protected) {
+            return (
+              <ProtectedRoute
+                key={ROUTES[key].path}
+                {...ROUTES[key]}
+                redirectTo="/login"
+              />
+            )
+          }
+          return <Route key={ROUTES[key].path} {...ROUTES[key]} />
+        })}
         <Redirect to="/login" />
       </Switch>
     </Router>

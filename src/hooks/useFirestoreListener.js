@@ -14,8 +14,7 @@ const useFirestoreListener = (collectionName, action, sort) => {
     } else {
       query = await firebase.getCollection(collectionName)
     }
-    // eslint-disable-next-line no-return-await
-    return await firebase.setListener(query, (snapshot) => {
+    return firebase.setListener(query, (snapshot) => {
       const dataSnapshot = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id

@@ -23,6 +23,9 @@ class Firebase {
   async set(path, docId, data) {
     return this.getCollection(path).doc(docId).set(data)
   }
+  async get(path, docId) {
+    return this.getCollection(path).doc(docId).get()
+  }
   /**
    * Update document data in firestore collection
    * @param {string} path - collection path
@@ -93,25 +96,31 @@ class Firebase {
    * User login with google. Creating his profile and tasks collection in firestore.
    * @async
    */
-  async loginWithGoogle() {
+  loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider()
+    this.auth.signInWithRedirect(provider)
+  }
+  async getUser(user) {
+    const data = await this.get('users', user.uid)
 
-    const res = await this.auth.signInWithPopup(provider)
-
-    if (res.additionalUserInfo.isNewUser) {
+    return data.data()
+  }
+  async getRedirectResult() {
+    const res = await this.auth.getRedirectResult()
+    if (res.user !== null && res.additionalUserInfo.isNewUser) {
       const { user } = res
-      const tasksId = await this.add('userTasks', { tasks: [] })
+      const { id } = await this.add('userTasks', { tasks: [] })
       const data = {
         displayName: user.displayName,
         avatar: user.photoURL,
-        tasksId: tasksId.id
+        tasksId: id
       }
-      await this.add('users', data)
+      await this.set('users', user.uid, data)
     }
   }
 
   onAuthChange(callback) {
-    this.auth.onAuthStateChanged(callback)
+    return this.auth.onAuthStateChanged(callback)
   }
   /**
    * Logout user from app

@@ -11,6 +11,8 @@ const ROUTES = {
     path: '/signUp'
   },
   TODO_LIST: {
+    protected: true,
+    redirectTo: '/login',
     exact: true,
     component: TodoApp,
     path: '/'

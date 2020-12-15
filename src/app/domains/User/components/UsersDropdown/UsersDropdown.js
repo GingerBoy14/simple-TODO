@@ -21,9 +21,8 @@ const UsersDropdown = (props) => {
       <Menu.Item
         danger
         icon={<LogoutOutlined />}
-        onClick={async () => {
-          const status = await firebase.logout()
-          console.log(status)
+        onClick={() => {
+          firebase.logout()
           history.push('login')
         }}>
         Log out
