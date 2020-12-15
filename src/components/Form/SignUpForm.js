@@ -53,8 +53,8 @@ const SignUpForm = () => {
         <Col span={24}>
           <Form.Item
             name="password"
-            label="Password"
-            /* rules={[
+            label="Password" /*
+            rules={[
               {
                 required: true,
                 message: 'Please input your password!'

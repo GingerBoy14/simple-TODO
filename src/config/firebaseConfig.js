@@ -10,12 +10,7 @@ const firebaseConfig = {
   storageBucket: 'simple-todo-ffb04.appspot.com',
   messagingSenderId: '671395463458',
   appId: '1:671395463458:web:5949a31719f796859fe57b'
-} /*
-class Firebase{
-  constructor(){
-    applicationCache.
-  }
-}*/
+}
 export default firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 export { db, firebaseConfig }
