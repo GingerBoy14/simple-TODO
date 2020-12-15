@@ -1,8 +1,7 @@
-import { List, Space, Typography, Checkbox } from 'antd'
+import { List, Typography, Checkbox, Tag } from 'antd'
 import { useStoreContext } from '../../context'
 import { DropDown } from '../DropDown'
 import { ExclamationOutlined, PushpinOutlined } from '@ant-design/icons'
-import { Tag } from 'antd'
 
 const { Item } = List
 const { Text } = Typography
@@ -10,25 +9,32 @@ const { Text } = Typography
 const TodoListItem = (props) => {
   const { id, text, status } = props
   const { dispatch } = useStoreContext()
-
   return (
     <Item>
-      <Space style={{ width: '100%' }}>
-        <Checkbox
-          checked={status.done}
-          onClick={() =>
-            dispatch({ type: 'SET_DONE', payload: { id, status } })
-          }
-        />
-        <Text /*mark={status.important}*/ ellipsis={true}>{text}</Text>
-      </Space>
-      <Tag color={status.pinned ? 'geekblue' : 'transparent'}>
+      <Checkbox
+        checked={status.done}
+        style={{
+          marginRight: '16px'
+        }}
+        onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
+      />
+      <Text
+        ellipsis={true}
+        style={{
+          flex: 1,
+          whiteSpace: 'normal',
+          marginRight: '16px'
+        }}>
+        {text}
+      </Text>
+      <Tag color={status.pinned ? '#1890ff' : 'transparent'}>
         <PushpinOutlined />
       </Tag>
-      <Tag color={status.important ? 'red' : 'transparent'}>
-        {<ExclamationOutlined />}
+      <Tag color={status.important ? '#f50' : 'transparent'}>
+        <ExclamationOutlined />
       </Tag>
-      <DropDown id={id} status={status} />
+
+      <DropDown {...props} />
     </Item>
   )
 }
