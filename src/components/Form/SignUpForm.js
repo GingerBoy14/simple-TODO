@@ -1,28 +1,33 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { GoogleOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { useUserContext } from '../../context'
-
+import firebase from '../../config'
 const { Title } = Typography
 
 const SignUpForm = () => {
   const [form] = Form.useForm()
   const { dispatch } = useUserContext()
-  const password = useRef(null)
-  const login = useRef(null)
 
   let history = useHistory()
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
-  const onFinish = (value) => {
-    dispatch({
+ /* const onFinish = (value) => {
+     dispatch({
       type: 'SIGNUP_USER',
-      payload: { login: value.login, password: value.password }
+      payload: { login, password }
     })
-    // history.push('/toDoApp')
+     history.push('/toDoApp')
+  }*/
+async onFinish(){
+  try {
+    await firebase.register(email, password)
   }
 
+}
   return (
     <Form form={form} onFinish={onFinish}>
       <Row justify="center">
@@ -45,7 +50,10 @@ const SignUpForm = () => {
                 message: 'Please input your E-mail!'
               }
             ]}>
-            <Input placeholder="Login" ref={login} />
+            <Input
+              placeholder="Login"
+              onChange={(e) => setLogin(e.target.value)}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -67,7 +75,7 @@ const SignUpForm = () => {
             ]}*/
           >
             <Input.Password
-              ref={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
