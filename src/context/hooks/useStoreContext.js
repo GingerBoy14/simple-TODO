@@ -1,6 +1,7 @@
 import { useContext } from 'react'
-import storeContext from 'context'
+import { storeContext, usersContext } from 'context'
 
 const useStoreContext = () => useContext(storeContext)
+const useUsersContext = () => useContext(usersContext)
 
-export default useStoreContext
+export { useStoreContext, useUsersContext }

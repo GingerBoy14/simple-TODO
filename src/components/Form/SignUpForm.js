@@ -1,5 +1,4 @@
 import React from 'react'
-import 'antd/dist/antd.css'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { GoogleOutlined } from '@ant-design/icons'

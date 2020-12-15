@@ -1,5 +1,6 @@
 import { BrowserRouter as Link } from 'react-router-dom'
 import { Row, Col, Typography, Form, Button } from 'antd'
+import { useHistory } from 'react-router-dom'
 const { Title, Text } = Typography
 
 const NavigationForm = () => (
@@ -19,7 +20,14 @@ const NavigationForm = () => (
     <Row justify="space-around"></Row>
   </>
 )
+
 const MainForm = () => {
+  let history = useHistory()
+
+  const passToLink = (path) => {
+    history.push(path)
+  }
+
   return (
     <Form>
       <Row>
@@ -30,20 +38,23 @@ const MainForm = () => {
       <Row justify="space-around">
         <Col>
           <Form.Item>
-            <Link to="/login">
-              <Button type="primary" htmlType="submit" size="large">
-                Log in
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              onClick={() => passToLink('/login')}>
+              Log in
+            </Button>
           </Form.Item>
         </Col>
         <Col>
           <Form.Item>
-            <Link to="/signUp">
-              <Button htmlType="button" size="large">
-                Sign up
-              </Button>
-            </Link>
+            <Button
+              htmlType="button"
+              size="large"
+              onClick={() => passToLink('/signUp')}>
+              Sign up
+            </Button>
           </Form.Item>
         </Col>
       </Row>

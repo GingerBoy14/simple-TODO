@@ -1,5 +1,6 @@
 import React from 'react'
 
 const storeContext = React.createContext()
+const usersContext = React.createContext()
 
-export default storeContext
+export { storeContext, usersContext }

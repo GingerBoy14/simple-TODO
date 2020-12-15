@@ -152,6 +152,11 @@ const rootReducer = (state, action) => {
         ...state,
         query: action.payload
       }
+    case 'LOGIN_USER':
+      return {
+        ...state,
+        query: action.payload
+      }
     default:
       return state
   }

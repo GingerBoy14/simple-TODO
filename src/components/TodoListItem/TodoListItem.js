@@ -1,7 +1,6 @@
 import { Col, Row, List, Typography, Checkbox } from 'antd'
 import { DropDown } from '../DropDown'
 import { useStoreContext } from '../../context'
-import { useState } from 'react'
 
 const { Item } = List
 const { Text } = Typography

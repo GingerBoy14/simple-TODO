@@ -1,7 +1,11 @@
 import { Col, Row, Spin } from 'antd'
 import { Search, Header, TodoList, AddTodo } from 'components'
+import { FetchData } from '../../hook'
+import { useState } from 'react'
 
-const ToDoApp = ({ loading }) => {
+const ToDoApp = () => {
+  const [loading, setLoading] = useState(true)
+  FetchData({ loading, setLoading })
   return (
     <Row justify="center">
       <Col span={24}>
