@@ -5,35 +5,119 @@ import { firebaseConfig } from '../constants/firebase'
 
 class Firebase {
   constructor() {
-    firebase.initializeApp(firebaseConfig)
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig)
+    } else {
+      firebase.app() // if already initialized, use that one
+    }
     this.firestore = firebase.firestore()
     this.auth = firebase.auth()
   }
 
+  /**
+   * Set data to document in firestore collection
+   * @param {string} path - collection path
+   * @param {string} docId - document ID in this collection
+   * @param {object} data - data that need to set
+   */
   async set(path, docId, data) {
     return this.getCollection(path).doc(docId).set(data)
   }
+  /**
+   * Update document data in firestore collection
+   * @param {string} path - collection path
+   * @param {string} docId - document ID in this collection
+   * @param {object} data - data that need to set
+   */
   async update(path, docId, data) {
     return this.getCollection(path).doc(docId).update(data)
   }
+  /**
+   * Add data to firestore collection
+   * @param {string} path - collection path
+   * @param {object} data - data that need to set
+   */
   async add(path, data) {
     return this.getCollection(path).add(data)
   }
-  delete(collectionName, docId) {
-    return this.getCollection(collectionName).doc(docId).delete()
+  /**
+   * Delete document from firestore collection
+   * @param {string} path - collection path
+   * @param {string} docId - document ID in this collection
+   */
+  delete(path, docId) {
+    return this.getCollection(path).doc(docId).delete()
   }
+  /**
+   * Get full firestore collection
+   * @param {string} collectionName - collection path
+   */
   getCollection(collectionName) {
     return this.firestore.collection(collectionName)
   }
+  /**
+   * Get full but sorted firestore collection
+   * @param {string} collectionName - collection path
+   * @param {Object} sort - sort configuration
+   * @param {string} sort.func - name of sorting function
+   * @param {string} sort.fieldPath - name of field witch we should use to sort
+   */
   async getSortedCollection(collectionName, sort) {
     return this.firestore.collection(collectionName)[sort.func](sort.fieldPath)
   }
+  /**
+   * Set listener for some collection update
+   * @param {*} ref - collection reference
+   * @param {callback} onUpdate - function witch will be execute on listener response
+   */
   async setListener(ref, onUpdate) {
     return ref.onSnapshot(onUpdate)
   }
-
+  /**
+   * Send email for user password resetting
+   * @param {string} email - user's email
+   */
   sendPasswordResetEmail(email) {
     return this.auth.sendPasswordResetEmail(email)
+  }
+  /**
+   * User login with email
+   * @param {string} email - user's email
+   * @param {string} password - user's password
+   */
+  login(email, password) {
+    return this.auth.signInWithEmailAndPassword(email, password)
+    //new to send confirmation email
+  }
+  /**
+   * User login with google. Creating his profile and tasks collection in firestore.
+   * @async
+   */
+  async loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+
+    const res = await this.auth.signInWithPopup(provider)
+
+    if (res.additionalUserInfo.isNewUser) {
+      const { user } = res
+      const tasksId = await this.add('userTasks', { tasks: [] })
+      const data = {
+        displayName: user.displayName,
+        avatar: user.photoURL,
+        tasksId: tasksId.id
+      }
+      await this.add('users', data)
+    }
+  }
+
+  onAuthChange(callback) {
+    this.auth.onAuthStateChanged(callback)
+  }
+  /**
+   * Logout user from app
+   */
+  logout() {
+    this.auth.signOut()
   }
 }
 export default new Firebase()

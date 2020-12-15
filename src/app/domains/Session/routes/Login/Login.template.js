@@ -1,8 +1,10 @@
-import { ResetPasswordModal, SignUpForm } from '../../components'
-import { Button, Card, Col, Divider, Row, Space, Typography } from 'antd'
+import { ResetPasswordModal, LoginForm } from '../../components'
+import { Card, Col, Divider, Row, Typography } from 'antd'
 import { Link } from 'react-router-dom'
-import { GoogleOutlined } from '@ant-design/icons'
+import { SignInWithGoogleButton } from '../../components/SignInWithGoogleButton'
+
 const { Title, Text } = Typography
+
 const Login = () => {
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
@@ -15,17 +17,9 @@ const Login = () => {
               </Col>
             </Row>
             <Card>
-              <Space
-                align="center"
-                direction="vertical"
-                style={{ width: '100%' }}>
-                <Button type="primary">
-                  <GoogleOutlined />
-                  Sign in with Google
-                </Button>
-              </Space>
+              <SignInWithGoogleButton />
               <Divider>OR</Divider>
-              <SignUpForm />
+              <LoginForm />
               <ResetPasswordModal />
             </Card>
           </Col>

@@ -13,7 +13,7 @@ const Filter = () => {
   const onClick = useCallback(
     (text, setActive) => {
       setActive(text)
-      dispatch({ type: 'CHANGE_FILTER', payload: text.toLowerCase() })
+      dispatch({ type: 'CHANGE_FILTER', payload: text })
     },
     [dispatch]
   )

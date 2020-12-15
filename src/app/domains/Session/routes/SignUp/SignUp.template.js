@@ -1,7 +1,7 @@
 import { SignUpForm } from '../../components'
-import { Button, Card, Col, Divider, Row, Space, Typography } from 'antd'
+import { Card, Col, Divider, Row, Typography } from 'antd'
 import { Link } from 'react-router-dom'
-import { GoogleOutlined } from '@ant-design/icons'
+import { SignInWithGoogleButton } from '../../components/SignInWithGoogleButton'
 const { Title, Text } = Typography
 const SignUp = () => {
   return (
@@ -15,15 +15,7 @@ const SignUp = () => {
               </Col>
             </Row>
             <Card>
-              <Space
-                align="center"
-                direction="vertical"
-                style={{ width: '100%' }}>
-                <Button type="primary">
-                  <GoogleOutlined />
-                  Sign in with Google
-                </Button>
-              </Space>
+              <SignInWithGoogleButton />
               <Divider>OR</Divider>
               <SignUpForm />
             </Card>

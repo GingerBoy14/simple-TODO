@@ -4,10 +4,21 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-
+import { useEffect } from 'react'
 import { ROUTES_KEYS, ROUTES } from './constants'
-
+import firebase from 'service'
 const App = () => {
+  useEffect(
+    () =>
+      firebase.onAuthChange((user) => {
+        if (user) {
+          console.log('sign in')
+        } else {
+          console.log('sign out')
+        }
+      }),
+    []
+  )
   return (
     <Router>
       <Switch>

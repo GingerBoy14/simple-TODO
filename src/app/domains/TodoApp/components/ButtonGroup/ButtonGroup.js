@@ -4,7 +4,6 @@ import { Button } from 'antd'
 const ButtonGroup = (props) => {
   const { buttons, onClick, filterName } = props
   const [activeButton, setActiveButton] = useState(filterName)
-
   return (
     <>
       {buttons.map(({ text, active }) => (
@@ -12,7 +11,7 @@ const ButtonGroup = (props) => {
           key={text}
           type={activeButton === text.toLowerCase() ? active : false}
           size="large"
-          onClick={() => onClick(text, setActiveButton)}>
+          onClick={() => onClick(text.toLowerCase(), setActiveButton)}>
           {text}
         </Button>
       ))}

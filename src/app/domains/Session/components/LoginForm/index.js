@@ -1,1 +1,1 @@
-export { default as LoginFrom } from './LoginForm.template'
+export { default as LoginForm } from './LoginForm.template'

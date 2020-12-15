@@ -4,7 +4,6 @@ import firebase from 'service'
 message.config({ maxCount: 2 })
 
 const { Title, Text } = Typography
-const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const ResetPasswordForm = () => {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -51,7 +50,7 @@ const ResetPasswordForm = () => {
             type="primary"
             disabled={false}
             onClick={() => form.submit()}>
-            Submit
+            Send
           </Button>
         ]}>
         <Space direction="vertical">
@@ -67,11 +66,17 @@ const ResetPasswordForm = () => {
             <Form.Item
               name="email"
               hasFeedback={loading}
-              validateStatus="validating"
-              validateTrigger={['onFinish', `${errored ? 'onChange' : ''}`]}
+              validateStatus={`${errored ? 'error' : 'validation'}`}
+              validateTrigger={[
+                'onSubmit',
+                `${errored ? 'onChange' : 'onSubmit'}`
+              ]}
               rules={[
                 { required: true, message: 'Please input your Email!' },
-                { pattern: re, message: 'Enter correct email' }
+                {
+                  type: 'email',
+                  message: 'Please input correct email, like example@exp.com'
+                }
               ]}>
               <Input placeholder="Enter your account email" size="large" />
             </Form.Item>

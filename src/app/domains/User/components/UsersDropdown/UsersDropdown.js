@@ -2,6 +2,7 @@ import React from 'react'
 import { Dropdown as DropDown, Menu } from 'antd'
 import { AuditOutlined, LogoutOutlined, KeyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
+import firebase from 'service'
 
 const UsersDropdown = (props) => {
   let history = useHistory()
@@ -20,14 +21,18 @@ const UsersDropdown = (props) => {
       <Menu.Item
         danger
         icon={<LogoutOutlined />}
-        onClick={() => history.push('login')}>
+        onClick={async () => {
+          const status = await firebase.logout()
+          console.log(status)
+          history.push('login')
+        }}>
         Log out
       </Menu.Item>
     </Menu>
   )
 
   return (
-    <DropDown overlay={menu} placement="bottomRight" trigger="click">
+    <DropDown overlay={menu} placement="bottomRight" trigger="click" arrow>
       {props.children}
     </DropDown>
   )
