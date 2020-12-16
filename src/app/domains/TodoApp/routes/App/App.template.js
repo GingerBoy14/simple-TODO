@@ -5,7 +5,7 @@ import { TodoList } from '../TodoList'
 import { AddTask } from '../AddTask'
 import { Search } from '../Search'
 
-const TodoApp = () => {
+const App = () => {
   return (
     <>
       <Row justify="space-between" gutter={[0, 16]}>
@@ -29,4 +29,4 @@ const TodoApp = () => {
   )
 }
 
-export default TodoApp
+export default App

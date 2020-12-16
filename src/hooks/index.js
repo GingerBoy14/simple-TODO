@@ -1,6 +1,6 @@
 import useFirestoreListener from './useFirestoreListener'
-import useUserProfile from './useUserProfile'
+import useAuthListener from './useAuthListener'
 
 export default useFirestoreListener
 
-export { useUserProfile }
+export { useAuthListener }

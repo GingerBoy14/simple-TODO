@@ -1,17 +1,14 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Button, Space } from 'antd'
+import { Button, Space, message } from 'antd'
 import firebase from 'service'
 import { GoogleOutlined } from '@ant-design/icons'
 
 const SignInWithGoogleButton = () => {
-  let history = useHistory()
   const signIn = useCallback(async () => {
     try {
       await firebase.loginWithGoogle()
-      history.push('/')
     } catch (e) {
-      console.log(e)
+      message.error(e)
     }
   }, [firebase])
   return (

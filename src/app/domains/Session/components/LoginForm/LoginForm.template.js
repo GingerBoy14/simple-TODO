@@ -1,17 +1,21 @@
-import { Form } from 'antd'
-import { PasswordForm } from '../PasswordForm'
-import { EmailForm } from '../EmailForm'
+import { Form, message } from 'antd'
+import { PasswordInput } from '../PasswordInput'
+import { EmailInput } from '../EmailInput'
 import { SubmitButton } from '../SubmitButton'
-import { useHistory } from 'react-router-dom'
 import firebase from 'service'
-const LoginForm = (props) => {
-  let history = useHistory()
+import { useUserDispatch } from '../../context'
+import types from '../../constants'
+
+const LoginForm = () => {
+  const dispatch = useUserDispatch()
   const onFinish = async (values) => {
     const { email, password } = values
     try {
+      dispatch({ type: types.USER_LOADING, payload: true })
       await firebase.login(email, password)
     } catch (e) {
-      console.log(e)
+      message.error(e.message)
+      dispatch({ type: types.USER_LOADING, payload: false })
     }
   }
   const onFinishFailed = (errorInfo) => {
@@ -23,8 +27,8 @@ const LoginForm = (props) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}>
-      <EmailForm />
-      <PasswordForm />
+      <EmailInput />
+      <PasswordInput />
       <SubmitButton text="Login" />
     </Form>
   )

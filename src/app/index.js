@@ -4,12 +4,12 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import { Spin } from 'antd'
 import { ROUTES_KEYS, ROUTES } from './constants'
-import { useUserProfile } from 'hooks'
+import { useAuthListener } from 'hooks'
 import { ProtectedRoute, Spinner } from '../components'
+
 const App = () => {
-  const { loading } = useUserProfile()
+  const { loading } = useAuthListener()
   if (loading) return <Spinner />
   return (
     <Router>

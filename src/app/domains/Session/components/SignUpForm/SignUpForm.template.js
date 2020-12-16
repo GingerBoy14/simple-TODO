@@ -1,16 +1,15 @@
 import { Form } from 'antd'
-import { useHistory } from 'react-router-dom'
-import { PasswordForm } from '../PasswordForm'
-import { EmailForm } from '../EmailForm'
+import { PasswordInput } from '../PasswordInput'
+import { EmailInput } from '../EmailInput'
 import { SubmitButton } from '../SubmitButton'
+import { useUserDispatch } from '../../context'
+import type from '../../constants'
 
-const SignUpForm = (props) => {
-  let history = useHistory()
-  const onFinish = (values) => {
-    const { email, password } = values
-    // firebase.auth().createUserWithEmailAndPassword(email, password)
-    history.push('/')
-    console.log('Received values of form: ', values)
+const SignUpForm = () => {
+  const dispatch = useUserDispatch()
+
+  const onFinish = async (values) => {
+    dispatch({ type: type.USER_SIGN_UP, payload: values })
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
@@ -21,8 +20,8 @@ const SignUpForm = (props) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}>
-      <EmailForm />
-      <PasswordForm />
+      <EmailInput />
+      <PasswordInput />
       <SubmitButton text="Sign up" />
     </Form>
   )

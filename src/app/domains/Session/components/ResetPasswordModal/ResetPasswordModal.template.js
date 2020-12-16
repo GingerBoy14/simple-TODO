@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Space, Button, Modal, Typography, Form, Input, message } from 'antd'
+import { Space, Button, Modal, Typography, Form, message } from 'antd'
 import firebase from 'service'
+import { EmailInput } from '../EmailInput'
+
 message.config({ maxCount: 2 })
 
 const { Title, Text } = Typography
-const ResetPasswordForm = () => {
+const ResetPasswordModal = () => {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errored, setErrored] = useState(false)
@@ -63,27 +65,19 @@ const ResetPasswordForm = () => {
             onFinishFailed={onFinishFailed}
             name="signUpForm"
             form={form}>
-            <Form.Item
-              name="email"
+            <EmailInput
               hasFeedback={loading}
               validateStatus={`${errored ? 'error' : 'validation'}`}
               validateTrigger={[
                 'onSubmit',
                 `${errored ? 'onChange' : 'onSubmit'}`
               ]}
-              rules={[
-                { required: true, message: 'Please input your Email!' },
-                {
-                  type: 'email',
-                  message: 'Please input correct email, like example@exp.com'
-                }
-              ]}>
-              <Input placeholder="Enter your account email" size="large" />
-            </Form.Item>
+              placeholder="Enter your account email"
+            />
           </Form>
         </Space>
       </Modal>
     </>
   )
 }
-export default ResetPasswordForm
+export default ResetPasswordModal

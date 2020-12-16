@@ -1,1 +1,1 @@
-export { default as SubmitButton } from './SubmitButton.js'
+export { default as SubmitButton } from './SubmitButton.template.js'

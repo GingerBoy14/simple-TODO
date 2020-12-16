@@ -1,7 +1,8 @@
 import React from 'react'
 import { Form, Input } from 'antd'
 
-const EmailForm = () => {
+const EmailInput = (props) => {
+  const { placeholder = 'Email' } = props
   return (
     <Form.Item
       name="email"
@@ -11,10 +12,11 @@ const EmailForm = () => {
           type: 'email',
           message: 'Please input correct email, like example@exp.com'
         }
-      ]}>
-      <Input size="large" placeholder="Email" autoComplete="username" />
+      ]}
+      {...props}>
+      <Input size="large" placeholder={placeholder} autoComplete="username" />
     </Form.Item>
   )
 }
 
-export default EmailForm
+export default EmailInput

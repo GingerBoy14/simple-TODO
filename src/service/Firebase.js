@@ -20,11 +20,17 @@ class Firebase {
    * @param {string} docId - document ID in this collection
    * @param {object} data - data that need to set
    */
-  async set(path, docId, data) {
+  set(path, docId, data) {
     return this.getCollection(path).doc(docId).set(data)
   }
+  /**
+   * Get document from firestore collection
+   * @param {string} path - collection path
+   * @param {string} docId - document ID in this collection
+   */
   async get(path, docId) {
-    return this.getCollection(path).doc(docId).get()
+    const res = await this.getCollection(path).doc(docId).get()
+    return res.data()
   }
   /**
    * Update document data in firestore collection
@@ -32,7 +38,7 @@ class Firebase {
    * @param {string} docId - document ID in this collection
    * @param {object} data - data that need to set
    */
-  async update(path, docId, data) {
+  update(path, docId, data) {
     return this.getCollection(path).doc(docId).update(data)
   }
   /**
@@ -40,7 +46,7 @@ class Firebase {
    * @param {string} path - collection path
    * @param {object} data - data that need to set
    */
-  async add(path, data) {
+  add(path, data) {
     return this.getCollection(path).add(data)
   }
   /**
@@ -65,7 +71,7 @@ class Firebase {
    * @param {string} sort.func - name of sorting function
    * @param {string} sort.fieldPath - name of field witch we should use to sort
    */
-  async getSortedCollection(collectionName, sort) {
+  getSortedCollection(collectionName, sort) {
     return this.firestore.collection(collectionName)[sort.func](sort.fieldPath)
   }
   /**
@@ -73,7 +79,7 @@ class Firebase {
    * @param {*} ref - collection reference
    * @param {callback} onUpdate - function witch will be execute on listener response
    */
-  async setListener(ref, onUpdate) {
+  setListener(ref, onUpdate) {
     return ref.onSnapshot(onUpdate)
   }
   /**
@@ -92,6 +98,31 @@ class Firebase {
     return this.auth.signInWithEmailAndPassword(email, password)
     //new to send confirmation email
   }
+  async signUp(email, password) {
+    try {
+      return await this.auth.createUserWithEmailAndPassword(email, password)
+      //new to send confirmation email
+    } catch (e) {
+      // to throw error to upper func you need to return rejected promise from async func
+      switch (e.code) {
+        case 'auth/email-already-in-use':
+          return Promise.reject(new Error(e.message))
+        default:
+          return Promise.reject(new Error(e))
+      }
+    }
+  }
+  async createUser(uid, name, avatar) {
+    const { id } = await this.add('userTasks', { tasks: [] })
+    const data = {
+      name,
+      avatar,
+      tasksId: id
+    }
+
+    await this.set('users', uid, data)
+    console.log('add data')
+  }
   /**
    * User login with google. Creating his profile and tasks collection in firestore.
    * @async
@@ -101,24 +132,28 @@ class Firebase {
     this.auth.signInWithRedirect(provider)
   }
   async getUser(user) {
-    const data = await this.get('users', user.uid)
-
-    return data.data()
+    const res = await this.get('users', user.uid)
+    return { ...res, uid: user.uid }
   }
   async getRedirectResult() {
     const res = await this.auth.getRedirectResult()
+    //TODO need try catch
     if (res.user !== null && res.additionalUserInfo.isNewUser) {
       const { user } = res
-      const { id } = await this.add('userTasks', { tasks: [] })
-      const data = {
-        displayName: user.displayName,
-        avatar: user.photoURL,
-        tasksId: id
+      await this.createUser(user.uid, user.displayName, user.photoURL)
+      return
+    } else if (res.user !== null) {
+      //if user create account with email and password but logged with google
+      const snapshot = await this.get('users', res.user.uid)
+      if (snapshot.name === res.user.email && snapshot.avatar === '') {
+        const { user } = res
+        await this.update('users', res.user.uid, {
+          avatar: user.photoURL,
+          name: user.displayName
+        })
       }
-      await this.set('users', user.uid, data)
     }
   }
-
   onAuthChange(callback) {
     return this.auth.onAuthStateChanged(callback)
   }

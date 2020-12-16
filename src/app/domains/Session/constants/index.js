@@ -1,3 +1,3 @@
-import types from './types'
+import type from './type'
 
-export default types
+export default type

@@ -3,9 +3,12 @@ import { Dropdown as DropDown, Menu } from 'antd'
 import { AuditOutlined, LogoutOutlined, KeyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import firebase from 'service'
+import { useUserDispatch } from 'app/domains/Session/context'
+import type from 'app/domains/Session/constants'
 
 const UsersDropdown = (props) => {
   let history = useHistory()
+  const dispatch = useUserDispatch()
   const menu = (
     <Menu>
       <Menu.Item
@@ -22,6 +25,7 @@ const UsersDropdown = (props) => {
         danger
         icon={<LogoutOutlined />}
         onClick={() => {
+          dispatch({ type: type.USER_LOGOUT })
           firebase.logout()
           history.push('login')
         }}>

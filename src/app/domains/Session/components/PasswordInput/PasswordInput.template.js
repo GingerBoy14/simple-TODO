@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
-const PasswordForm = () => {
+const PasswordInput = () => {
   return (
     <Form.Item
       name="password"
@@ -22,4 +22,4 @@ const PasswordForm = () => {
   )
 }
 
-export default PasswordForm
+export default PasswordInput
