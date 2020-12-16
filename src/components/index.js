@@ -1,39 +1,49 @@
-import App from '../components/index-2'
-import Signup from '../components/Forms/Signup'
-import { Container } from 'react-bootstrap'
-import { AuthProvider } from '../context/AuthContext'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Dashboard from '../components/Forms/Dashboard'
-import Login from '../components/Forms/Login'
-import PrivateRoute from '../components/Forms/PrivateRoute'
-import ForgotPassword from '../components/Forms/ForgotPassword'
-import UpdateProfile from '../components/Forms/UpdateProfile'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Col, Row, Space } from 'antd'
-import React from 'react'
+import { Row, Col, Grid, Space, Button } from 'antd'
+import { AddTodo } from './AddTodo'
+import { Header } from './Header'
+import 'antd/dist/antd.css'
+import { TodoList } from './TodoList'
+import { Search } from './Search'
+import React, { useState } from 'react'
 
-function Index() {
+const App = () => {
   return (
-    // <Container
-    //   className="d-flex align-items-center justify-content-center"
-    //   style={{ minHeight: '100vh' }}>
-    //   <div className="w-100" style={{ maxWidth: '1200px' }}>
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
-        <Router>
-          <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/app" component={App} />
-            </Switch>
-          </AuthProvider>
-        </Router>
+        <Row gutter={[0, 8]}>
+          <Col style={{ width: '100%' }}>
+            <Header />
+          </Col>
+        </Row>
+        <Row gutter={[0, 8]}>
+          <Col flex="auto">
+            <Search />
+          </Col>
+        </Row>
+        <Row gutter={[0, 8]}>
+          <Col flex={1}>
+            <TodoList />
+          </Col>
+        </Row>
+        <Row gutter={[0, 8]}>
+          <Col flex={1}>
+            <AddTodo />
+          </Col>
+        </Row>
+        <Row justify="center">
+          <Col>
+            <Button
+              variant="link"
+              // onClick={handleLogout}
+              type="primary"
+              className="w-100">
+              Log Out
+            </Button>
+          </Col>
+        </Row>
       </Col>
     </Row>
   )
 }
-export default Index
+
+export default App
