@@ -1,11 +1,11 @@
 import { Row, Col, Grid, Space, Button } from 'antd'
-import { AddTodo } from './AddTodo'
-import { Header } from './Header'
+import { AddTodo } from '../AddTodo'
+import { Header } from '../Header'
 import 'antd/dist/antd.css'
-import { TodoList } from './TodoList'
-import { Search } from './Search'
+import { TodoList } from '../TodoList'
+import { Search } from '../Search'
 import React, { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 import { useHistory } from 'react-router-dom'
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
   }
   return (
     <Row justify="center">
-      <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
+      <Col>
         <Row gutter={[0, 8]}>
           <Col style={{ width: '100%' }}>
             <Header />

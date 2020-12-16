@@ -1,4 +1,3 @@
-import App from '../components/index-2'
 import Signup from '../components/Forms/Signup'
 import { Container } from 'react-bootstrap'
 import { AuthProvider } from '../context/AuthContext'
@@ -10,7 +9,7 @@ import ForgotPassword from '../components/Forms/ForgotPassword'
 import UpdateProfile from '../components/Forms/UpdateProfile'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Col, Row, Space } from 'antd'
-import React from 'react'
+import { App } from './App'
 
 function Index() {
   return (
