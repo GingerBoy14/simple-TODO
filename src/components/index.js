@@ -13,10 +13,6 @@ import { App } from './App'
 
 function Index() {
   return (
-    // <Container
-    //   className="d-flex align-items-center justify-content-center"
-    //   style={{ minHeight: '100vh' }}>
-    //   <div className="w-100" style={{ maxWidth: '1200px' }}>
     <Row justify="center">
       <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
         <Router>

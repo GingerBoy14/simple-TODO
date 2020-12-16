@@ -6,7 +6,7 @@ import firebase from 'config'
 import { useAuth } from '../../context/AuthContext'
 
 const db = firebase.firestore()
-const ref = db.collection('user')
+// const ref = db.collection('user')
 
 const TodoList = () => {
   const { store, dispatch } = useStoreContext()
