@@ -11,6 +11,8 @@ const firebaseConfig = {
   messagingSenderId: '671395463458',
   appId: '1:671395463458:web:5949a31719f796859fe57b'
 }
-export default firebase.initializeApp(firebaseConfig)
+let defaultProject = firebase.initializeApp(firebaseConfig)
+
+export default defaultProject
 const db = firebase.firestore()
 export { db, firebaseConfig }

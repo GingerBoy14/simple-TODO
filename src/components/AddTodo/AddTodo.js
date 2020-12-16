@@ -1,13 +1,24 @@
 import 'antd/dist/antd.css'
 import { Input, Button, Form } from 'antd'
-import { useStoreContext } from '../../context'
+import { useTasksContext } from '../../context'
+import { useUserContext } from '../../context'
 
 const AddTodo = () => {
-  const { dispatch } = useStoreContext()
+  const { dispatch, state } = useTasksContext()
+  const { currentUser } = useUserContext()
+
   const [form] = Form.useForm()
+
   const onFinish = (values) => {
     if (values.addTodoName)
-      dispatch({ type: 'ADD_TODO', payload: values.addTodoName })
+      dispatch({
+        type: 'ADD_TODO',
+        payload: {
+          text: values.addTodoName,
+          idCurrentUser: currentUser.refreshToken
+        }
+      })
+    console.log(state)
     form.setFieldsValue({ addTodoName: '' })
   }
   return (

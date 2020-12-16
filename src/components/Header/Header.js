@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Col, Row, Typography } from 'antd'
 import { Filter } from 'components/Filter'
-import { useStoreContext } from 'context'
+import { useTasksContext } from 'context'
 const { Title } = Typography
 
 const Header = () => {
   const [counter, setCounter] = useState(0)
-  const { store, dispatch } = useStoreContext()
+  const { store, dispatch } = useTasksContext()
   useEffect(() => {
     setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
-
   return (
     <>
       <Row>

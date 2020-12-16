@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { storeContext, userContext } from 'context'
+import { tasksContext, userContext } from 'context'
 
-const useStoreContext = () => useContext(storeContext)
+const useTasksContext = () => useContext(tasksContext)
 const useUserContext = () => useContext(userContext)
 
-export { useStoreContext, useUserContext }
+export { useTasksContext, useUserContext }

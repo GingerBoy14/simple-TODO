@@ -4,6 +4,7 @@ import { Search } from './Search'
 import { TodoList } from './TodoList'
 import { ToDoApp } from './ToDoApp'
 import { LoginForm, SignUpForm, MainForm } from './Form'
+import { SignOut } from './SignOut'
 
 export {
   AddTodo,
@@ -13,5 +14,6 @@ export {
   MainForm,
   ToDoApp,
   LoginForm,
-  SignUpForm
+  SignUpForm,
+  SignOut
 }

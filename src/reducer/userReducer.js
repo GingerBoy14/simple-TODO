@@ -1,28 +1,61 @@
-import { v4 } from 'uuid'
-import _ from 'lodash'
-import firebase, { db } from '../config'
+import defaultProject, { db } from '../config'
+import firebase from 'firebase/app'
 
 const userReducer = (state, action) => {
-  let id
   switch (action.type) {
     case 'SIGNUP_USER':
-      id = v4()
-      firebase
+      defaultProject
         .auth()
         .createUserWithEmailAndPassword(
-          action.payload.login,
+          action.payload.email,
           action.payload.password
         )
         .then(function (result) {
           console.log(result.user)
-          db.collection('users').doc(id).set({
+          db.collection('users').doc(result.user.refreshToken).set({
             login: result.user.email
           })
+          db.collection('users')
+            .doc(result.user.refreshToken)
+            .collection('tasks')
         })
 
       return {
         ...state
       }
+    case 'SIGNUP_USER_WITH_GOOGLE':
+      var provider = new firebase.auth.GoogleAuthProvider()
+      defaultProject
+        .auth()
+        .signInWithPopup(provider)
+        .then(function (result) {
+          let user = result.user
+          db.collection('users').doc(result.user.refreshToken).set({
+            login: user.email
+          })
+          db.collection('users')
+            .doc(result.user.refreshToken)
+            .collection('tasks')
+        })
+        .catch(function (error) {
+          alert(error.code)
+        })
+
+      return {
+        ...state
+      }
+    case 'SIGN_OUT':
+      defaultProject
+        .auth()
+        .signOut()
+        .then(
+          function () {
+            console.log('Signed Out')
+          },
+          function (error) {
+            console.error('Sign Out Error', error)
+          }
+        )
     default:
       return state
   }

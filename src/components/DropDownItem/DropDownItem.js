@@ -2,9 +2,9 @@ import { Menu } from 'antd'
 import Icon from '@ant-design/icons'
 import { dropDownItemButtons } from '../../utilities'
 
-const DropDownItem = ({ id, status, dispatch }) => {
+const DropDownItem = ({ taskId, dispatch, idCurrentUser }) => {
   const onClickDropDownItem = (type) => {
-    dispatch({ type, payload: id })
+    dispatch({ type, payload: { taskId, idCurrentUser } })
   }
   return (
     <Menu>

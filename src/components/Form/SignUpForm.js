@@ -1,30 +1,45 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback, useState } from 'react'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { GoogleOutlined } from '@ant-design/icons'
-import { useHistory } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import { useUserContext } from '../../context'
+
+import 'firebase/auth'
 
 const { Title } = Typography
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }) => {
+  console.log(history)
   const [form] = Form.useForm()
   const { dispatch } = useUserContext()
   const password = useRef(null)
   const login = useRef(null)
 
-  let history = useHistory()
+  const handleSignUp = useCallback(
+    async (event) => {
+      try {
+        await dispatch({
+          type: 'SIGNUP_USER',
+          payload: {
+            email: login.current.props.value,
+            password: password.current.props.value,
+            history: history
+          }
+        })
+      } catch (error) {
+        alert(error)
+      }
+      history.push('/toDoApp')
+    },
+    [history]
+  )
 
-  const onFinish = (value) => {
-    dispatch({
-      type: 'SIGNUP_USER',
-      payload: { login: value.login, password: value.password }
-    })
-    // history.push('/toDoApp')
+  const SignUpWithGoogle = () => {
+    dispatch({ type: 'SIGNUP_USER_WITH_GOOGLE', payload: history })
   }
-
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form form={form} onFinish={handleSignUp}>
       <Row justify="center">
         <Col>
           <Title level={1}>Sign up</Title>
@@ -113,7 +128,11 @@ const SignUpForm = () => {
         </Col>
         <Col>
           <Form.Item>
-            <Button htmlType="button" size="large" icon={<GoogleOutlined />}>
+            <Button
+              htmlType="button"
+              size="large"
+              icon={<GoogleOutlined />}
+              onClick={SignUpWithGoogle}>
               Sign up with Google
             </Button>
           </Form.Item>
@@ -125,4 +144,4 @@ const SignUpForm = () => {
     </Form>
   )
 }
-export { SignUpForm }
+export default withRouter(SignUpForm)

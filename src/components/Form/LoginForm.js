@@ -1,27 +1,43 @@
-import React from 'react'
+import React, { useCallback, useContext, useRef } from 'react'
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useHistory } from 'react-router-dom'
-import { useUserContext } from '../../context'
+import { Redirect } from 'react-router'
+import defaultProject from '../../config'
+import { userContext } from '../../context'
 
 const { Title } = Typography
 
-const LoginForm = () => {
+const LoginForm = ({ history }) => {
   const [form] = Form.useForm()
-  const { dispatch } = useUserContext()
+  const password = useRef(null)
+  const login = useRef(null)
+  const handleLogin = useCallback(
+    async (event) => {
+      try {
+        await defaultProject
+          .auth()
+          .signInWithEmailAndPassword(
+            login.current.props.value,
+            password.current.props.value
+          )
+        history.push('/toDoApp')
+      } catch (error) {
+        alert(error)
+      }
+    },
+    [history]
+  )
+  const { currentUser } = useContext(userContext)
 
-  let history = useHistory()
-
-  const onFinish = (values) => {
-    dispatch({ type: 'LOGIN_USER' })
-    history.push('/toDoApp')
+  if (currentUser) {
+    return <Redirect to="/toDoApp" />
   }
   const onReset = () => {
     form.resetFields()
   }
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form form={form} onFinish={handleLogin}>
       <Row justify="center">
         <Col>
           <Title level={1}>Log in</Title>
@@ -42,7 +58,7 @@ const LoginForm = () => {
                 message: 'Please input your E-mail!'
               }
             ]}>
-            <Input placeholder="Login" />
+            <Input placeholder="Login" ref={login} />
           </Form.Item>
         </Col>
       </Row>
@@ -50,7 +66,7 @@ const LoginForm = () => {
         <Col span={24}>
           <Form.Item
             name="password"
-            label="Password"
+            label="Password" /*
             rules={[
               {
                 required: true,
@@ -61,8 +77,10 @@ const LoginForm = () => {
                 message:
                   'Minimum eight characters, at least one letter and one number'
               }
-            ]}>
+            ]}*/
+          >
             <Input.Password
+              ref={password}
               placeholder="Password"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />

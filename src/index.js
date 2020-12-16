@@ -1,18 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App.js'
-import { Provider } from 'context'
+import { AuthProvider } from './context'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider
-      user={{
-        idUser: '',
-        userName: '',
-        dateOfBirth: ''
-      }}>
+    <AuthProvider>
       <App />
-    </Provider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

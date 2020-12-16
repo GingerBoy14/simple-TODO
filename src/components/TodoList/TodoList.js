@@ -3,16 +3,16 @@ import { Row, Col, List } from 'antd'
 import { TodoListItem } from '../TodoListItem'
 import { filter } from '../../utilities'
 import './style.css'
-import { useStoreContext } from '../../context'
+import { useTasksContext, useUserContext } from '../../context'
 
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
-  const { store } = useStoreContext()
+  const { store } = useTasksContext()
+  const { currentUser } = useUserContext()
   useEffect(() => {
     filter(store, setFilteredTasks)
   }, [store])
 
-  console.log('render')
   return (
     <div style={{ maxHeight: '400px', overflow: 'auto' }} className="style-1">
       <Row gutter={[0, 0]}>
@@ -23,7 +23,12 @@ const TodoList = () => {
             style={{ maxWidth: '100%', alignItems: 'center' }}
             dataSource={filteredTasks}
             renderItem={(item) => {
-              return <TodoListItem item={item} />
+              return (
+                <TodoListItem
+                  item={item}
+                  idCurrentUser={currentUser.refreshToken}
+                />
+              )
             }}
           />
         </Col>

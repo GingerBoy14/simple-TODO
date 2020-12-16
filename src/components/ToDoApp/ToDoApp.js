@@ -1,11 +1,14 @@
 import { Col, Row, Spin } from 'antd'
-import { Search, Header, TodoList, AddTodo } from 'components'
+import { Search, Header, TodoList, AddTodo, SignOut } from 'components'
 import { FetchData } from '../../hook'
 import { useState } from 'react'
+import { useUserContext } from '../../context'
 
 const ToDoApp = () => {
   const [loading, setLoading] = useState(true)
-  FetchData({ loading, setLoading })
+  const { currentUser } = useUserContext()
+  let idCurrentUser = currentUser.refreshToken
+  FetchData({ loading, setLoading, idCurrentUser })
   return (
     <Row justify="center">
       <Col span={24}>
@@ -35,9 +38,14 @@ const ToDoApp = () => {
             </Row>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[0, 16]}>
           <Col flex={1}>
             <AddTodo />
+          </Col>
+        </Row>
+        <Row>
+          <Col flex="auto" align="center" span={24}>
+            <SignOut />
           </Col>
         </Row>
       </Col>

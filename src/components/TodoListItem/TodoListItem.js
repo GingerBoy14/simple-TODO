@@ -1,14 +1,17 @@
 import { Col, Row, List, Typography, Checkbox } from 'antd'
 import { DropDown } from '../DropDown'
-import { useStoreContext } from '../../context'
+import { useTasksContext } from '../../context'
 
 const { Item } = List
 const { Text } = Typography
-const TodoListItem = ({ item }) => {
-  const { dispatch } = useStoreContext()
+const TodoListItem = ({ item, idCurrentUser }) => {
+  const { dispatch } = useTasksContext()
 
   const onChangeSetDone = (id) => {
-    dispatch({ type: 'SET_DONE', payload: item.id })
+    dispatch({
+      type: 'SET_DONE',
+      payload: { taskId: item.id, idCurrentUser: idCurrentUser }
+    })
   }
 
   return (
@@ -27,7 +30,12 @@ const TodoListItem = ({ item }) => {
           <Text strong={item.status.important}>{item.text}</Text>
         </Col>
       </Row>
-      <DropDown status={item.status} id={item.id} dispatch={dispatch} />
+      <DropDown
+        status={item.status}
+        taskId={item.id}
+        dispatch={dispatch}
+        idCurrentUser={idCurrentUser}
+      />
     </Item>
   )
 }

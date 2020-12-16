@@ -6,7 +6,7 @@ import { orderByField } from '../helpers'
 const tasksReducer = (state, action) => {
   let unpinned
   let date = new Date()
-  let id
+  let id = v4()
   switch (action.type) {
     case 'RELOAD':
       let array = action.payload
@@ -31,22 +31,24 @@ const tasksReducer = (state, action) => {
 
     case 'ADD_TODO':
       id = v4()
-      db.collection('tasks')
-        .doc(id)
-        .set({
-          text: action.payload,
-          id: id,
-          dateCreate: Date(date),
-          dateLastEdit: Date(date),
-          status: { done: false, important: false, pinned: false }
-        })
+      var st = db
+        .collection('users')
+        .doc(action.payload.idCurrentUser)
+        .collection('tasks')
 
+      st.doc(id).set({
+        text: action.payload.text,
+        id: id,
+        dateCreate: Date(date),
+        dateLastEdit: Date(date),
+        status: { done: false, important: false, pinned: false }
+      })
       return {
         ...state,
         tasks: [
           ...state.tasks,
           {
-            text: action.payload,
+            text: action.payload.text,
             id: id,
             dateCreate: Date(date),
             dateLastEdit: Date(date),
@@ -55,24 +57,30 @@ const tasksReducer = (state, action) => {
         ]
       }
     case 'DELETE_TODO':
-      db.collection('tasks').doc(action.payload).delete()
-
       const newTasks = _.remove(state.tasks, (item) => {
-        return item.id === action.payload
+        if (item.id === action.payload.taskId)
+          db.collection('users')
+            .doc(action.payload.idCurrentUser)
+            .collection('tasks')
+            .doc(item.id)
+            .delete()
+        return item.id !== action.payload.taskId
       })
 
       return {
         ...state,
-        tasks: state.tasks.filter((it) => it.id !== newTasks[0])
+        tasks: newTasks
       }
 
     case 'SET_DONE':
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
-          db.collection('tasks')
-            .doc(action.payload)
+          if (todo.id !== action.payload.taskId) return todo
+          db.collection('users')
+            .doc(action.payload.idCurrentUser)
+            .collection('tasks')
+            .doc(todo.id)
             .set({
               ...todo,
               status: {
@@ -93,9 +101,11 @@ const tasksReducer = (state, action) => {
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
-          db.collection('tasks')
-            .doc(action.payload)
+          if (todo.id !== action.payload.taskId) return todo
+          db.collection('users')
+            .doc(action.payload.idCurrentUser)
+            .collection('tasks')
+            .doc(todo.id)
             .set({
               ...todo,
               status: {
@@ -103,6 +113,7 @@ const tasksReducer = (state, action) => {
                 important: !todo.status.important
               }
             })
+
           return {
             ...todo,
             status: {
@@ -114,10 +125,13 @@ const tasksReducer = (state, action) => {
       }
     case 'PINNED_TODO':
       const tasks = state.tasks.map((todo) => {
-        if (todo.id !== action.payload) return todo
-        db.collection('tasks')
-          .doc(action.payload)
-          .update({
+        if (todo.id !== action.payload.taskId) return todo
+
+        db.collection('users')
+          .doc(action.payload.idCurrentUser)
+          .collection('tasks')
+          .doc(todo.id)
+          .set({
             ...todo,
             status: {
               ...todo.status,
@@ -125,6 +139,7 @@ const tasksReducer = (state, action) => {
             },
             dateLastEdit: todo.status.pinned ? todo.dateCreate : Date(date)
           })
+
         return {
           ...todo,
           status: { ...todo.status, pinned: !todo.status.pinned },
