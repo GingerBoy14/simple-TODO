@@ -4,7 +4,7 @@
     "paths": {
       "service": [ "./service/*" ],
       "hooks": [ "./hooks/*" ],
-      "app": ["./app/*"]
+      "app": ["./app/*"],
       "components": ["./components/*"]
     }
   },
