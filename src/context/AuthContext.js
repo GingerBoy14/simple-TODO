@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { auth } from '../config'
+import { auth, firestore } from '../config'
 
 const AuthContext = React.createContext()
 
@@ -11,8 +11,10 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+  async function signup(email, password) {
+    const res = await auth.createUserWithEmailAndPassword(email, password)
+    const { user } = res
+    await firestore.collection('users').doc(user.uid)
   }
 
   function login(email, password) {
@@ -37,7 +39,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
+      //TODO if you want to extend user's data, change this object
+      setCurrentUser({ uid: user.uid })
       setLoading(false)
     })
 

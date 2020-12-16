@@ -3,23 +3,28 @@ import { useStoreContext } from 'context'
 import { TodoListItem } from '../TodoListItem'
 import { useEffect, useState } from 'react'
 import firebase from 'config'
+import { useAuth } from '../../context/AuthContext'
 
 const db = firebase.firestore()
-const ref = db.collection('tasks')
+const ref = db.collection('user')
 
 const TodoList = () => {
   const { store, dispatch } = useStoreContext()
+  const { currentUser } = useAuth()
   const [firebaseTasks, setFirebaseTasks] = useState([])
 
   useEffect(() => {
-    const unsubscribe = ref.orderBy('creationDate').onSnapshot((snapshot) => {
-      dispatch({
-        type: 'GET_TASKS',
-        payload: snapshot.docs.map((doc) => ({
-          ...doc.data()
-        }))
+    const unsubscribe = db
+      .collection(`users/${currentUser.uid}/tasks`)
+      .orderBy('creationDate')
+      .onSnapshot((snapshot) => {
+        dispatch({
+          type: 'GET_TASKS',
+          payload: snapshot.docs.map((doc) => ({
+            ...doc.data()
+          }))
+        })
       })
-    })
     return () => unsubscribe()
   }, [])
 

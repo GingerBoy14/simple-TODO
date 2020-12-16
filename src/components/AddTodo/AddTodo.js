@@ -1,13 +1,21 @@
 import 'antd/dist/antd.css'
 import { Input, Button, Form } from 'antd'
 import { useStoreContext } from 'context'
+import { useAuth } from '../../context/AuthContext'
 
 const AddTodo = () => {
   const [form] = Form.useForm()
   const { dispatch } = useStoreContext()
+  const { currentUser } = useAuth()
   const onFinish = (values) => {
     if (values.addTodoName)
-      dispatch({ type: 'ADD_TODO', payload: values.addTodoName })
+      dispatch({
+        type: 'ADD_TODO',
+        payload: {
+          addTodoName: values.addTodoName,
+          uid: currentUser.uid
+        }
+      })
   }
   return (
     <Form form={form} name="add_todo" layout="inline" onFinish={onFinish}>
