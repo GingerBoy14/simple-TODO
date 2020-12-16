@@ -13,7 +13,7 @@ class Firebase {
     this.firestore = firebase.firestore()
     this.auth = firebase.auth()
   }
-
+  getFirebase = () => firebase
   /**
    * Set data to document in firestore collection
    * @param {string} path - collection path
