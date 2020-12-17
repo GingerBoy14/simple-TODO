@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
   async function signup(email, password) {
     const res = await auth.createUserWithEmailAndPassword(email, password)
@@ -40,8 +40,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       //TODO if you want to extend user's data, change this object
-      setCurrentUser({ uid: user.uid })
-      setLoading(false)
+      console.log(user)
+      if (user) {
+        setCurrentUser({ uid: user.uid })
+        // setLoading(false)
+      }
     })
 
     return unsubscribe
@@ -59,7 +62,8 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {/*{!loading && children}*/}
+      {children}
     </AuthContext.Provider>
   )
 }
