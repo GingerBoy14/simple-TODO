@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
-  // const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   async function signup(email, password) {
     const res = await auth.createUserWithEmailAndPassword(email, password)
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
       console.log(user)
       if (user) {
         setCurrentUser({ uid: user.uid })
-        // setLoading(false)
+        setLoading(false)
       }
     })
 
@@ -63,7 +63,8 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={value}>
       {/*{!loading && children}*/}
-      {children}
+      {loading ? loading : children}
+      {/*{children}*/}
     </AuthContext.Provider>
   )
 }
