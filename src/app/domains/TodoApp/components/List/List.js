@@ -25,11 +25,12 @@ const scrollStyle = css`
 `
 
 const List = (props) => {
-  const { tasks } = props
+  const { tasks, height } = props
+
   return (
     <>
       {tasks && (
-        <SimpleBar style={{ maxHeight: '70vh' }} autoHide={false}>
+        <SimpleBar autoHide={false} style={{ maxHeight: height }}>
           <Global styles={scrollStyle} />
           <AntList
             size="large"

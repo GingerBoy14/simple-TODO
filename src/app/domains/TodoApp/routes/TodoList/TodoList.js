@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { List } from '../../components/List'
 import { useStoreContext } from '../../context'
 import useFirestoreListener from 'hooks'
 import types from '../../constants/types'
 import { Spinner } from 'components'
+import { Col, Row } from 'antd'
 
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
@@ -12,6 +13,7 @@ const TodoList = () => {
     fieldPath: 'timestamp'
   })
   const store = useStoreContext()
+  const list = useRef()
 
   //TODO: refactor
   const filter = useCallback(
@@ -38,7 +40,19 @@ const TodoList = () => {
   if (loading) {
     return <Spinner />
   }
-  return <List tasks={filteredTasks} />
+  return (
+    <Row
+      ref={list}
+      style={{ flex: 1 }}
+      align={filteredTasks.length > 0 ? 'bottom' : 'middle'}>
+      <Col span={24}>
+        <List
+          tasks={filteredTasks}
+          height={list.current && list.current.clientHeight}
+        />
+      </Col>
+    </Row>
+  )
 }
 
 export default TodoList

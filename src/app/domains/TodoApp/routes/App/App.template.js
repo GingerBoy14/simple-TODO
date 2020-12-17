@@ -16,11 +16,14 @@ const App = () => {
           <Filter />
         </Col>
       </Row>
-      <Row gutter={[0, 16]}>
-        <Col xs={24}>
-          <Search />
-        </Col>
-        <Col xs={24}>
+      <Row gutter={[0, 16]} style={{ flex: 1 }}>
+        <Col span={24} style={{ display: 'flex', flexDirection: 'column' }}>
+          <Row>
+            <Col span={24}>
+              <Search />
+            </Col>
+          </Row>
+
           <TodoList />
         </Col>
       </Row>

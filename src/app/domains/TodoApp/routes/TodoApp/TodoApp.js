@@ -6,12 +6,12 @@ import { UserSimpleView } from 'app/domains/User/components'
 
 const TodoApp = () => {
   return (
-    <Row justify="center">
-      <Col span={24}>
+    <Row style={{ height: '100%' }}>
+      <Col span={24} style={{ display: 'flex', flexDirection: 'column' }}>
         <Row>
           <Col
             xs={{ order: 2, offset: 0 }}
-            sm={{ offset: 4, order: 1 }}
+            sm={{ order: 1, offset: 4 }}
             flex={1}>
             <Header />
           </Col>
@@ -19,11 +19,20 @@ const TodoApp = () => {
             <UserSimpleView />
           </Col>
         </Row>
-      </Col>
-      <Col xs={24} sm={24} md={14} lg={12} xl={9} xxl={8}>
-        <TodosProvider store={{ tasks: [], filter: 'all', query: '' }}>
-          <App />
-        </TodosProvider>
+        <Row justify="center" style={{ flex: 1 }}>
+          <Col
+            xs={24}
+            sm={24}
+            md={14}
+            lg={12}
+            xl={9}
+            xxl={8}
+            style={{ display: 'flex', flexDirection: 'column' }}>
+            <TodosProvider store={{ tasks: [], filter: 'all', query: '' }}>
+              <App />
+            </TodosProvider>
+          </Col>
+        </Row>
       </Col>
     </Row>
   )
