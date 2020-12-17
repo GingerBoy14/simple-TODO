@@ -7,8 +7,10 @@ import {
   DingtalkOutlined
 } from '@ant-design/icons'
 import { useStoreContext } from 'context'
+import { useAuth } from '../../context/AuthContext'
 
 const DropDown = (props) => {
+  const { currentUser } = useAuth()
   const { id, status } = props
   const { dispatch } = useStoreContext()
 
@@ -26,7 +28,10 @@ const DropDown = (props) => {
       </Menu.Item>
       <Menu.Item
         onClick={() =>
-          dispatch({ type: 'DELETE_TODO', payload: { id, status } })
+          dispatch({
+            type: 'DELETE_TODO',
+            payload: { id, status, uid: currentUser.uid }
+          })
         }
         danger={true}
         icon={<DeleteOutlined />}>

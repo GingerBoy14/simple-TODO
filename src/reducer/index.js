@@ -35,7 +35,10 @@ const rootReducer = (state, action) => {
       const newTasks = _.remove(state.tasks, (item) => {
         return item.id === action.payload
       })
-      firestore.collection('tasks').doc(action.payload.id).delete()
+      firestore
+        .collection(`users/${action.payload.uid}/tasks`)
+        .doc(action.payload.id)
+        .delete()
       return {
         ...state,
         tasks: state.tasks.filter((it) => it.id !== newTasks[0])
