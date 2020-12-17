@@ -40,11 +40,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       //TODO if you want to extend user's data, change this object
-      console.log(user)
-      if (user) {
-        setCurrentUser({ uid: user.uid })
-        setLoading(false)
-      }
+      // if (user) {
+      // setCurrentUser({ uid: user.uid })
+      setCurrentUser(user)
+      setLoading(false)
+      // }
     })
 
     return unsubscribe
@@ -62,8 +62,8 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {/*{!loading && children}*/}
-      {loading ? loading : children}
+      {!loading && children}
+      {/*{!loading ? loading : children}*/}
       {/*{children}*/}
     </AuthContext.Provider>
   )
