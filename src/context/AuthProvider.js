@@ -8,7 +8,6 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, currentUser)
   useEffect(() => {
     firebaseDefault.auth().onAuthStateChanged(setCurrentUser)
-    console.log(currentUser)
   }, [])
 
   return (

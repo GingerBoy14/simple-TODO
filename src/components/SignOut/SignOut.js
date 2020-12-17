@@ -4,7 +4,7 @@ import { useUserContext } from '../../context'
 const SignOut = () => {
   const { dispatch } = useUserContext()
   return (
-    <Button size="large" onClick={dispatch({ type: 'SIGN_OUT' })}>
+    <Button size="large" onClick={() => dispatch({ type: 'SIGN_OUT' })}>
       SignOut
     </Button>
   )

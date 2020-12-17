@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { Row, Col, List } from 'antd'
 import { TodoListItem } from '../TodoListItem'
 import { filter } from '../../utilities'
 import './style.css'
 import { useTasksContext, useUserContext } from '../../context'
 
-const TodoList = () => {
+const TodoListInner = () => {
   const [filteredTasks, setFilteredTasks] = useState()
   const { store } = useTasksContext()
   const { currentUser } = useUserContext()
@@ -15,7 +15,7 @@ const TodoList = () => {
 
   return (
     <div style={{ maxHeight: '400px', overflow: 'auto' }} className="style-1">
-      <Row gutter={[0, 0]}>
+      <Row>
         <Col span={24}>
           <List
             size="large"
@@ -24,10 +24,7 @@ const TodoList = () => {
             dataSource={filteredTasks}
             renderItem={(item) => {
               return (
-                <TodoListItem
-                  item={item}
-                  idCurrentUser={currentUser.refreshToken}
-                />
+                <TodoListItem item={item} idCurrentUser={currentUser.uid} />
               )
             }}
           />
@@ -36,5 +33,4 @@ const TodoList = () => {
     </div>
   )
 }
-
-export default TodoList
+export const TodoList = memo(TodoListInner)

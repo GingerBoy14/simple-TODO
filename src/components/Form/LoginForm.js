@@ -1,17 +1,32 @@
 import React, { useCallback, useContext, useRef } from 'react'
 import 'antd/dist/antd.css'
-import { Form, Input, Button, Typography, Row, Col } from 'antd'
+import { Form, Input, Button, Typography, Row, Col, Divider } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { Redirect } from 'react-router'
+import { Redirect, withRouter } from 'react-router'
 import defaultProject from '../../config'
 import { userContext } from '../../context'
+import { GoogleOutlined } from '@ant-design/icons'
 
-const { Title } = Typography
+const { Title, Text } = Typography
 
 const LoginForm = ({ history }) => {
   const [form] = Form.useForm()
   const password = useRef(null)
   const login = useRef(null)
+  const { currentUser, dispatch } = useContext(userContext)
+
+  const SignUpWithGoogle = useCallback(
+    async (event) => {
+      try {
+        await dispatch({ type: 'SIGNUP_USER_WITH_GOOGLE', payload: history })
+      } catch (error) {
+        alert(error)
+      }
+      history.push('/toDoApp')
+    },
+    [history]
+  )
+
   const handleLogin = useCallback(
     async (event) => {
       try {
@@ -28,14 +43,11 @@ const LoginForm = ({ history }) => {
     },
     [history]
   )
-  const { currentUser } = useContext(userContext)
 
   if (currentUser) {
     return <Redirect to="/toDoApp" />
   }
-  const onReset = () => {
-    form.resetFields()
-  }
+
   return (
     <Form form={form} onFinish={handleLogin}>
       <Row justify="center">
@@ -97,18 +109,45 @@ const LoginForm = ({ history }) => {
             </Button>
           </Form.Item>
         </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <Divider>
+            <Title level={4}>Or</Title>
+          </Divider>
+        </Col>
+      </Row>
+      <Row justify="center">
         <Col>
           <Form.Item>
-            <Button htmlType="button" onClick={onReset} size="large">
-              Reset
+            <Button
+              htmlType="button"
+              size="large"
+              icon={<GoogleOutlined />}
+              onClick={SignUpWithGoogle}>
+              Log in with Google
             </Button>
           </Form.Item>
         </Col>
       </Row>
-      <Row justify="center">
-        <Col span={24}></Col>
+      <Row gutter={[0, 8]}>
+        <Col flex="auto" align="center" span={24}>
+          <Text>Do you not have an account?</Text>
+        </Col>
+      </Row>
+      <Row>
+        <Col flex="auto" align="center" span={24}>
+          <Button
+            htmlType="button"
+            size="large"
+            onClick={() => {
+              history.push('/signUp')
+            }}>
+            Sign up
+          </Button>
+        </Col>
       </Row>
     </Form>
   )
 }
-export { LoginForm }
+export default withRouter(LoginForm)

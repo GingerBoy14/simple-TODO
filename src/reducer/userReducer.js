@@ -12,14 +12,12 @@ const userReducer = (state, action) => {
         )
         .then(function (result) {
           console.log(result.user)
-          db.collection('users').doc(result.user.refreshToken).set({
+          db.collection('users').doc(result.user.uid).set({
             login: result.user.email
           })
-          db.collection('users')
-            .doc(result.user.refreshToken)
-            .collection('tasks')
+          db.collection('users').doc(result.user.uid).collection('tasks')
         })
-
+      //action.payload.history.push('/toDoApp')
       return {
         ...state
       }
@@ -30,12 +28,10 @@ const userReducer = (state, action) => {
         .signInWithPopup(provider)
         .then(function (result) {
           let user = result.user
-          db.collection('users').doc(result.user.refreshToken).set({
+          db.collection('users').doc(result.user.uid).set({
             login: user.email
           })
-          db.collection('users')
-            .doc(result.user.refreshToken)
-            .collection('tasks')
+          db.collection('users').doc(result.user.uid).collection('tasks')
         })
         .catch(function (error) {
           alert(error.code)

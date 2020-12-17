@@ -1,19 +1,23 @@
+import { memo, useCallback } from 'react'
 import { Col, Row, List, Typography, Checkbox } from 'antd'
 import { DropDown } from '../DropDown'
 import { useTasksContext } from '../../context'
 
 const { Item } = List
 const { Text } = Typography
-const TodoListItem = ({ item, idCurrentUser }) => {
+
+const TodoListItemInner = ({ item, idCurrentUser }) => {
   const { dispatch } = useTasksContext()
 
-  const onChangeSetDone = (id) => {
-    dispatch({
-      type: 'SET_DONE',
-      payload: { taskId: item.id, idCurrentUser: idCurrentUser }
-    })
-  }
-
+  const onChangeSetDone = useCallback(
+    (value) => {
+      dispatch({
+        type: 'SET_DONE',
+        payload: { taskId: item.id, idCurrentUser: idCurrentUser }
+      })
+    },
+    [dispatch, idCurrentUser, item]
+  )
   return (
     <Item
       style={{
@@ -21,10 +25,7 @@ const TodoListItem = ({ item, idCurrentUser }) => {
       }}>
       <Row wrap={false} gutter={[16, 0]} align="middle">
         <Col>
-          <Checkbox
-            checked={item.status.done}
-            onChange={() => onChangeSetDone(item.id)}
-          />
+          <Checkbox checked={item.status.done} onChange={onChangeSetDone} />
         </Col>
         <Col>
           <Text strong={item.status.important}>{item.text}</Text>
@@ -39,4 +40,4 @@ const TodoListItem = ({ item, idCurrentUser }) => {
     </Item>
   )
 }
-export default TodoListItem
+export const TodoListItem = memo(TodoListItemInner)

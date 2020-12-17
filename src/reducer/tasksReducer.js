@@ -6,7 +6,7 @@ import { orderByField } from '../helpers'
 const tasksReducer = (state, action) => {
   let unpinned
   let date = new Date()
-  let id = v4()
+
   switch (action.type) {
     case 'RELOAD':
       let array = action.payload
@@ -19,7 +19,7 @@ const tasksReducer = (state, action) => {
           return new Date(b.dateLastEdit) - new Date(a.dateLastEdit)
         })
       }
-
+      console.log('state.tasks', state.tasks)
       return {
         ...state,
         tasks: array.concat(
@@ -30,19 +30,18 @@ const tasksReducer = (state, action) => {
       }
 
     case 'ADD_TODO':
-      id = v4()
-      var st = db
-        .collection('users')
+      let id = v4()
+      db.collection('users')
         .doc(action.payload.idCurrentUser)
         .collection('tasks')
-
-      st.doc(id).set({
-        text: action.payload.text,
-        id: id,
-        dateCreate: Date(date),
-        dateLastEdit: Date(date),
-        status: { done: false, important: false, pinned: false }
-      })
+        .doc(id)
+        .set({
+          text: action.payload.text,
+          id: id,
+          dateCreate: Date(date),
+          dateLastEdit: Date(date),
+          status: { done: false, important: false, pinned: false }
+        })
       return {
         ...state,
         tasks: [
@@ -80,7 +79,7 @@ const tasksReducer = (state, action) => {
           db.collection('users')
             .doc(action.payload.idCurrentUser)
             .collection('tasks')
-            .doc(todo.id)
+            .doc(action.payload.taskId)
             .set({
               ...todo,
               status: {

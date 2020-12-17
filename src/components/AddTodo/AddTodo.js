@@ -4,7 +4,7 @@ import { useTasksContext } from '../../context'
 import { useUserContext } from '../../context'
 
 const AddTodo = () => {
-  const { dispatch, state } = useTasksContext()
+  const { dispatch } = useTasksContext()
   const { currentUser } = useUserContext()
 
   const [form] = Form.useForm()
@@ -15,10 +15,10 @@ const AddTodo = () => {
         type: 'ADD_TODO',
         payload: {
           text: values.addTodoName,
-          idCurrentUser: currentUser.refreshToken
+          idCurrentUser: currentUser.uid
         }
       })
-    console.log(state)
+
     form.setFieldsValue({ addTodoName: '' })
   }
   return (

@@ -1,13 +1,10 @@
-import React, { useRef, useCallback, useState } from 'react'
+import React, { useRef, useCallback } from 'react'
 import { Form, Input, Button, Typography, Row, Col } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { GoogleOutlined } from '@ant-design/icons'
 import { withRouter } from 'react-router'
 import { useUserContext } from '../../context'
 
-import 'firebase/auth'
-
-const { Title } = Typography
+const { Title, Text } = Typography
 
 const SignUpForm = ({ history }) => {
   console.log(history)
@@ -35,9 +32,6 @@ const SignUpForm = ({ history }) => {
     [history]
   )
 
-  const SignUpWithGoogle = () => {
-    dispatch({ type: 'SIGNUP_USER_WITH_GOOGLE', payload: history })
-  }
   return (
     <Form form={form} onFinish={handleSignUp}>
       <Row justify="center">
@@ -126,20 +120,23 @@ const SignUpForm = ({ history }) => {
             </Button>
           </Form.Item>
         </Col>
-        <Col>
-          <Form.Item>
-            <Button
-              htmlType="button"
-              size="large"
-              icon={<GoogleOutlined />}
-              onClick={SignUpWithGoogle}>
-              Sign up with Google
-            </Button>
-          </Form.Item>
+      </Row>
+      <Row gutter={[0, 8]}>
+        <Col flex="auto" align="center" span={24}>
+          <Text>Do you have an account?</Text>
         </Col>
       </Row>
-      <Row justify="center">
-        <Col span={24}></Col>
+      <Row>
+        <Col flex="auto" align="center" span={24}>
+          <Button
+            htmlType="button"
+            size="large"
+            onClick={() => {
+              history.push('/login')
+            }}>
+            Log in
+          </Button>
+        </Col>
       </Row>
     </Form>
   )
