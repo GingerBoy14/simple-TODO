@@ -58,10 +58,10 @@ const TodoList = () => {
     <List
       bordered
       style={
-        firebaseTasks.length > 5
-          ? { overflowY: 'scroll', maxHeight: '70vh' }
-          : {}
-        // { height: '70vh' }
+        // firebaseTasks.length > 5
+        //   ? { overflowY: 'scroll', maxHeight: '70vh' }
+        //   : {}
+        { height: '70vh' }
       }
       dataSource={filter(
         firebaseTasks.sort((a, b) => b.status.pinned - a.status.pinned)

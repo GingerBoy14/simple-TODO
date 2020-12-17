@@ -1,5 +1,4 @@
 import Signup from '../components/Forms/Signup'
-import { Container } from 'react-bootstrap'
 import { AuthProvider } from '../context/AuthContext'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Dashboard from '../components/Forms/Dashboard'
@@ -8,7 +7,7 @@ import PrivateRoute from '../components/Forms/PrivateRoute'
 import ForgotPassword from '../components/Forms/ForgotPassword'
 import UpdateProfile from '../components/Forms/UpdateProfile'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Col, Row, Space } from 'antd'
+import { Col, Row } from 'antd'
 import { App } from './App'
 
 function Index() {

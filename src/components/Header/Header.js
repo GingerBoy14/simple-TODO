@@ -1,8 +1,9 @@
 import { Row, Col } from 'antd'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography } from 'antd'
 import { useStoreContext } from 'context'
 import { Filter } from '../Filter'
+import { Link } from 'react-router-dom'
 
 const { Title } = Typography
 
@@ -17,7 +18,9 @@ const Header = () => {
       <Col flex={1}>
         <Row>
           <Col flex={1}>
-            <Title>Todo List</Title>
+            <Title>
+              <Link to="/app">Todo List</Link>
+            </Title>
           </Col>
         </Row>
         <Row>
