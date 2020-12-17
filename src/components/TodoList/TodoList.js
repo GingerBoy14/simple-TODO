@@ -61,7 +61,7 @@ const TodoList = () => {
         // firebaseTasks.length > 5
         //   ? { overflowY: 'scroll', maxHeight: '70vh' }
         //   : {}
-        { height: '70vh' }
+        { height: '60vh' }
       }
       dataSource={filter(
         firebaseTasks.sort((a, b) => b.status.pinned - a.status.pinned)

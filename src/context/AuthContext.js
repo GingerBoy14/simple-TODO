@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
   async function signup(email, password) {
     const res = await auth.createUserWithEmailAndPassword(email, password)
     const { user } = res
-    await firestore.collection('users').doc(user.uid)
+    await firestore.collection('users').doc(user.uid).set({ name: email })
   }
 
   function login(email, password) {
@@ -63,8 +63,6 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
-      {/*{!loading ? loading : children}*/}
-      {/*{children}*/}
     </AuthContext.Provider>
   )
 }
