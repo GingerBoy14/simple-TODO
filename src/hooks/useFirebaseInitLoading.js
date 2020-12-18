@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import firebase from 'service'
+
 const useFirebaseInitLoading = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {

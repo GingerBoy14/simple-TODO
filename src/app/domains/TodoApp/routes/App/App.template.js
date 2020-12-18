@@ -23,7 +23,6 @@ const App = () => {
               <Search />
             </Col>
           </Row>
-
           <TodoList />
         </Col>
       </Row>

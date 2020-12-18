@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
+import { Col, Row } from 'antd'
+import { useFirestoreListener } from 'hooks'
+import { Spinner } from 'components'
 import { List } from '../../components/List'
 import { useStoreContext } from '../../context'
-import useFirestoreListener from 'hooks'
 import types from '../../constants/types'
-import { Spinner } from 'components'
-import { Col, Row } from 'antd'
-
+import { useHeightDifference } from '../../hooks'
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
   const { loading } = useFirestoreListener('tasks', types.SET_TASKS, {
@@ -14,7 +14,7 @@ const TodoList = () => {
   })
   const store = useStoreContext()
   const list = useRef()
-
+  const height = useHeightDifference()
   //TODO: refactor
   const filter = useCallback(
     (tasks) => {
@@ -36,7 +36,9 @@ const TodoList = () => {
   )
 
   useEffect(() => filter(store.tasks), [store, filter])
-
+  // show how useCallback works
+  // need to
+  // useEffect(() => console.log('rerender'), [filter])
   if (loading) {
     return <Spinner />
   }
@@ -44,11 +46,16 @@ const TodoList = () => {
     <Row
       ref={list}
       style={{ flex: 1 }}
-      align={filteredTasks.length > 0 ? 'bottom' : 'middle'}>
+      align={filteredTasks.length > 0 ? 'top' : 'middle'}>
       <Col span={24}>
         <List
           tasks={filteredTasks}
-          height={list.current && list.current.clientHeight}
+          height={
+            list.current &&
+            (height > 0
+              ? list.current.clientHeight
+              : list.current.clientHeight + height)
+          }
         />
       </Col>
     </Row>

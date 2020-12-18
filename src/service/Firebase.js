@@ -4,6 +4,9 @@ import 'firebase/firestore'
 import { firebaseConfig } from '../constants/firebase'
 
 class Firebase {
+  /**
+   * Initialize App.
+   */
   constructor() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig)
@@ -13,6 +16,10 @@ class Firebase {
     this.firestore = firebase.firestore()
     this.auth = firebase.auth()
   }
+
+  /**
+   * @returns {Firebase} - return firebase instance
+   */
   getFirebase = () => firebase
   /**
    * Set data to document in firestore collection
