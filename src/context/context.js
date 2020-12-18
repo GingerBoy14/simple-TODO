@@ -1,5 +1,8 @@
 import React from 'react'
 
-const storeContext = React.createContext()
+const storeTasksContext = React.createContext()
 
-export default storeContext
+const storeUsersContext = React.createContext()
+
+export { storeUsersContext }
+export default storeTasksContext

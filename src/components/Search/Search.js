@@ -1,9 +1,9 @@
 import React from 'react'
-import { useStoreContext } from 'context'
+import { useStoreTasksContext } from 'context'
 import { Input } from 'antd'
 
-const Search = (props) => {
-  const { dispatch } = useStoreContext()
+const Search = () => {
+  const { dispatch } = useStoreTasksContext()
   return (
     <Input
       placeholder="Type todos..."

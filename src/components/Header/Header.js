@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Col, Row, Space, Typography } from 'antd'
-import { useStoreContext } from 'context'
-import { Filter } from 'components/Filter'
+import { useStoreTasksContext } from 'context'
+import { Filter } from '../'
+
 const { Title, Text } = Typography
 
 const Header = () => {
-  const { store } = useStoreContext()
+  const { store } = useStoreTasksContext()
   const [counter, setCounter] = useState(0)
+
   useEffect(() => {
     setCounter(store.tasks.filter(({ status }) => status.done).length)
   }, [store])
+
   return (
     <>
       <Row>
-        <Col span={24}>
+        <Col flex={1}>
           <Space direction="vertical" align="center" style={{ width: '100%' }}>
             <Title>Todo List</Title>
           </Space>

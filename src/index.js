@@ -1,13 +1,15 @@
-import App from './components'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'context'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { App } from './components'
+import { UsersProvider } from 'context'
+import 'antd/dist/antd.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={{ tasks: [], filter: 'all', query: '' }}>
+  <UsersProvider userStore={{ id: '' }}>
+    <Router>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </Router>
+  </UsersProvider>,
   document.getElementById('root')
 )

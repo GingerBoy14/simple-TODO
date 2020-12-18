@@ -1,38 +1,31 @@
-import { Row, Col } from 'antd'
+import { App } from './App'
 import { AddTodo } from './AddTodo'
-import { Header } from './Header'
+import { DropDown } from './DropDown'
 import { Filter } from './Filter'
+import { Header } from './Header'
 import { Search } from './Search'
+import { ToDo } from './ToDo'
 import { TodoList } from './TodoList'
-import 'antd/dist/antd.css'
+import { TodoListItem } from './TodoListItem'
+import { Login } from './Login'
+import { Registration } from './Registration'
+import { ResetPassword } from './ResetPassword'
+import { AuthFormsRouts } from './AuthFormsRouts'
+import { PrivateRoute } from './AuthFormsRouts'
 
-const App = () => {
-  return (
-    <Row justify="center">
-      <Col xs={22} sm={22} md={14} lg={10} xl={9} xxl={8}>
-        <Row>
-          <Col>
-            <Header />
-          </Col>
-        </Row>
-        <Row gutter={[16, 8]}>
-          <Col flex="auto">
-            <Search />
-          </Col>
-        </Row>
-        <Row gutter={[0, 8]}>
-          <Col flex={1}>
-            <TodoList />
-          </Col>
-        </Row>
-        <Row>
-          <Col flex={1}>
-            <AddTodo />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-  )
+export {
+  App,
+  AddTodo,
+  DropDown,
+  Filter,
+  Header,
+  Search,
+  ToDo,
+  TodoList,
+  TodoListItem,
+  Login,
+  Registration,
+  ResetPassword,
+  AuthFormsRouts,
+  PrivateRoute
 }
-
-export default App

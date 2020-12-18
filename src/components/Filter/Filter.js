@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useStoreContext } from 'context'
+import { useStoreTasksContext } from 'context'
 import { Button } from 'antd'
 
 const buttons = [
@@ -10,7 +10,7 @@ const buttons = [
 
 const Filter = () => {
   const [activeButton, setActiveButton] = useState(buttons[0].text)
-  const { dispatch } = useStoreContext()
+  const { dispatch } = useStoreTasksContext()
   return (
     <>
       {buttons.map(({ text, active }) => (

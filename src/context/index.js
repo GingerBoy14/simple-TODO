@@ -1,7 +1,15 @@
-import storeContext from './context'
-import Provider from './Provider'
-import useStoreContext from './hooks/useStoreContext'
+import storeTasksContext, { storeUsersContext } from './context'
+import TasksProvider from './TasksProvider'
+import UsersProvider from './UsersProvider'
+import useStoreTasksContext from './hooks/useStoreTasksContext'
+import useStoreUserContext from './hooks/useStoreUserContext'
 
-export default storeContext
+export default storeTasksContext
 
-export { Provider, useStoreContext }
+export {
+  TasksProvider,
+  UsersProvider,
+  useStoreTasksContext,
+  useStoreUserContext,
+  storeUsersContext
+}
