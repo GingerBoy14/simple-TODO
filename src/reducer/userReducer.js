@@ -49,9 +49,21 @@ const userReducer = (state, action) => {
             console.log('Signed Out')
           },
           function (error) {
-            console.error('Sign Out Error', error)
+            alert('Sign Out Error', error)
           }
         )
+      return state
+    case 'RESET_PASSWORD':
+      defaultProject
+        .auth()
+        .sendPasswordResetEmail(action.payload)
+        .then(function () {
+          alert('Check your E-mail')
+        })
+        .catch(function (error) {
+          alert(error.message)
+        })
+      return state
     default:
       return state
   }

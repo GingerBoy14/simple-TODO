@@ -3,7 +3,7 @@ import { Header } from './Header'
 import { Search } from './Search'
 import { TodoList } from './TodoList'
 import { ToDoApp } from './ToDoApp'
-import { LoginForm, SignUpForm, MainForm } from './Form'
+import { LoginForm, SignUpForm, ResetPasswordForm } from './Form'
 import { SignOut } from './SignOut'
 
 export {
@@ -11,9 +11,9 @@ export {
   Header,
   Search,
   TodoList,
-  MainForm,
   ToDoApp,
   LoginForm,
   SignUpForm,
-  SignOut
+  SignOut,
+  ResetPasswordForm
 }

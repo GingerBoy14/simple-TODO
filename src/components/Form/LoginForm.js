@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useRef } from 'react'
-import 'antd/dist/antd.css'
 import { Form, Input, Button, Typography, Row, Col, Divider } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Redirect, withRouter } from 'react-router'
@@ -74,23 +73,21 @@ const LoginForm = ({ history }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Row>
+      <Row justify={'end'}>
         <Col span={24}>
           <Form.Item
             name="password"
-            label="Password" /*
+            label="Password"
             rules={[
               {
                 required: true,
                 message: 'Please input your password!'
               },
               {
-                pattern: new RegExp('^(?=.*d)(?=.*[a-z])[0-9a-zA-Z]{8,}$'),
-                message:
-                  'Minimum eight characters, at least one letter and one number'
+                pattern: new RegExp('^[a-zA-Z0-9_.-]*$'),
+                message: 'You must have letters and numbers in password only'
               }
-            ]}*/
-          >
+            ]}>
             <Input.Password
               ref={password}
               placeholder="Password"
@@ -100,8 +97,18 @@ const LoginForm = ({ history }) => {
             />
           </Form.Item>
         </Col>
+        <Col>
+          <Button
+            type="link"
+            onClick={() => {
+              history.push('/resetPassword')
+            }}>
+            Forgot password?
+          </Button>
+        </Col>
       </Row>
-      <Row justify="space-around">
+
+      <Row justify="center">
         <Col>
           <Form.Item>
             <Button type="primary" size="large" htmlType="submit">
@@ -130,16 +137,13 @@ const LoginForm = ({ history }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={[0, 8]}>
-        <Col flex="auto" align="center" span={24}>
+      <Row gutter={[0, 8]} align="middle" justify="center">
+        <Col>
           <Text>Do you not have an account?</Text>
         </Col>
-      </Row>
-      <Row>
-        <Col flex="auto" align="center" span={24}>
+        <Col>
           <Button
-            htmlType="button"
-            size="large"
+            type="link"
             onClick={() => {
               history.push('/signUp')
             }}>

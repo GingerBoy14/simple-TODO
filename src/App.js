@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css'
 import { Row, Col, Card } from 'antd'
 import React from 'react'
-import { LoginForm, ToDoApp, SignUpForm, MainForm } from './components'
+import { LoginForm, ToDoApp, SignUpForm, ResetPasswordForm } from './components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PrivateRoute from 'components/PrivateRoute.js/PrivateRoute'
 import { TasksProvider } from './context'
@@ -16,6 +16,11 @@ const App = () => {
               <PrivateRoute exact path="/" component={ToDoApp} />
               <Route exact path="/login" component={LoginForm} />
               <Route exact path="/signUp" component={SignUpForm} />
+              <Route
+                exact
+                path="/resetPassword"
+                component={ResetPasswordForm}
+              />
               <TasksProvider
                 store={{
                   tasks: [],
