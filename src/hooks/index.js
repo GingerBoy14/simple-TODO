@@ -1,12 +1,12 @@
-import useFirestoreListener from './useFirestoreListener'
+import useDocumentListener from './useDocumentListener'
 import useAuthListener from './useAuthListener'
 import useFirebaseInitLoading from './useFirebaseInitLoading'
 import usePrevious from './usePrevious'
 
-export default useFirestoreListener
+export default useDocumentListener
 
 export {
-  useFirestoreListener,
+  useDocumentListener,
   useAuthListener,
   useFirebaseInitLoading,
   usePrevious

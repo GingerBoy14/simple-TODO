@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import firebase from 'service'
+import { auth } from 'service'
 import { useUserContext, useUserDispatch } from 'app/domains/Session/context'
 import type from 'app/domains/Session/constants'
 import { useHistory } from 'react-router-dom'
@@ -12,7 +12,7 @@ const useAuthListener = () => {
   let history = useHistory()
   const handleLogin = useCallback(
     async (user) => {
-      const userProfile = await firebase.getUser(user)
+      const userProfile = await auth.getUser(user)
       if (!userProfile) {
         message.error('Something went wrong, please try again.')
         return dispatch({ type: type.SET_USER_PROFILE, payload: null })
@@ -25,7 +25,7 @@ const useAuthListener = () => {
 
   const authChangeListener = async (user) => {
     try {
-      await firebase.getRedirectResult()
+      await auth.getRedirectResult()
     } catch (e) {
       message.error(e.message)
       dispatch({ type: type.SET_USER_PROFILE, payload: null })
@@ -43,14 +43,14 @@ const useAuthListener = () => {
   const signUpUser = async () => {
     if (userContext.signup) {
       try {
-        const res = await firebase.signUp(
+        const res = await auth.signUp(
           userContext.signup.email,
           userContext.signup.password
         )
         console.log(res)
         if (res.user !== null && res.additionalUserInfo.isNewUser) {
           const { user } = res
-          await firebase.createUser(user.uid, user.email, '')
+          await auth.createUser(user.uid, user.email, '')
         }
 
         await handleLogin(res.user)
@@ -63,7 +63,7 @@ const useAuthListener = () => {
   useEffect(() => signUpUser(), [userContext.signup])
 
   useEffect(() => {
-    const listener = firebase.onAuthChange(authChangeListener)
+    const listener = auth.onAuthChange(authChangeListener)
     return () => listener()
   }, [])
   return { loading }

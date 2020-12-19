@@ -2,7 +2,7 @@ import { Form, message } from 'antd'
 import { PasswordInput } from '../PasswordInput'
 import { EmailInput } from '../EmailInput'
 import { SubmitButton } from '../SubmitButton'
-import firebase from 'service'
+import { auth } from 'service'
 import { useUserDispatch } from '../../context'
 import types from '../../constants'
 

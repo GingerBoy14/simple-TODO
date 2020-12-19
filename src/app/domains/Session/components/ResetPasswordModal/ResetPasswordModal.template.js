@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Space, Button, Modal, Typography, Form, message } from 'antd'
-import firebase from 'service'
+import { auth } from 'service'
 import { EmailInput } from '../EmailInput'
 
 message.config({ maxCount: 2 })

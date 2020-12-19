@@ -2,7 +2,7 @@ import React from 'react'
 import { Dropdown as DropDown, Menu } from 'antd'
 import { AuditOutlined, LogoutOutlined, KeyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
-import firebase from 'service'
+import { auth } from 'service'
 import { useUserDispatch } from 'app/domains/Session/context'
 import type from 'app/domains/Session/constants'
 

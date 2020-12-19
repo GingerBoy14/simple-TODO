@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { Button, Space, message } from 'antd'
-import firebase from 'service'
+import { auth } from 'service'
 import { GoogleOutlined } from '@ant-design/icons'
 
 const SignInWithGoogleButton = () => {

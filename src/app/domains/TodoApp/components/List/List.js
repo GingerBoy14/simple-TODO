@@ -3,7 +3,6 @@ import SimpleBar from 'simplebar-react'
 import { Global, css } from '@emotion/react'
 import 'simplebar/dist/simplebar.min.css'
 import { TodoListItem } from '../../routes/TodoListItem'
-import { Spinner } from 'components'
 
 const scrollStyle = css`
   .simplebar-track {
@@ -27,9 +26,6 @@ const scrollStyle = css`
 
 const List = (props) => {
   const { tasks, height } = props
-  if (!height) {
-    return <Spinner />
-  }
   return (
     <>
       {tasks && (
