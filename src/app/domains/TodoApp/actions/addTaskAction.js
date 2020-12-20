@@ -8,13 +8,10 @@ const dataError = (error) => {
   return { type: 'ADD_TODO_SUCCESS', payload: error }
 }
 
-export const addTask = (payload) => async (
-  dispatch,
-  store,
-  { firestore, user }
-) => {
+const addTask = (payload) => async (dispatch, store, { firestore, user }) => {
   let task = {
     text: payload,
+    positionId: store.tasks.length,
     status: { done: false, important: false, pinned: false }
   }
   dispatch(dataRequested())
@@ -32,3 +29,5 @@ export const addTask = (payload) => async (
     dispatch(dataError(e))
   }
 }
+
+export default addTask

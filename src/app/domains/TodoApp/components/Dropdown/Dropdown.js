@@ -9,6 +9,7 @@ import {
   PushpinFilled
 } from '@ant-design/icons'
 import { useDispatch } from 'app/domains/TodoApp/context'
+import { deleteTask } from '../../actions'
 
 const Dropdown = (props) => {
   const { todoId, status } = props
@@ -28,7 +29,7 @@ const Dropdown = (props) => {
       <Menu.Item
         danger
         icon={<DeleteOutlined />}
-        onClick={() => dispatch({ type: 'DELETE_TODO', payload: todoId })}>
+        onClick={() => dispatch(deleteTask(todoId))}>
         Delete
       </Menu.Item>
     </Menu>

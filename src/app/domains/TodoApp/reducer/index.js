@@ -1,5 +1,3 @@
-import _ from 'lodash'
-import { firestore } from 'service'
 import types from '../constants/types'
 
 const rootReducer = (state, action) => {
@@ -9,7 +7,7 @@ const rootReducer = (state, action) => {
     case 'ADD_TODO_REQUEST':
       return { ...state, taskAdded: false }
     case types.DELETE_TODO:
-      return state
+      return { ...state, tasks: action.payload }
     case types.SET_DONE: {
       // const todo = draft.tasks.find(({ id }) => id === action.payload)
       // todo.status.done = !todo.status.done

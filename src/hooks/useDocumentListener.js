@@ -22,7 +22,7 @@ const useDocumentListener = (collectionName, document, action) => {
     return () => fetchData()
   }, [fetchData])
   useEffect(() => !loading && tasks && setLoading(false), [tasks])
-  useEffect(() => tasks && dispatch({ type: action, payload: tasks }), [tasks])
+  useEffect(() => dispatch({ type: action, payload: tasks }), [tasks])
   return { loading }
 }
 
