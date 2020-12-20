@@ -7,10 +7,10 @@ import { useUserContext } from 'app/domains/Session/context'
 const TodosProvider = (props) => {
   const { store = {}, ...rest } = props
   const [state, dispatch] = useReducer(rootReducer, store)
-  useEffect(() => console.log('todoListStore', state), [state])
+  useEffect(() => console.log('todoListStore', state.tasks[0]), [state])
   const { userProfile } = useUserContext()
   const middlewareDispatch = useMemo(
-    () => middleware(dispatch, state, userProfile),
+    () => middleware(dispatch, { ...state }, userProfile),
     [dispatch, state, userProfile]
   )
   const data = useMemo(() => state, [state])

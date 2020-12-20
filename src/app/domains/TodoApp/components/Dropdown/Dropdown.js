@@ -9,7 +9,7 @@ import {
   PushpinFilled
 } from '@ant-design/icons'
 import { useDispatch } from 'app/domains/TodoApp/context'
-import { deleteTask } from '../../actions'
+import { changeStatus, deleteTask, pinToTop } from '../../actions'
 
 const Dropdown = (props) => {
   const { todoId, status } = props
@@ -18,12 +18,12 @@ const Dropdown = (props) => {
     <Menu>
       <Menu.Item
         icon={status.pinned ? <PushpinOutlined /> : <PushpinFilled />}
-        onClick={() => dispatch({ type: 'SET_PIN_TO_TOP', payload: todoId })}>
+        onClick={() => dispatch(pinToTop(todoId))}>
         {status.pinned ? 'Unpin' : 'Pin to top'}
       </Menu.Item>
       <Menu.Item
         icon={status.important ? <FireOutlined /> : <FireFilled />}
-        onClick={() => dispatch({ type: 'SET_IMPORTANT', payload: todoId })}>
+        onClick={() => dispatch(changeStatus('important', todoId))}>
         Important
       </Menu.Item>
       <Menu.Item

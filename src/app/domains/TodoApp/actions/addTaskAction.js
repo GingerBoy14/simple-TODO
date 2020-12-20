@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const dataRequested = () => {
   return { type: 'ADD_TODO_REQUEST' }
 }
@@ -5,21 +7,24 @@ const dataRequested = () => {
 //   return { type: 'ADD_TODO_SUCCESS', payload: task }
 // }
 const dataError = (error) => {
-  return { type: 'ADD_TODO_SUCCESS', payload: error }
+  return { type: 'ADD_TODO_ERROR', payload: error }
 }
 
 const addTask = (payload) => async (dispatch, store, { firestore, user }) => {
   let task = {
     text: payload,
-    positionId: store.tasks.length,
+    id: store.tasks.length,
     status: { done: false, important: false, pinned: false }
   }
+  let tasks = [...store.tasks]
   dispatch(dataRequested())
   //when click add task | set loading
   try {
-    store.tasks.unshift(task)
+    const unpinned = _.remove(tasks, ({ status }) => !status.pinned)
+    unpinned.unshift(task)
+    tasks = tasks.concat(unpinned)
 
-    await firestore.update('userTasks', user.tasksId, { tasks: store.tasks })
+    await firestore.update('userTasks', user.tasksId, { tasks })
 
     //tasks added to base useFirebaseListener work | set loading to false
 

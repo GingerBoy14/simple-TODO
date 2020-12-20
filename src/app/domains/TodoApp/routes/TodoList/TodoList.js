@@ -11,7 +11,6 @@ import { useHeightDifference } from '../../hooks'
 const useRefCallback = (callback) => {
   const ref = useRef(null)
   const setRef = useCallback((node) => {
-    console.log({ node })
     if (node !== null && callback) {
       callback(node)
     }
@@ -52,7 +51,7 @@ const TodoList = () => {
     },
     [store, setFilteredTasks]
   )
-  useEffect(() => filter(store.tasks), [store.tasks, filter])
+  useEffect(() => filter(store.tasks), [store, filter])
   useEffect(
     () =>
       listHeight &&
@@ -70,7 +69,6 @@ const TodoList = () => {
   if (loading) {
     return <Spinner />
   }
-
   return (
     <Row
       ref={setList}

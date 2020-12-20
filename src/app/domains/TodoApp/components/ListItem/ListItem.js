@@ -5,10 +5,10 @@ import { Dropdown } from '../Dropdown'
 const { Text } = Typography
 
 const ListItem = (props) => {
-  const { positionId, text, status, onChange } = props
+  const { id, text, status, onChange } = props
   return (
     <List.Item
-      actions={[<Dropdown todoId={positionId} status={status} />]}
+      actions={[<Dropdown todoId={id} status={status} />]}
       style={{ minWidth: 0 }}>
       <Checkbox
         checked={status.done}
