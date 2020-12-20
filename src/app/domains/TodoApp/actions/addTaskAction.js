@@ -17,7 +17,7 @@ const addTask = (payload) => async (dispatch, store, { firestore, user }) => {
   dispatch(dataRequested())
   //when click add task | set loading
   try {
-    store.tasks.push(task)
+    store.tasks.unshift(task)
 
     await firestore.update('userTasks', user.tasksId, { tasks: store.tasks })
 
