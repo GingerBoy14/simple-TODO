@@ -49,22 +49,26 @@ const TodoList = () => {
           ? list.current.clientHeight
           : list.current.clientHeight + height
       ),
-    [list]
+    [list.current, height]
   )
   // show how useCallback works
   // need to
   // useEffect(() => console.log('rerender'), [filter])
-  console.log(loading)
-  if (loading && !listHeight) {
+  if (loading) {
     return <Spinner />
   }
+  console.log(listHeight)
   return (
     <Row
       ref={list}
       style={{ flex: 1 }}
-      align={filteredTasks.length > 0 ? 'top' : 'middle'}>
+      align={filteredTasks.length > 0 && listHeight ? 'top' : 'middle'}>
       <Col span={24}>
-        <List tasks={filteredTasks} height={listHeight} />
+        {!listHeight ? (
+          <Spinner />
+        ) : (
+          <List tasks={filteredTasks} height={listHeight} />
+        )}
       </Col>
     </Row>
   )

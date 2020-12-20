@@ -9,9 +9,10 @@ const TodosProvider = (props) => {
   const [state, dispatch] = useReducer(rootReducer, store)
   // useEffect(() => console.log('todoListStore', state), [state])
   const { userProfile } = useUserContext()
-  const middlewareDispatch = useMemo(() => middleware(dispatch, userProfile), [
-    dispatch
-  ])
+  const middlewareDispatch = useMemo(
+    () => middleware(dispatch, state, userProfile),
+    [dispatch, state, userProfile]
+  )
   const data = useMemo(() => state, [state])
   return (
     <dispatchContext.Provider value={middlewareDispatch}>

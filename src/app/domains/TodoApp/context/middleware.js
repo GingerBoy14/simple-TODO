@@ -1,8 +1,8 @@
 import { firestore } from 'service'
 
-const middleware = (dispatch, user) => (action) => {
+const middleware = (dispatch, store, user) => (action) => {
   if (action instanceof Function) {
-    return action(dispatch, { firestore, user })
+    return action(dispatch, store, { firestore, user })
   }
   return dispatch(action)
 }

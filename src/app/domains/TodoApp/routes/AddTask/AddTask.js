@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { AddTaskForm } from '../../components/AddTaskForm'
-import { useDispatch } from '../../context'
+import { useDispatch, useStoreContext } from '../../context'
 import { addTask } from '../../actions'
 
 const AddTask = () => {
   const dispatch = useDispatch()
-
+  const store = useStoreContext()
   const onFinish = useCallback(
     (values, form) => {
       if (values.todoName) {
@@ -15,6 +15,6 @@ const AddTask = () => {
     },
     [dispatch]
   )
-  return <AddTaskForm onFinish={onFinish} />
+  return <AddTaskForm onFinish={onFinish} taskLoading={store.taskAdded} />
 }
 export default AddTask

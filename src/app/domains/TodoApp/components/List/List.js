@@ -1,19 +1,18 @@
 import { List as AntList } from 'antd'
 import SimpleBar from 'simplebar-react'
 import { Global, css } from '@emotion/react'
-import 'simplebar/dist/simplebar.min.css'
 import { TodoListItem } from '../../routes/TodoListItem'
+import 'simplebar/dist/simplebar.min.css'
 
 const scrollStyle = css`
   .simplebar-track {
     pointer-events: inherit;
-    width: 0.5rem !important;
+    width: 0.6rem !important;
   }
   .simplebar-scrollbar:before {
     opacity: 1 !important;
-    border-radius: 0;
+    border-radius: 2px;
     background-color: #1890ff;
-    width: 0.5rem;
   }
   .simplebar-scrollbar.simplebar-visible:before {
     cursor: pointer;
@@ -26,6 +25,7 @@ const scrollStyle = css`
 
 const List = (props) => {
   const { tasks, height } = props
+
   return (
     <>
       {tasks && (

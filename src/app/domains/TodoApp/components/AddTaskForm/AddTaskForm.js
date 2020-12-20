@@ -1,7 +1,7 @@
 import { Input, Button, Form } from 'antd'
 
 const AddTaskForm = (props) => {
-  const { onFinish } = props
+  const { onFinish, taskLoading } = props
   const [form] = Form.useForm()
   return (
     <Form
@@ -13,9 +13,8 @@ const AddTaskForm = (props) => {
       <Form.Item
         name="todoName"
         style={{ flex: 1 }}
-        // hasFeedback
-        // validateStatus="validating"
-      >
+        hasFeedback={!taskLoading}
+        validateStatus="validating">
         <Input placeholder="What need to be done?" autoComplete="off" />
       </Form.Item>
       <Form.Item noStyle>
