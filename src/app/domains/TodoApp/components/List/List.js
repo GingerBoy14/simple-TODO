@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { List as AntList } from 'antd'
 import SimpleBar from 'simplebar-react'
 import { Global, css } from '@emotion/react'
@@ -42,4 +43,4 @@ const List = (props) => {
   )
 }
 
-export default List
+export default memo(List)

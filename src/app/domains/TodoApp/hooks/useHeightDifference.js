@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePrevious } from 'hooks'
 
 const getWidth = () =>
@@ -30,8 +30,7 @@ function useHeightDifference() {
       window.removeEventListener('resize', resizeListener)
     }
   }, [])
-
-  return width - prevHeight
+  return useMemo(() => width - prevHeight, [width, prevHeight])
 }
 
 export default useHeightDifference

@@ -8,6 +8,17 @@ import { useStoreContext } from '../../context'
 import types from '../../constants/types'
 import { useHeightDifference } from '../../hooks'
 
+const useRefCallback = (callback) => {
+  const ref = useRef(null)
+  const setRef = useCallback((node) => {
+    console.log({ node })
+    if (node !== null && callback) {
+      callback(node)
+    }
+    ref.current = node
+  }, [])
+  return [ref, setRef]
+}
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
   const [listHeight, setListHeight] = useState()
@@ -18,7 +29,9 @@ const TodoList = () => {
     types.SET_TASKS
   )
   const store = useStoreContext()
-  const list = useRef()
+  const [list, setList] = useRefCallback((node) =>
+    setListHeight(node.clientHeight)
+  )
   const height = useHeightDifference()
   //TODO: refactor
   const filter = useCallback(
@@ -39,28 +52,28 @@ const TodoList = () => {
     },
     [store, setFilteredTasks]
   )
-
-  useEffect(() => filter(store.tasks), [store, filter])
+  useEffect(() => filter(store.tasks), [store.tasks, filter])
   useEffect(
     () =>
-      list.current &&
+      listHeight &&
       setListHeight(
         height > 0
           ? list.current.clientHeight
           : list.current.clientHeight + height
       ),
-    [list.current, height]
+    [height]
   )
   // show how useCallback works
   // need to
   // useEffect(() => console.log('rerender'), [filter])
+
   if (loading) {
     return <Spinner />
   }
-  console.log(listHeight)
+
   return (
     <Row
-      ref={list}
+      ref={setList}
       style={{ flex: 1 }}
       align={filteredTasks.length > 0 && listHeight ? 'top' : 'middle'}>
       <Col span={24}>

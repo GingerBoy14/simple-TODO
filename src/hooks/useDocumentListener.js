@@ -12,7 +12,7 @@ const useDocumentListener = (collectionName, document, action) => {
     const query = await firestore.getCollection(collectionName).doc(document)
 
     return firestore.setListener(query, (snapshot) => {
-      setTasks(snapshot.data().tasks)
+      setTasks(snapshot.data().tasks ? snapshot.data().tasks : [])
       setLoading(false)
     })
   }, [setLoading, setTasks])
