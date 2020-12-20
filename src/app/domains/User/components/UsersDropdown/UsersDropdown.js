@@ -26,7 +26,7 @@ const UsersDropdown = (props) => {
         icon={<LogoutOutlined />}
         onClick={() => {
           dispatch({ type: type.USER_LOGOUT })
-          firebase.logout()
+          auth.logout()
           history.push('login')
         }}>
         Log out

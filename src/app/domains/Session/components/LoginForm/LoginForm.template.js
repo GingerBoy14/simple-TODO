@@ -12,7 +12,7 @@ const LoginForm = () => {
     const { email, password } = values
     try {
       dispatch({ type: types.USER_LOADING, payload: true })
-      await firebase.login(email, password)
+      await auth.login(email, password)
     } catch (e) {
       message.error(e.message)
       dispatch({ type: types.USER_LOADING, payload: false })

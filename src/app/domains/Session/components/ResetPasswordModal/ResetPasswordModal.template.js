@@ -19,7 +19,7 @@ const ResetPasswordModal = () => {
   const onFinish = async (value) => {
     setLoading(true)
     try {
-      await firebase.sendPasswordResetEmail(value.email)
+      await auth.sendPasswordResetEmail(value.email)
       setVisible(false)
       form.resetFields()
     } catch (e) {

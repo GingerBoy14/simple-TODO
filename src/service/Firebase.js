@@ -21,4 +21,4 @@ class Firebase {
   getFirebase = () => firebase
 }
 export default new Firebase()
-export { Firebase }
+export { Firebase, firebase }

@@ -1,5 +1,5 @@
-import { Firebase } from './Firebase'
-import Firestore from './Firestore'
+import { Firebase, firebase } from './Firebase'
+import firestore from './Firestore'
 
 class Auth extends Firebase {
   constructor() {
@@ -37,14 +37,14 @@ class Auth extends Firebase {
     }
   }
   async createUser(uid, name, avatar) {
-    const { id } = await Firestore.add('userTasks', { tasks: [] })
+    const { id } = await firestore.add('userTasks', { tasks: [] })
     const data = {
       name,
       avatar,
       tasksId: id
     }
 
-    await Firestore.set('users', uid, data)
+    await firestore.set('users', uid, data)
     console.log('add data')
   }
   /**
@@ -52,11 +52,11 @@ class Auth extends Firebase {
    * @async
    */
   loginWithGoogle() {
-    const provider = new this.getFirebase().auth.GoogleAuthProvider()
+    const provider = new firebase.auth.GoogleAuthProvider()
     this.auth.signInWithRedirect(provider)
   }
   async getUser(user) {
-    const res = await Firestore.get('users', user.uid)
+    const res = await firestore.get('users', user.uid)
     return { ...res, uid: user.uid }
   }
   async getRedirectResult() {
@@ -68,10 +68,10 @@ class Auth extends Firebase {
       return
     } else if (res.user !== null) {
       //if user create account with email and password but logged with google
-      const snapshot = await Firestore.get('users', res.user.uid)
+      const snapshot = await firestore.get('users', res.user.uid)
       if (snapshot.name === res.user.email && snapshot.avatar === '') {
         const { user } = res
-        await Firestore.update('users', res.user.uid, {
+        await firestore.update('users', res.user.uid, {
           avatar: user.photoURL,
           name: user.displayName
         })
