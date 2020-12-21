@@ -50,7 +50,7 @@ const rootReducer = (state, action) => {
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
           firestore
-            .collection('tasks')
+            .collection(`users/${action.payload.uid}/tasks`)
             .doc(action.payload)
             .update({
               status: {
@@ -68,13 +68,15 @@ const rootReducer = (state, action) => {
         })
       }
     case 'IMPORTANT_TODO':
+      console.log(action.payload.id)
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
           if (todo.id !== action.payload) return todo
+          console.log(todo.status.importants)
           firestore
-            .collection('tasks')
-            .doc(action.payload)
+            .collection(`users/${action.payload.uid}/tasks`)
+            .doc(action.payload.id)
             .update({
               status: {
                 ...todo.status,
@@ -96,7 +98,7 @@ const rootReducer = (state, action) => {
         if (!todo.status.pinned) todo.pinnedTime = new Date()
         else todo.pinnedTime = null
         firestore
-          .collection('tasks')
+          .collection(`users/${action.payload.uid}/tasks`)
           .doc(action.payload)
           .update({
             status: {

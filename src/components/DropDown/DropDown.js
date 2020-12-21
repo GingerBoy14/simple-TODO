@@ -22,7 +22,12 @@ const DropDown = (props) => {
         {status.pinned ? 'Unpin' : 'Pinned'}
       </Menu.Item>
       <Menu.Item
-        onClick={() => dispatch({ type: 'IMPORTANT_TODO', payload: id })}
+        onClick={() =>
+          dispatch({
+            type: 'IMPORTANT_TODO',
+            payload: { id, uid: currentUser.uid }
+          })
+        }
         icon={<ExclamationOutlined />}>
         {status.important ? 'Casual' : 'Important'}
       </Menu.Item>

@@ -11,7 +11,7 @@ import { Provider } from '../../context'
 
 const App = () => {
   const [error, setError] = useState('')
-  const { logout } = useAuth()
+  const { currentUser, logout } = useAuth()
   const history = useHistory()
   async function handleLogout() {
     setError('')
