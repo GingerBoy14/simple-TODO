@@ -1,4 +1,4 @@
-import { Login, SignUp } from 'app/domains/Session/routes'
+import { Login, SignUp, EmailVerify } from 'app/domains/Session/routes'
 import TodoApp from 'app/domains/TodoApp/routes'
 const ROUTES = {
   LOGIN: {
@@ -9,6 +9,11 @@ const ROUTES = {
     exact: false,
     component: SignUp,
     path: '/signUp'
+  },
+  EMAIL_VERIFY: {
+    exact: false,
+    component: EmailVerify,
+    path: '/verify'
   },
   TODO_LIST: {
     protected: true,
