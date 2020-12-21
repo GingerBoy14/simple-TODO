@@ -5,13 +5,12 @@ import {
   Redirect
 } from 'react-router-dom'
 import { ROUTES_KEYS, ROUTES } from './constants'
-import { useAuthListener, useFirebaseInitLoading } from 'hooks'
+import { useAuthListener } from 'hooks'
 import { ProtectedRoute, Spinner } from '../components'
 
 const App = () => {
   const { loading } = useAuthListener()
-  const firebaseLoading = useFirebaseInitLoading()
-  if (loading || firebaseLoading) return <Spinner />
+  if (loading) return <Spinner />
   return (
     <Router>
       <Switch>

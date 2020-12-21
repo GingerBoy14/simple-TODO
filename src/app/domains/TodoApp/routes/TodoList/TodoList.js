@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Col, Row } from 'antd'
 import { useDocumentListener } from 'hooks'
 import { Spinner } from 'components'
@@ -6,18 +6,8 @@ import { useUserContext } from 'app/domains/Session/context'
 import { List } from '../../components/List'
 import { useStoreContext } from '../../context'
 import types from '../../constants/types'
-import { useHeightDifference } from '../../hooks'
+import { useHeightDifference, useRefCallback } from '../../hooks'
 
-const useRefCallback = (callback) => {
-  const ref = useRef(null)
-  const setRef = useCallback((node) => {
-    if (node !== null && callback) {
-      callback(node)
-    }
-    ref.current = node
-  }, [])
-  return [ref, setRef]
-}
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
   const [listHeight, setListHeight] = useState()
