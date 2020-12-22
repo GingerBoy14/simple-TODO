@@ -2,6 +2,7 @@ import { List, Typography, Checkbox, Tag } from 'antd'
 import { useStoreContext } from '../../context'
 import { DropDown } from '../DropDown'
 import { ExclamationOutlined, PushpinOutlined } from '@ant-design/icons'
+import { useAuth } from '../../context/AuthContext'
 
 const { Item } = List
 const { Text } = Typography
@@ -9,6 +10,7 @@ const { Text } = Typography
 const TodoListItem = (props) => {
   const { id, text, status } = props
   const { dispatch } = useStoreContext()
+  const { currentUser } = useAuth()
   return (
     <Item>
       <Checkbox
@@ -16,7 +18,9 @@ const TodoListItem = (props) => {
         style={{
           marginRight: '16px'
         }}
-        onClick={() => dispatch({ type: 'SET_DONE', payload: id })}
+        onClick={() =>
+          dispatch({ type: 'SET_DONE', payload: { id, uid: currentUser.uid } })
+        }
       />
       <Text
         ellipsis={true}

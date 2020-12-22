@@ -36,6 +36,9 @@ export default function Dashboard() {
                     className="btn btn-primary w-100 mt-3">
                     Update Profile
                   </Link>
+                  <Link to="/app" className="btn btn-primary w-100 mt-3">
+                    Back to app
+                  </Link>
                 </Card.Body>
               </Card>
               <div className="w-100 text-center mt-2">

@@ -17,7 +17,12 @@ const DropDown = (props) => {
   const DropDownItem = (
     <Menu>
       <Menu.Item
-        onClick={() => dispatch({ type: 'PINNED_TODO', payload: id })}
+        onClick={() =>
+          dispatch({
+            type: 'PINNED_TODO',
+            payload: { id, uid: currentUser.uid }
+          })
+        }
         icon={status.pinned ? <DingtalkOutlined /> : <PushpinOutlined />}>
         {status.pinned ? 'Unpin' : 'Pinned'}
       </Menu.Item>
@@ -25,7 +30,10 @@ const DropDown = (props) => {
         onClick={() =>
           dispatch({
             type: 'IMPORTANT_TODO',
-            payload: { id, uid: currentUser.uid }
+            payload: {
+              id,
+              uid: currentUser.uid
+            }
           })
         }
         icon={<ExclamationOutlined />}>
@@ -35,7 +43,7 @@ const DropDown = (props) => {
         onClick={() =>
           dispatch({
             type: 'DELETE_TODO',
-            payload: { id, status, uid: currentUser.uid }
+            payload: { id, uid: currentUser.uid }
           })
         }
         danger={true}

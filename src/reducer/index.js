@@ -48,10 +48,10 @@ const rootReducer = (state, action) => {
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
+          if (todo.id !== action.payload.id) return todo
           firestore
             .collection(`users/${action.payload.uid}/tasks`)
-            .doc(action.payload)
+            .doc(action.payload.id)
             .update({
               status: {
                 ...todo.status,
@@ -68,12 +68,11 @@ const rootReducer = (state, action) => {
         })
       }
     case 'IMPORTANT_TODO':
-      console.log(action.payload.id)
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
-          if (todo.id !== action.payload) return todo
-          console.log(todo.status.importants)
+          if (todo.id !== action.payload.id) return todo
+          console.log(todo.status.important)
           firestore
             .collection(`users/${action.payload.uid}/tasks`)
             .doc(action.payload.id)
@@ -83,6 +82,7 @@ const rootReducer = (state, action) => {
                 important: !todo.status.important
               }
             })
+          console.log(action.payload.uid)
           return {
             ...todo,
             status: {
@@ -93,13 +93,14 @@ const rootReducer = (state, action) => {
         })
       }
     case 'PINNED_TODO':
+      console.log(action.payload.id)
       const tasks = state.tasks.map((todo) => {
-        if (todo.id !== action.payload) return todo
+        if (todo.id !== action.payload.id) return todo
         if (!todo.status.pinned) todo.pinnedTime = new Date()
         else todo.pinnedTime = null
         firestore
           .collection(`users/${action.payload.uid}/tasks`)
-          .doc(action.payload)
+          .doc(action.payload.id)
           .update({
             status: {
               ...todo.status,
