@@ -22,7 +22,7 @@ const SignUp = () => {
           </Col>
           <Col>
             <Link to="/login">
-              <Text>Already have account?</Text> Login
+              <Text>Already have an account?</Text> Login
             </Link>
           </Col>
         </Row>
