@@ -6,12 +6,29 @@ class Auth extends Firebase {
     super()
     this.auth = this.getFirebase().auth()
   }
+  getCurrentUser = () => {
+    try {
+      if (this.auth.currentUser === null) {
+        throw new Error('No user yet.')
+      }
+      return this.auth.currentUser
+    } catch (e) {
+      console.log(e)
+      return {}
+    }
+  }
   /**
    * Send email for user password resetting
    * @param {string} email - user's email
    */
   sendPasswordResetEmail(email) {
     return this.auth.sendPasswordResetEmail(email)
+  }
+  /**
+   * Send email for user verification
+   */
+  sendVerifyEmail() {
+    return this.auth.currentUser.sendEmailVerification()
   }
   /**
    * User login with email
@@ -45,7 +62,6 @@ class Auth extends Firebase {
     }
 
     await firestore.set('users', uid, data)
-    console.log('add data')
   }
   /**
    * User login with google. Creating his profile and tasks collection in firestore.
@@ -85,7 +101,7 @@ class Auth extends Firebase {
    * Logout user from app
    */
   logout() {
-    this.auth.signOut()
+    return this.auth.signOut()
   }
 }
 

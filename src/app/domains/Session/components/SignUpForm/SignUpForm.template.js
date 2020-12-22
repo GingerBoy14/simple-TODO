@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import { useHistory } from 'react-router-dom'
 import { PasswordInput } from '../PasswordInput'
 import { EmailInput } from '../EmailInput'
 import { SubmitButton } from '../SubmitButton'
@@ -7,9 +8,15 @@ import type from '../../constants'
 
 const SignUpForm = () => {
   const dispatch = useUserDispatch()
-
+  let history = useHistory()
   const onFinish = async (values) => {
-    dispatch({ type: type.USER_SIGN_UP, payload: values })
+    try {
+      dispatch({ type: type.USER_SIGN_UP, payload: values })
+      dispatch({ type: type.USER_LOADING, payload: true })
+      history.push('verify')
+    } catch (e) {
+      console.log(e)
+    }
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)

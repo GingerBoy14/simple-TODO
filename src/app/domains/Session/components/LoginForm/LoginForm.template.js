@@ -11,9 +11,14 @@ const LoginForm = () => {
   const onFinish = async (values) => {
     const { email, password } = values
     try {
+      await auth.logout()
+      const res = await auth.login(email, password)
+      if (!res.user.emailVerified) {
+        throw new Error('User is not confirmed.')
+      }
       dispatch({ type: types.USER_LOADING, payload: true })
-      await auth.login(email, password)
     } catch (e) {
+      console.log(e)
       message.error(e.message)
       dispatch({ type: types.USER_LOADING, payload: false })
     }

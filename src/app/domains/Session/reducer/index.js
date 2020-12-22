@@ -7,7 +7,6 @@ const rootReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        signup: false,
         userProfile: action.payload
       }
     case type.USER_LOADING:
@@ -16,17 +15,14 @@ const rootReducer = (state, action) => {
         loading: action.payload
       }
     case type.USER_SIGN_UP:
-      console.log('sign up', action.payload)
       return {
         ...state,
-        loading: true,
         signup: action.payload
       }
     case type.USER_LOGOUT:
       return {
         userProfile: null,
-        loading: true,
-        signup: false
+        loading: true
       }
     default:
       return state

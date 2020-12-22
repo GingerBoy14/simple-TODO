@@ -24,9 +24,9 @@ const UsersDropdown = (props) => {
       <Menu.Item
         danger
         icon={<LogoutOutlined />}
-        onClick={() => {
+        onClick={async () => {
           dispatch({ type: type.USER_LOGOUT })
-          auth.logout()
+          await auth.logout()
           history.push('login')
         }}>
         Log out

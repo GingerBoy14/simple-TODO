@@ -1,5 +1,5 @@
 import _ from 'lodash'
-
+import { v4 } from 'uuid'
 const dataRequested = () => {
   return { type: 'ADD_TODO_REQUEST' }
 }
@@ -13,7 +13,7 @@ const dataError = (error) => {
 const addTask = (payload) => async (dispatch, store, { firestore, user }) => {
   let task = {
     text: payload,
-    id: store.tasks.length,
+    id: v4(),
     status: { done: false, important: false, pinned: false }
   }
   let tasks = [...store.tasks]

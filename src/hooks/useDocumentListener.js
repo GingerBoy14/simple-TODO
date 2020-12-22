@@ -14,14 +14,19 @@ const useDocumentListener = (collectionName, document, action) => {
     const query = await firestore.getCollection(collectionName).doc(document)
 
     return firestore.setListener(query, (snapshot) => {
-      setTasks(snapshot.data().tasks ? snapshot.data().tasks : [])
-      setLoading(false)
+      if (snapshot) {
+        setTasks(snapshot.data().tasks ? snapshot.data().tasks : [])
+        setLoading(false)
+      }
     })
-  }, [setLoading, setTasks])
+  }, [])
   useEffect(() => {
     setLoading(true)
     fetchData()
-    return () => fetchData()
+    return () => {
+      console.log('unsubscribe')
+      fetchData()
+    }
   }, [fetchData])
   useEffect(() => !loading && tasks && setLoading(false), [tasks])
   useEffect(
