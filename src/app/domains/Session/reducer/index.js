@@ -1,7 +1,6 @@
 import type from '../constants'
 
 const rootReducer = (state, action) => {
-  console.log(action)
   switch (action.type) {
     case type.SET_USER_PROFILE:
       return {

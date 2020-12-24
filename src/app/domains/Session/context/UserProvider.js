@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react'
+import { useReducer } from 'react'
 
 import userContext, { userDispatch } from './context'
 import rootReducer from '../reducer'
@@ -11,7 +11,6 @@ const UserProvider = (props) => {
     signup: false
   }
   const [state, dispatch] = useReducer(rootReducer, initState)
-  useEffect(() => console.log('userState', state), [state])
   return (
     <userDispatch.Provider value={dispatch}>
       <userContext.Provider value={state} {...rest} />

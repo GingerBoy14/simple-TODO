@@ -24,14 +24,13 @@ const UserEditableAvatar = () => {
   const upload = async (file) => {
     try {
       setLoading(true)
-      const avatarRef = storage.createRefFromULR(userProfile.avatar)
       try {
+        const avatarRef = storage.createRefFromULR(userProfile.avatar)
         await storage.delete(avatarRef)
       } catch (e) {
-        console.log(e)
+        console.log('internal', e)
       }
       const res = storage.upload('avatars', file.file)
-      console.log(res)
       res.on(
         'state_changed',
         () => {},
