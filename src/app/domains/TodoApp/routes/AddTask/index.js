@@ -1,1 +1,1 @@
-export { default as AddTask } from './AddTask.js'
+export { default as AddTask } from './AddTask.template.js'

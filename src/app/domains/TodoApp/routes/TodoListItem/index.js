@@ -1,1 +1,1 @@
-export { default as TodoListItem } from './TodoListItem.js'
+export { default as TodoListItem } from './TodoListItem.template.js'

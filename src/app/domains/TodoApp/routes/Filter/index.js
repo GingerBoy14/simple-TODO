@@ -1,1 +1,1 @@
-export { default as Filter } from './Filter.js'
+export { default as Filter } from './Filter.template.js'

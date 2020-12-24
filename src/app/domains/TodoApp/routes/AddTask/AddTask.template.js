@@ -3,7 +3,7 @@ import { AddTaskForm } from '../../components/AddTaskForm'
 import { useDispatch, useStoreContext } from '../../context'
 import { addTask } from '../../actions'
 
-const AddTask = () => {
+const AddTaskTemplate = () => {
   const dispatch = useDispatch()
   const store = useStoreContext()
   const onFinish = useCallback(
@@ -17,4 +17,4 @@ const AddTask = () => {
   )
   return <AddTaskForm onFinish={onFinish} taskLoading={store.taskAdded} />
 }
-export default AddTask
+export default AddTaskTemplate
