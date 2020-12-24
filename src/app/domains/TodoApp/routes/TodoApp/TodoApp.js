@@ -2,7 +2,7 @@ import { TodosProvider } from '../../context'
 import { App } from '../App'
 import { Col, Row } from 'antd'
 import { Header } from '../../components/Header'
-import { UserSimpleView } from 'app/domains/User/components'
+import { Profile } from 'app/domains/User/routes'
 
 const TodoApp = () => {
   return (
@@ -16,7 +16,7 @@ const TodoApp = () => {
             <Header />
           </Col>
           <Col xs={{ order: 1, span: 24 }} sm={24} md={4}>
-            <UserSimpleView />
+            <Profile />
           </Col>
         </Row>
         <Row justify="center" style={{ flex: 1 }}>

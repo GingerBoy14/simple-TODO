@@ -3,7 +3,12 @@ import types from '../constants/types'
 const rootReducer = (state, action) => {
   switch (action.type) {
     case types.SET_TASKS:
-      return { ...state, tasks: action.payload, taskAdded: true }
+      const tasks = action.payload.tasks ? action.payload.tasks : state.tasks
+      return {
+        ...state,
+        tasks,
+        taskAdded: true
+      }
     case 'ADD_TODO_REQUEST':
       return { ...state, taskAdded: false }
 

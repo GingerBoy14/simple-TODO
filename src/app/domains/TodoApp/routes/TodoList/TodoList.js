@@ -4,19 +4,19 @@ import { useDocumentListener } from 'hooks'
 import { Spinner } from 'components'
 import { useUserContext } from 'app/domains/Session/context'
 import { List } from '../../components/List'
-import { useStoreContext } from '../../context'
+import { useDispatch, useStoreContext } from '../../context'
 import types from '../../constants/types'
 import { useHeightDifference, useRefCallback } from '../../hooks'
 
 const TodoList = () => {
   const [filteredTasks, setFilteredTasks] = useState()
   const [listHeight, setListHeight] = useState()
+  const dispatch = useDispatch()
   const { userProfile } = useUserContext()
-  const { loading } = useDocumentListener(
-    'userTasks',
-    userProfile.tasksId,
-    types.SET_TASKS
-  )
+  const { loading } = useDocumentListener('userTasks', userProfile.tasksId, {
+    dispatch,
+    action: types.SET_TASKS
+  })
   const store = useStoreContext()
   const [list, setList] = useRefCallback((node) =>
     setListHeight(node.clientHeight)

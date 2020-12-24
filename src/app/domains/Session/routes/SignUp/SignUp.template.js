@@ -3,6 +3,7 @@ import { Card, Col, Divider, Row, Typography } from 'antd'
 import { Link } from 'react-router-dom'
 import { SignInWithGoogleButton } from '../../components/SignInWithGoogleButton'
 const { Title, Text } = Typography
+
 const SignUp = () => {
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>

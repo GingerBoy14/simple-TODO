@@ -2,10 +2,12 @@ import { Avatar, Row, Col, Grid, Typography } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { UsersDropdown } from '../UsersDropdown'
 import { useUserContext } from 'app/domains/Session/context'
-const { useBreakpoint } = Grid
 
+const { useBreakpoint } = Grid
 const { Text } = Typography
-const UserSimpleView = () => {
+
+const UserSimpleView = (props) => {
+  const { openProfile, profileStatus } = props
   const screens = useBreakpoint()
   const { userProfile } = useUserContext()
   return (
@@ -19,14 +21,15 @@ const UserSimpleView = () => {
         {/*TODO fix layout*/}
         {screens.xs && (
           <Text strong>
-            Hi, {userProfile.name.split(' ')}
+            {/*{userProfile.name.split(' ')}*/}
+            Hi, {userProfile.name.split(' ')[0]}
             <br />
             Let's get to work
           </Text>
         )}
       </Col>
       <Col>
-        <UsersDropdown>
+        <UsersDropdown openProfile={openProfile} profileStatus={profileStatus}>
           <Avatar
             size="large"
             src={userProfile.avatar}

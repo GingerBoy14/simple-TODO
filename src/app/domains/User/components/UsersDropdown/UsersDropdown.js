@@ -7,13 +7,14 @@ import { useUserDispatch } from 'app/domains/Session/context'
 import type from 'app/domains/Session/constants'
 
 const UsersDropdown = (props) => {
+  const { openProfile, profileStatus } = props
   let history = useHistory()
   const dispatch = useUserDispatch()
   const menu = (
     <Menu>
       <Menu.Item
         icon={<AuditOutlined />}
-        onClick={() => console.log('profile')}>
+        onClick={() => openProfile(!profileStatus)}>
         My profile
       </Menu.Item>
       <Menu.Item

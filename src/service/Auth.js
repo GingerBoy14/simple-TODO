@@ -73,7 +73,8 @@ class Auth extends Firebase {
   }
   async getUser(user) {
     const res = await firestore.get('users', user.uid)
-    return { ...res, uid: user.uid }
+    const data = { ...res, uid: user.uid }
+    return data
   }
   async getRedirectResult() {
     const res = await this.auth.getRedirectResult()

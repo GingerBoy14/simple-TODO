@@ -9,6 +9,12 @@ const rootReducer = (state, action) => {
         loading: false,
         userProfile: action.payload
       }
+    case type.UPDATE_USER:
+      return {
+        ...state,
+        loading: false,
+        userProfile: { ...state.userProfile, ...action.payload }
+      }
     case type.USER_LOADING:
       return {
         ...state,

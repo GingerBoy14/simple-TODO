@@ -13,7 +13,6 @@ const pinToTop = (payload) => (dispatch, store, { firestore, user }) => {
       unpinned.unshift(task)
       tasks = tasks.concat(unpinned)
     }
-    console.log(tasks)
     firestore.update('userTasks', user.tasksId, { tasks })
     dispatch({ type: types.SET_PIN_TO_TOP, payload: tasks })
   } catch (e) {
