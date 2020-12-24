@@ -30,6 +30,21 @@ class Auth extends Firebase {
   sendVerifyEmail() {
     return this.auth.currentUser.sendEmailVerification()
   }
+  changePassword(newPassword, authPassword) {
+    console.log(this.auth.currentUser)
+    const currentUser = this.auth.currentUser
+    if (this.credential) {
+      currentUser.reauthenticateWithCredential(this.credential)
+    }
+    if (authPassword) {
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        authPassword
+      )
+      currentUser.reauthenticateWithCredential(credential)
+    }
+    return currentUser.updatePassword(newPassword)
+  }
   /**
    * User login with email
    * @param {string} email - user's email
@@ -78,6 +93,7 @@ class Auth extends Firebase {
   }
   async getRedirectResult() {
     const res = await this.auth.getRedirectResult()
+    this.credential = res.credential
     //TODO need try catch
     if (res.user !== null && res.additionalUserInfo.isNewUser) {
       const { user } = res

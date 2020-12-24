@@ -7,7 +7,7 @@ import { useUserDispatch } from 'app/domains/Session/context'
 import type from 'app/domains/Session/constants'
 
 const UsersDropdown = (props) => {
-  const { openProfile, profileStatus } = props
+  const { openProfile, profileStatus, setModal } = props
   let history = useHistory()
   const dispatch = useUserDispatch()
   const menu = (
@@ -17,11 +17,11 @@ const UsersDropdown = (props) => {
         onClick={() => openProfile(!profileStatus)}>
         My profile
       </Menu.Item>
-      <Menu.Item
-        icon={<KeyOutlined />}
-        onClick={() => console.log('Reset password')}>
+
+      <Menu.Item icon={<KeyOutlined />} onClick={() => setModal(true)}>
         Change password
       </Menu.Item>
+
       <Menu.Item
         danger
         icon={<LogoutOutlined />}

@@ -7,7 +7,6 @@ const { useBreakpoint } = Grid
 const { Text } = Typography
 
 const UserSimpleView = (props) => {
-  const { openProfile, profileStatus } = props
   const screens = useBreakpoint()
   const { userProfile } = useUserContext()
   return (
@@ -29,7 +28,7 @@ const UserSimpleView = (props) => {
         )}
       </Col>
       <Col>
-        <UsersDropdown openProfile={openProfile} profileStatus={profileStatus}>
+        <UsersDropdown {...props}>
           <Avatar
             size="large"
             src={userProfile.avatar}
