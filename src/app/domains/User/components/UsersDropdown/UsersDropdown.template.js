@@ -1,5 +1,5 @@
-import React from 'react'
-import { Dropdown as DropDown, Menu } from 'antd'
+import React, { useState } from 'react'
+import { Menu, MenuItem, ListItemIcon } from '@material-ui/core'
 import { AuditOutlined, LogoutOutlined, KeyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { auth } from 'service'
@@ -7,38 +7,62 @@ import { useUserDispatch } from 'app/domains/Session/context'
 import type from 'app/domains/Session/constants'
 
 const UsersDropdown = (props) => {
-  const { openProfile, profileStatus, setModal } = props
+  const { openProfile, setModal, children } = props
+  const [anchorEl, setAnchorEl] = useState(null)
   let history = useHistory()
   const dispatch = useUserDispatch()
-  const menu = (
-    <Menu>
-      <Menu.Item
-        icon={<AuditOutlined />}
-        onClick={() => openProfile(!profileStatus)}>
+  const handleClick = (callback) => {
+    setAnchorEl(null)
+    if (callback) {
+      callback()
+    }
+  }
+  const handleOpen = (e) => {
+    setAnchorEl(e.currentTarget)
+  }
+
+  const Dropdown = () => (
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={() => handleClick()}>
+      <MenuItem
+        onClick={() => handleClick(() => openProfile((status) => !status))}>
+        <ListItemIcon>
+          <AuditOutlined />
+        </ListItemIcon>
         My profile
-      </Menu.Item>
+      </MenuItem>
 
-      <Menu.Item icon={<KeyOutlined />} onClick={() => setModal(true)}>
+      <MenuItem onClick={() => handleClick(() => setModal(true))}>
+        <ListItemIcon>
+          <KeyOutlined />
+        </ListItemIcon>
         Change password
-      </Menu.Item>
+      </MenuItem>
 
-      <Menu.Item
+      <MenuItem
         danger
-        icon={<LogoutOutlined />}
-        onClick={async () => {
-          dispatch({ type: type.USER_LOGOUT })
-          await auth.logout()
-          history.push('login')
-        }}>
+        onClick={() =>
+          handleClick(async () => {
+            dispatch({ type: type.USER_LOGOUT })
+            await auth.logout()
+            history.push('login')
+          })
+        }>
+        <ListItemIcon>
+          <LogoutOutlined />
+        </ListItemIcon>
         Log out
-      </Menu.Item>
+      </MenuItem>
     </Menu>
   )
 
   return (
-    <DropDown overlay={menu} placement="bottomRight" trigger="click" arrow>
-      {props.children}
-    </DropDown>
+    <>
+      <div onClick={handleOpen}>{children}</div>
+      <Dropdown />
+    </>
   )
 }
 export default UsersDropdown

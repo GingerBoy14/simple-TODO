@@ -2,11 +2,7 @@ import { useCallback } from 'react'
 import { ButtonGroup } from '../../components'
 import { useDispatch, useStoreContext } from '../../context'
 
-const buttons = [
-  { text: 'All', active: 'primary' },
-  { text: 'Todo', active: 'primary' },
-  { text: 'Done', active: 'primary' }
-]
+const buttons = [{ text: 'All' }, { text: 'Todo' }, { text: 'Done' }]
 const Filter = () => {
   const dispatch = useDispatch()
   const { filter } = useStoreContext()

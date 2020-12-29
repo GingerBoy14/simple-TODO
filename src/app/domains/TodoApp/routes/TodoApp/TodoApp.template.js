@@ -1,40 +1,42 @@
 import { TodosProvider } from '../../context'
 import { App } from '../App'
-import { Col, Row } from 'antd'
-import { Header } from '../../components/Header'
 import { Profile } from 'app/domains/User/routes'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
 
 const TodoApp = () => {
   return (
-    <Row style={{ height: '100%' }}>
-      <Col span={24} style={{ display: 'flex', flexDirection: 'column' }}>
-        <Row>
-          <Col
-            xs={{ order: 2, offset: 0 }}
-            sm={{ order: 1, offset: 4 }}
-            flex={1}>
-            <Header />
-          </Col>
-          <Col xs={{ order: 1, span: 24 }} sm={24} md={4}>
+    <Grid container style={{ height: '100%' }}>
+      <Grid item direction="column" xs={12} style={{ display: 'flex' }}>
+        <Grid container justify="flex-end">
+          <Grid item md={2} />
+          <Grid item xs>
+            <Box display="flex" justifyContent="center">
+              <Typography variant="h2" gutterBottom>
+                Todo List
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item md={2}>
             <Profile />
-          </Col>
-        </Row>
-        <Row justify="center" style={{ flex: 1 }}>
-          <Col
-            xs={24}
-            sm={24}
-            md={14}
-            lg={12}
-            xl={9}
-            xxl={8}
-            style={{ display: 'flex', flexDirection: 'column' }}>
+          </Grid>
+        </Grid>
+        <Grid container style={{ flex: 1 }} justify="center">
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={4}
+            direction="column"
+            style={{ display: 'flex' }}>
             <TodosProvider store={{ tasks: [], filter: 'all', query: '' }}>
               <App />
             </TodosProvider>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 

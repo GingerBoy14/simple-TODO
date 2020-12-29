@@ -1,43 +1,33 @@
-import { Avatar, Row, Col, Grid, Typography } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import { Avatar, Typography, Grid, Hidden } from '@material-ui/core'
+import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 import { UsersDropdown } from '../UsersDropdown'
 import { useUserContext } from 'app/domains/Session/context'
 
-const { useBreakpoint } = Grid
-const { Text } = Typography
-
 const UserSimpleView = (props) => {
-  const screens = useBreakpoint()
   const { userProfile } = useUserContext()
   return (
-    <Row
-      justify={screens.xs ? 'space-between' : 'end'}
-      align="middle"
-      gutter={[8, 0]}
-      wrap={false}>
-      <Col>
-        {screens.md && <Text>{userProfile.name}</Text>}
-        {/*TODO fix layout*/}
-        {screens.xs && (
-          <Text strong>
+    <Grid container justify="flex-end" alignItems="center" spacing={1}>
+      <Grid item>
+        <Hidden xsDown>
+          <Typography variant="subtitle1">{userProfile.name}</Typography>
+        </Hidden>
+        <Hidden smUp>
+          <Typography variant="subtitle2">
             {/*{userProfile.name.split(' ')}*/}
             Hi, {userProfile.name.split(' ')[0]}
             <br />
             Let's get to work
-          </Text>
-        )}
-      </Col>
-      <Col>
+          </Typography>
+        </Hidden>
+      </Grid>
+      <Grid item>
         <UsersDropdown {...props}>
-          <Avatar
-            size="large"
-            src={userProfile.avatar}
-            icon={<UserOutlined />}
-            style={{ cursor: 'pointer' }}
-          />
+          <Avatar src={userProfile.avatar} style={{ cursor: 'pointer' }}>
+            {userProfile.avatar && <PermIdentityIcon />}
+          </Avatar>
         </UsersDropdown>
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   )
 }
 

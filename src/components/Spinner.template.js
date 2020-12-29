@@ -1,17 +1,17 @@
 import React from 'react'
-import { Row, Col, Spin } from 'antd'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Box from '@material-ui/core/Box'
 
 const Spinner = (props) => {
   return (
-    <Row
-      align="middle"
-      justify="center"
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       style={{ width: '100%', height: '100%' }}
       {...props}>
-      <Col>
-        <Spin />
-      </Col>
-    </Row>
+      <CircularProgress />
+    </Box>
   )
 }
 

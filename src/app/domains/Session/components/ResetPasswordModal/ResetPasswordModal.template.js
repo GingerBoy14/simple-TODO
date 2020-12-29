@@ -31,6 +31,8 @@ const ResetPasswordModal = () => {
   const onFinishFailed = () => {
     setErrored(true)
   }
+  //Todo show loading
+  //checking password
   return (
     <>
       <Space align="center" direction="vertical" style={{ width: '100%' }}>

@@ -1,4 +1,6 @@
-import { Checkbox, List, Tag, Typography } from 'antd'
+import { List, Tag, Typography } from 'antd'
+import Checkbox from '@material-ui/core/Checkbox'
+
 import { FireFilled, PushpinFilled } from '@ant-design/icons'
 import { Dropdown } from '../Dropdown'
 
@@ -10,11 +12,7 @@ const ListItem = (props) => {
     <List.Item
       actions={[<Dropdown todoId={id} status={status} />]}
       style={{ minWidth: 0 }}>
-      <Checkbox
-        checked={status.done}
-        onChange={onChange}
-        style={{ marginRight: '16px' }}
-      />
+      <Checkbox checked={status.done} onChange={onChange} color="primary" />
       {status.pinned && (
         <Tag color="processing">
           <PushpinFilled />

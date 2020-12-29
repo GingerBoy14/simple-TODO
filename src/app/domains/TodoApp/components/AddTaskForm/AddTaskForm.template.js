@@ -1,28 +1,28 @@
-import { Input, Button, Form } from 'antd'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Box from '@material-ui/core/Box'
 
 const AddTaskForm = (props) => {
-  const { onFinish, taskLoading } = props
-  const [form] = Form.useForm()
+  const { handleSubmit, register, taskLoading } = props
   return (
-    <Form
-      form={form}
-      name="addTodoForm"
-      layout="inline"
-      size="large"
-      onFinish={(value) => onFinish(value, form)}>
-      <Form.Item
-        name="todoName"
-        style={{ flex: 1 }}
-        hasFeedback={!taskLoading}
-        validateStatus="validating">
-        <Input placeholder="What need to be done?" autoComplete="off" />
-      </Form.Item>
-      <Form.Item noStyle>
-        <Button type="primary" htmlType="submit">
-          Add Todo
-        </Button>
-      </Form.Item>
-    </Form>
+    <form
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      style={{ display: 'flex' }}>
+      <Box flex={1} mr={1}>
+        <TextField
+          id="standard-basic"
+          placeholder="What need to be done?"
+          fullWidth
+          name={'task'}
+          inputRef={register}
+        />
+      </Box>
+      <Button color="primary" variant="contained" type="submit">
+        Add Todo
+      </Button>
+    </form>
   )
 }
 

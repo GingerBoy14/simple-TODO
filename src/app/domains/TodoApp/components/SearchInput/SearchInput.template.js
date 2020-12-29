@@ -1,13 +1,12 @@
-import { Input } from 'antd'
+import InputBase from '@material-ui/core/InputBase'
 
 const SearchInput = (props) => {
   const { onChange } = props
   return (
-    <Input
-      bordered={false}
+    <InputBase
       placeholder="Search your todo..."
-      size="large"
       onChange={onChange}
+      fullWidth
     />
   )
 }
