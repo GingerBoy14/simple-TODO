@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react'
+import { useMemo, useReducer, useEffect } from 'react'
 import { storeContext, dispatchContext } from './context'
 import rootReducer from '../reducer'
 import middleware from './middleware'
@@ -12,10 +12,10 @@ const TodosProvider = (props) => {
     () => middleware(dispatch, { ...state }, userProfile),
     [dispatch, state, userProfile]
   )
-  const data = useMemo(() => state, [state])
+  useEffect(() => console.log(state.tasks), [state])
   return (
     <dispatchContext.Provider value={middlewareDispatch}>
-      <storeContext.Provider value={data} {...rest} />
+      <storeContext.Provider value={state} {...rest} />
     </dispatchContext.Provider>
   )
 }

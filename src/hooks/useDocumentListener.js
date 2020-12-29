@@ -21,18 +21,14 @@ const useDocumentListener = (
         setLoading(false)
       }
     })
-  }, [])
+  }, [setData, setLoading])
   useEffect(() => {
     setLoading(true)
     fetchData()
     return () => fetchData()
   }, [fetchData])
   useEffect(() => !loading && data && setLoading(false), [data])
-  useEffect(
-    () =>
-      !_.isEqual(data, prevTasks) && dispatch({ type: action, payload: data }),
-    [data]
-  )
+  useEffect(() => dispatch({ type: action, payload: data }), [data])
   return { loading }
 }
 
