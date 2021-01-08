@@ -7,8 +7,6 @@ import { useUserContext } from '../../context'
 const ToDoApp = () => {
   const [loading, setLoading] = useState(true)
   const { currentUser } = useUserContext()
-  console.log('current', currentUser)
-  console.log('currentId', currentUser.uid)
   let idCurrentUser = currentUser.uid
   FetchData({ loading, setLoading, idCurrentUser })
   return (

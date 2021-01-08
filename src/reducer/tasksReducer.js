@@ -1,8 +1,17 @@
 import { v4 } from 'uuid'
 import _ from 'lodash'
 import { db } from '../config'
-import { orderByField } from '../helpers'
 
+const snapShot = function (id, task) {
+  db.collection('users')
+    .doc(id)
+    .collection('tasks')
+    .doc(task)
+    .onSnapshot(function (doc) {
+      var source = doc.metadata.hasPendingWrites ? 'Local' : 'Server'
+      console.log(source, ' data: ', doc.data())
+    })
+}
 const tasksReducer = (state, action) => {
   let unpinned
   let date = new Date()
@@ -19,7 +28,6 @@ const tasksReducer = (state, action) => {
           return new Date(b.dateLastEdit) - new Date(a.dateLastEdit)
         })
       }
-      console.log('state.tasks', state.tasks)
       return {
         ...state,
         tasks: array.concat(
@@ -42,6 +50,7 @@ const tasksReducer = (state, action) => {
           dateLastEdit: Date(date),
           status: { done: false, important: false, pinned: false }
         })
+      snapShot(action.payload.idCurrentUser)
       return {
         ...state,
         tasks: [
@@ -72,6 +81,7 @@ const tasksReducer = (state, action) => {
       }
 
     case 'SET_DONE':
+      snapShot(action.payload.idCurrentUser, action.payload.taskId)
       return {
         ...state,
         tasks: state.tasks.map((todo) => {
@@ -87,6 +97,7 @@ const tasksReducer = (state, action) => {
                 done: !todo.status.done
               }
             })
+
           return {
             ...todo,
             status: {
@@ -147,16 +158,19 @@ const tasksReducer = (state, action) => {
       })
       if (tasks.length !== 0) {
         tasks.unshift(tasks.pop())
-        tasks.sort(orderByField('dateLastEdit'))
+        tasks.sort(function (a, b) {
+          return new Date(b.dateLastEdit) - new Date(a.dateLastEdit)
+        })
       }
       return {
         ...state,
         tasks: tasks.concat(
-          _.remove(tasks, ({ status }) => !status.pinned).sort(
-            orderByField('dateLastEdit')
-          )
+          _.remove(tasks, ({ status }) => !status.pinned).sort(function (a, b) {
+            return new Date(a.dateLastEdit) - new Date(b.dateLastEdit)
+          })
         )
       }
+
     case 'CHANGE_FILTER':
       return {
         ...state,

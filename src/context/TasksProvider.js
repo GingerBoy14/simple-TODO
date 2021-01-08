@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react'
 
-import { userContext, tasksContext } from 'context'
-import { userReducer, tasksReducer } from '../reducer'
+import { tasksContext } from 'context'
+import { tasksReducer } from '../reducer'
 
 const TasksProvider = (props) => {
   const { store, ...rest } = props
