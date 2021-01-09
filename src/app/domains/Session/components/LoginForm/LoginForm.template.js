@@ -1,14 +1,21 @@
-import { Form, message } from 'antd'
+import { useForm } from 'react-hook-form'
 import { PasswordInput } from '../PasswordInput'
 import { EmailInput } from '../EmailInput'
 import { SubmitButton } from '../SubmitButton'
 import { auth } from 'service'
 import { useUserDispatch } from '../../context'
 import types from '../../constants'
+import { Alert } from '@material-ui/lab'
+import { Snackbar } from '@material-ui/core'
+import React, { useState } from 'react'
 
 const LoginForm = () => {
+  const [openMassage, setOpenMassage] = useState(false)
+
   const dispatch = useUserDispatch()
-  const onFinish = async (values) => {
+  const { register, handleSubmit, errors } = useForm()
+
+  const onSubmit = handleSubmit(async (values) => {
     const { email, password } = values
     try {
       await auth.logout()
@@ -19,23 +26,27 @@ const LoginForm = () => {
       dispatch({ type: types.USER_LOADING, payload: true })
     } catch (e) {
       console.log(e)
-      message.error(e.message)
+      setOpenMassage(e.message)
       dispatch({ type: types.USER_LOADING, payload: false })
     }
-  }
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
+  })
   return (
-    <Form
-      name="loginForm"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}>
-      <EmailInput />
-      <PasswordInput />
-      <SubmitButton text="Login" />
-    </Form>
+    <>
+      <form onSubmit={onSubmit}>
+        <EmailInput register={register} error={errors} />
+        <PasswordInput register={register} error={errors} />
+        <SubmitButton text="Login" />
+      </form>
+      <Snackbar
+        open={openMassage}
+        autoHideDuration={3500}
+        onClose={() => setOpenMassage(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={() => setOpenMassage(false)} severity="error">
+          {openMassage}
+        </Alert>
+      </Snackbar>
+    </>
   )
 }
 

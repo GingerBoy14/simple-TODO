@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Button, Space, message } from 'antd'
+import { Button, Box } from '@material-ui/core'
 import { auth } from 'service'
 import { GoogleOutlined } from '@ant-design/icons'
 
@@ -8,16 +8,16 @@ const SignInWithGoogleButton = () => {
     try {
       await auth.loginWithGoogle()
     } catch (e) {
-      message.error(e.message)
+      // message.error(e.message)
     }
   }, [auth])
   return (
-    <Space align="center" direction="vertical" style={{ width: '100%' }}>
-      <Button type="primary" onClick={signIn}>
+    <Box py={2} display="flex" justifyContent="center">
+      <Button variant="contained" color="primary" onClick={signIn}>
         <GoogleOutlined />
         Sign in with Google
       </Button>
-    </Space>
+    </Box>
   )
 }
 

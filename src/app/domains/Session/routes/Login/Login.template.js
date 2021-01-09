@@ -1,36 +1,60 @@
-import { ResetPasswordModal, LoginForm } from '../../components'
-import { Card, Col, Divider, Row, Typography } from 'antd'
+import {
+  Paper,
+  Typography,
+  Box,
+  Grid,
+  Divider,
+  makeStyles
+} from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { SignInWithGoogleButton } from '../../components/SignInWithGoogleButton'
+import {
+  ResetPasswordModal,
+  LoginForm,
+  SignInWithGoogleButton
+} from '../../components'
 
-const { Title, Text } = Typography
-
+const useStyles = makeStyles((theme) => ({
+  h100: {
+    height: '100%'
+  },
+  devider: {
+    margin: `${theme.spacing(1)}px 0`
+  }
+}))
 const Login = () => {
+  const classes = useStyles()
+
   return (
-    <Row justify="center" align="middle" style={{ height: '100%' }}>
-      <Col xs={22} sm={16} md={14} lg={9} xl={7} xxl={5} justify="center">
-        <Row gutter={[0, 8]} justify="center">
-          <Col span={24}>
-            <Row justify="center" align="middle">
-              <Col>
-                <Title>Login</Title>
-              </Col>
-            </Row>
-            <Card>
-              <SignInWithGoogleButton />
-              <Divider>OR</Divider>
-              <LoginForm />
-              <ResetPasswordModal />
-            </Card>
-          </Col>
-          <Col>
-            <Link to="/signUp">
-              <Text>Don't have account?</Text> Sign up
-            </Link>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    <Grid
+      container
+      justify="center"
+      alignContent="center"
+      className={classes.h100}>
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+        <Box display="flex" justifyContent="center">
+          <Typography variant="h2" gutterBottom>
+            Login
+          </Typography>
+        </Box>
+
+        <Paper elevation={3}>
+          <Box p={2}>
+            <SignInWithGoogleButton />
+            <Divider className={classes.devider} />
+            <LoginForm />
+            <ResetPasswordModal />
+          </Box>
+        </Paper>
+        <Box my={1} display="flex" justifyContent="center">
+          <Link to="/signUp">
+            <Typography color="textPrimary" display="inline">
+              Don't have account?
+            </Typography>{' '}
+            <Typography display="inline">Sign up</Typography>
+          </Link>
+        </Box>
+      </Grid>
+    </Grid>
   )
 }
 

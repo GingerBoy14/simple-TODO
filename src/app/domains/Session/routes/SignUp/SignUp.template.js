@@ -1,34 +1,56 @@
-import { SignUpForm } from '../../components'
-import { Card, Col, Divider, Row, Typography } from 'antd'
+import { SignUpForm, SignInWithGoogleButton } from '../../components'
 import { Link } from 'react-router-dom'
-import { SignInWithGoogleButton } from '../../components/SignInWithGoogleButton'
-const { Title, Text } = Typography
+import {
+  Box,
+  Divider,
+  Grid,
+  Paper,
+  Typography,
+  makeStyles
+} from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+  h100: {
+    height: '100%'
+  },
+  devider: {
+    margin: `${theme.spacing(1)}px 0`
+  }
+}))
 
 const SignUp = () => {
+  const classes = useStyles()
+
   return (
-    <Row justify="center" align="middle" style={{ height: '100%' }}>
-      <Col xs={22} sm={16} md={14} lg={9} xl={7} xxl={5} justify="center">
-        <Row gutter={[0, 8]} justify="center">
-          <Col span={24}>
-            <Row justify="center" align="middle">
-              <Col>
-                <Title>Sign up</Title>
-              </Col>
-            </Row>
-            <Card>
-              <SignInWithGoogleButton />
-              <Divider>OR</Divider>
-              <SignUpForm />
-            </Card>
-          </Col>
-          <Col>
-            <Link to="/login">
-              <Text>Already have an account?</Text> Login
-            </Link>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    <Grid
+      container
+      justify="center"
+      alignContent="center"
+      className={classes.h100}>
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+        <Box display="flex" justifyContent="center">
+          <Typography variant="h2" gutterBottom>
+            Sign up
+          </Typography>
+        </Box>
+
+        <Paper elevation={3}>
+          <Box p={2}>
+            <SignInWithGoogleButton />
+            <Divider className={classes.devider} />
+            <SignUpForm />
+          </Box>
+        </Paper>
+        <Box my={1} display="flex" justifyContent="center">
+          <Link to="/login">
+            <Typography color="textPrimary" display="inline">
+              Already have an account?
+            </Typography>{' '}
+            <Typography display="inline">Login</Typography>
+          </Link>
+        </Box>
+      </Grid>
+    </Grid>
   )
 }
 

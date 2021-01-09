@@ -75,7 +75,6 @@ class Auth extends Firebase {
       avatar,
       tasksId: id
     }
-
     await firestore.set('users', uid, data)
   }
   /**

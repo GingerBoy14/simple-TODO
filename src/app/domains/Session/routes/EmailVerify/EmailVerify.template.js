@@ -1,16 +1,28 @@
 import React, { useEffect } from 'react'
-import { Col, Row, Typography, Button, Grid } from 'antd'
+import {
+  Grid,
+  Typography,
+  Hidden,
+  Button,
+  Box,
+  makeStyles
+} from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { RedoOutlined } from '@ant-design/icons'
+import ReplayIcon from '@material-ui/icons/Replay'
 import { auth } from 'service'
 import { useUserDispatch } from '../../context'
 import type from '../../constants'
 
-const { Title, Text } = Typography
-const { useBreakpoint } = Grid
-
+const useStyles = makeStyles((theme) => ({
+  h100: {
+    height: '100%'
+  },
+  strong: {
+    fontWeight: 'bold'
+  }
+}))
 const EmailVerify = () => {
-  const screen = useBreakpoint()
+  const classes = useStyles()
   let history = useHistory()
   const dispatch = useUserDispatch()
   useEffect(() => {
@@ -18,64 +30,72 @@ const EmailVerify = () => {
   }, [])
 
   return (
-    <Row justify="center" align="middle" style={{ height: '100%' }}>
-      <Col xs={22} sm={22} md={14} lg={12} xl={9} xxl={7} justify="center">
-        <Row gutter={[0, 4]} justify="center">
-          <Col>
-            <Title level={screen.xs ? 3 : 1}>Please verify your email</Title>
-          </Col>
-          <Col span={24}>
-            <Row justify="center" gutter={[4, 12]}>
-              <Col>
-                <Text>We have send email to:</Text>
-              </Col>
-              <Col>
-                <Text strong>{auth.getCurrentUser().email}</Text>
-              </Col>
-            </Row>
-          </Col>
+    <Grid
+      container
+      justify="center"
+      alignContent="center"
+      className={classes.h100}>
+      <Grid item xs={12} sm={10} md={6} lg={5} xl={4}>
+        <Grid container justify="center">
+          <Grid item>
+            <Hidden xsDown>
+              <Typography variant="h3" paragraph>
+                Please verify your email
+              </Typography>
+            </Hidden>
+            <Hidden smUp>
+              <Typography variant="h4">Please verify your email</Typography>
+            </Hidden>
+          </Grid>
+          <Grid container justify="center">
+            <Typography>
+              We have send email to:
+              <Typography display="inline" className={classes.strong}>
+                {' '}
+                {auth.getCurrentUser().email}
+              </Typography>
+            </Typography>
+          </Grid>
 
-          <Col span={24}>
-            <Row justify="center" gutter={[0, 12]}>
-              <Col>
-                <Row justify="center" gutter={[0, 8]}>
-                  <Col>
-                    <Text>Already confirmed email?</Text>
-                  </Col>
-                </Row>
-                <Row justify="center">
-                  <Col>
-                    <Button
-                      type="primary"
-                      onClick={() => history.push('login')}>
-                      Go to Login
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={24}>
-            <Row justify="center">
-              <Col>
-                <Text>Don't get a confirmation email?</Text>
-              </Col>
-            </Row>
-          </Col>
+          <Grid item xs={12}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              py={1}>
+              <Box display="flex" justifyContent="center" py={1}>
+                <Typography>Already confirmed email?</Typography>
+              </Box>
+              <Box display="flex" justifyContent="center" py={1}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => history.push('login')}>
+                  Go to Login
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="center">
+              <Typography gutterBottom>
+                Don't get a confirmation email?
+              </Typography>
+            </Box>
+          </Grid>
 
-          <Col>
-            <Text>Check your spam or</Text>
+          <Grid item>
+            <Typography display="inline">Check your spam or</Typography>
             <Button
-              type="link"
-              icon={<RedoOutlined />}
+              color="primary"
               size="small"
               onClick={() => auth.sendVerifyEmail()}>
-              Send again
+              <ReplayIcon /> Send again
             </Button>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 
